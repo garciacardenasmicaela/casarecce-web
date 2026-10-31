@@ -3,3 +3,4 @@
 h3 { margin: 0 0 0.75rem; @include m.etiqueta-marca(0.875rem, 0.05em); }
 mat-card { background: #fff; overflow: auto; }
 table { width: 100%; background: transparent; }
+table { min-width: 28rem; }

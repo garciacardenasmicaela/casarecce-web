@@ -18,7 +18,6 @@
 }
 
 .grilla {
-  display: grid; gap: 1.75rem; grid-template-columns: 1fr;
-  @include m.desde(v.$bp-sm) { grid-template-columns: repeat(2, 1fr); }
-  @include m.desde(v.$bp-lg) { grid-template-columns: repeat(3, 1fr); }
+  display: grid; gap: 1.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
 }

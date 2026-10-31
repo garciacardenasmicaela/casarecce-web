@@ -40,7 +40,7 @@ p { margin: 0.5rem 0 0; font-size: 0.75rem; line-height: 1.6; color: rgba(v.$car
 .pie {
   padding: 0.75rem 1.25rem 1.25rem;
   border-top: 1px solid v.$crema;
-  justify-content: space-between; align-items: flex-end; gap: 0.75rem;
+  justify-content: space-between; align-items: flex-end; gap: 0.75rem; flex-wrap: wrap;
 }
 .precio-bloque { display: grid; }
 .leyenda { font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(v.$carbon, 0.5); }

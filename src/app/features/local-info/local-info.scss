@@ -12,7 +12,7 @@
 }
 
 .sello { display: flex; justify-content: center; }
-.marco { padding: 2rem; background: v.$crema-pure; width: 16rem;
+.marco { padding: 2rem; background: v.$crema-pure; width: min(16rem, 100%);
   @include m.desde(v.$bp-sm) { width: 18rem; } }
 
 .historia { display: grid; gap: 1rem;
@@ -24,3 +24,8 @@
 .paso { background: v.$crema-pure; --mat-card-outlined-outline-color: #{v.$crema-border}; }
 .paso-titulo { margin: 0; font: 700 0.875rem v.$font-brand; color: v.$rojo; text-transform: uppercase; }
 .paso-texto { margin: 0.25rem 0 0; font-size: 0.75rem; color: rgba(v.$carbon, 0.75); }
+
+@media (max-width: 599.98px) {
+  :host { padding-block: 2.5rem; }
+  .historia h2 { font-size: 1.5rem; }
+}

@@ -55,3 +55,8 @@ a { color: v.$crema; }
   @include m.desde(v.$bp-sm) { flex-direction: row; justify-content: space-between; }
   p { font-size: 0.75rem; color: rgba(v.$crema, 0.6); }
 }
+
+@media (max-width: 599.98px) {
+  .suscripcion { flex-direction: column; align-items: stretch; button { width: 100%; } }
+  .extras { flex-wrap: wrap; gap: 0.25rem; }
+}

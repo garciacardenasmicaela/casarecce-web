@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
@@ -10,7 +11,7 @@ import { BrandLogo } from '../../../shared/components/brand-logo/brand-logo';
 
 @Component({
   selector: 'app-site-header',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, RouterLink, BrandLogo],
+  imports: [MatMenuModule, MatToolbarModule, MatButtonModule, MatIconModule, RouterLink, BrandLogo],
   templateUrl: './site-header.html',
   styleUrl: './site-header.scss',
 })

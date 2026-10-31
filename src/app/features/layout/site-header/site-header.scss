@@ -4,7 +4,8 @@
 :host { display: block; position: sticky; top: 0; z-index: 40; }
 
 .header {
-  height: 6rem; padding: 0;
+  height: 4.5rem; padding: 0;
+  @include m.desde(v.$bp-sm) { height: 6rem; }
   background: rgba(v.$crema-light, 0.95);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid v.$crema-border;
@@ -23,11 +24,13 @@
   a { @include m.etiqueta-marca(0.75rem, 0.15em); color: rgba(v.$carbon, 0.8); &:hover { color: v.$rojo; } }
 }
 
-.logo { text-decoration: none; }
+.hamburguesa { @include m.desde(v.$bp-lg) { display: none; } }
+.logo { text-decoration: none; min-width: 0; }
 .acciones {
   display: flex; align-items: center; gap: 0.5rem;
   button, a { font-family: v.$font-brand; font-weight: 700; font-size: 0.75rem; }
 }
+.acciones button, .acciones a { min-width: 0; padding-inline: 0.75rem; }
 .solo-sm { display: none; @include m.desde(v.$bp-sm) { display: inline; } }
 .solo-md { display: none; @include m.desde(v.$bp-md) { display: inline; } }
 
@@ -53,4 +56,12 @@
 .contador {
   background: #fff; color: v.$rojo; border-radius: 999px;
   padding: 0.125rem 0.4375rem; font-size: 0.6875rem; line-height: 1; margin-left: 0.5rem;
+}
+
+@media (max-width: 599.98px) {
+  .interior { gap: 0.25rem; }
+  .acciones { gap: 0.25rem; }
+  .descuento { --mat-button-filled-horizontal-padding: 8px; }
+  .descuento mat-icon, .admin mat-icon, .pedido mat-icon { margin-right: 0; }
+  .descuento, .admin { --mat-button-filled-container-height: 36px; --mat-button-outlined-container-height: 36px; }
 }

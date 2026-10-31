@@ -1,6 +1,6 @@
 @use 'variables' as v;
 @use 'mixins' as m;
-:host { display: grid; place-items: center; min-height: 100vh; padding: 1rem; background: v.$crema-light; }
+:host { display: grid; place-items: center; min-height: 100dvh; padding: 1rem; background: v.$crema-light; }
 .tarjeta { width: 100%; max-width: 24rem; padding: 2rem; gap: 1rem; display: grid; justify-items: center; background: #fff; }
 h2 { margin: 0; font-size: 1.125rem; text-transform: uppercase; letter-spacing: 0.08em; }
 form { display: grid; width: 100%; }

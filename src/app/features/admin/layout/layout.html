@@ -4,11 +4,11 @@
     <span class="titulo">Panel de Control — Admin</span>
     <span class="subtitulo">Gestión rápida de stock por unidades, precios, carga con foto y clientes</span>
   </div>
-  <a mat-button routerLink="/"><mat-icon>storefront</mat-icon> Ver sitio</a>
-  <button mat-button (click)="salir()"><mat-icon>logout</mat-icon> Salir</button>
+  <a mat-button routerLink="/"><mat-icon>storefront</mat-icon><span class="texto-btn">Ver sitio</span></a>
+  <button mat-button (click)="salir()"><mat-icon>logout</mat-icon><span class="texto-btn">Salir</span></button>
 </mat-toolbar>
 
-<nav mat-tab-nav-bar [tabPanel]="panel" class="pestanas">
+<nav mat-tab-nav-bar [tabPanel]="panel" class="pestanas" mat-stretch-tabs="false" mat-align-tabs="start">
   @for (p of pestanas; track p.ruta) {
     <a mat-tab-link [routerLink]="p.ruta" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
       <mat-icon>{{ p.icono }}</mat-icon>&nbsp;{{ p.texto }}

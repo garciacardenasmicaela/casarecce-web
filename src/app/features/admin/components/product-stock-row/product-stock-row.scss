@@ -16,3 +16,9 @@
     background: v.$rosado;
   }
 }
+
+@media (max-width: 599.98px) {
+  :host { display: grid; grid-template-columns: 3rem 1fr; align-items: center; }
+  .precio, app-qty-stepper, .estado { grid-column: 1 / -1; width: 100%; }
+  app-qty-stepper { justify-content: space-between; }
+}

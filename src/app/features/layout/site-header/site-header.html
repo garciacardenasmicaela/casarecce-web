@@ -1,5 +1,14 @@
 <mat-toolbar class="header">
   <div class="interior">
+    <button mat-icon-button class="hamburguesa" [matMenuTriggerFor]="menu" aria-label="Menú">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      @for (e of enlaces; track e.fragmento) {
+        <a mat-menu-item routerLink="/" [fragment]="e.fragmento">{{ e.texto }}</a>
+      }
+    </mat-menu>
+
     <nav class="nav">
       @for (e of enlaces; track e.fragmento) {
         <a mat-button routerLink="/" [fragment]="e.fragmento">{{ e.texto }}</a>

@@ -33,3 +33,10 @@
   .sup b { color: v.$crema; }
   .marca { color: #fff; }
 }
+
+@media (max-width: 479.98px) {
+  :host { gap: 0.5rem; }
+  .marca { font-size: 1.0625rem; letter-spacing: 0.1em; }
+  .sup, .inf { font-size: 0.5rem; letter-spacing: 0.18em; }
+  .inf { font-size: 0.4375rem; }
+}

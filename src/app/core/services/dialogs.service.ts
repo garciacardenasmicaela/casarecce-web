@@ -1,3 +1,4 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Injectable, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -5,14 +6,20 @@ import { MatDialog } from '@angular/material/dialog';
 @Injectable({ providedIn: 'root' })
 export class DialogsService {
   private readonly dialog = inject(MatDialog);
+  private readonly bp = inject(BreakpointObserver);
+
+  private get esCelular() {
+    return this.bp.isMatched(Breakpoints.XSmall);
+  }
 
   async abrirCarrito() {
     const { Carrito } = await import('../../features/carrito/carrito');
+    const celular = this.esCelular;
     return this.dialog.open(Carrito, {
       position: { top: '0', right: '0' },
-      width: '448px',
+      width: celular ? '100vw' : '448px',
       maxWidth: '100vw',
-      height: '100vh',
+      height: '100dvh',
       panelClass: 'cart-panel',
       autoFocus: false,
     });
@@ -22,7 +29,8 @@ export class DialogsService {
     const { DescuentoDialog } = await import('../../features/descuento/descuento-dialog');
     return this.dialog.open(DescuentoDialog, {
       width: '440px',
-      maxWidth: 'calc(100vw - 32px)',
+      maxWidth: 'calc(100vw - 24px)',
+      maxHeight: '100dvh',
     });
   }
 }
