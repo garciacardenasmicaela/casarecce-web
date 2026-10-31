@@ -3,11 +3,6 @@
 
 // Cocomat restringido a letras; dígitos y símbolos ($ % + -) con Outfit para que se vean nítidos
 @font-face {
-  font-family: 'CocomatDigits';
-  src: local('Outfit'), local('Plus Jakarta Sans');
-  unicode-range: U+0030-0039, U+0024, U+0025, U+002B, U+002D;
-}
-@font-face {
   font-family: 'CocomatAlpha';
   src: local('Cocomat'), url('https://fonts.cdnfonts.com/s/15053/Cocomat-Light-trial.woff') format('woff');
   font-weight: 400;
@@ -29,7 +24,7 @@ html {
     ),
     typography: (
       plain-family: ('Plus Jakarta Sans', sans-serif),
-      brand-family: ('CocomatDigits', 'CocomatAlpha', 'Cocomat', 'Outfit', sans-serif),
+      brand-family: ('CocomatAlpha', 'Outfit', sans-serif),
       bold-weight: 700,
       medium-weight: 600,
       regular-weight: 400,

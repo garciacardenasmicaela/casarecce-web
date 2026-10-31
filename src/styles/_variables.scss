@@ -14,8 +14,8 @@ $ambar-claro: #FDE68A;
 $ambar-fondo: #FFFBEB;
 $ambar-borde: #FDE68A;
 
-// Cocomat sólo para letras; los dígitos caen a Outfit (ver styles.scss)
-$font-cocomat: 'CocomatDigits', 'CocomatAlpha', 'Cocomat', 'Outfit', 'Plus Jakarta Sans', sans-serif;
+// Cocomat solo para letras (unicode-range en styles.scss): los números caen a Outfit
+$font-cocomat: 'CocomatAlpha', 'Outfit', 'Plus Jakarta Sans', sans-serif;
 $font-brand: 'Outfit', 'Plus Jakarta Sans', sans-serif;
 $font-num: 'Outfit', 'Plus Jakarta Sans', sans-serif;
 $font-serif: 'Playfair Display', serif;
