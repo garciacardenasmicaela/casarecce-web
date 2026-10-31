@@ -6,4 +6,5 @@ export const environment = {
   supabaseUrl: 'https://TU-PROYECTO.supabase.co',
   supabaseKey: 'TU-ANON-KEY',
   whatsappLocal: '549381XXXXXXX', // número del local, con código de país
+  envioEmailAutomatico: false,
 };

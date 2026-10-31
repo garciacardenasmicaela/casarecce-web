@@ -1,0 +1,52 @@
+import { Injectable, inject } from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { Cliente } from '../models';
+import { CustomerService } from '../services/customer.service';
+import { SupabaseService } from '../services/supabase.service';
+import { formatearCodigo, normalizarCodigo } from './codigo.utils';
+
+/** Herramientas del panel admin: buscar un código, marcarlo como usado y armar el aviso por WhatsApp. */
+@Injectable({ providedIn: 'root' })
+export class CodigosAdminService {
+  private readonly clientes = inject(CustomerService);
+  private readonly supabase = inject(SupabaseService);
+
+  /** Busca al dueño de un código (admin: la base permite leer todos). */
+  async buscar(texto: string): Promise<Cliente | null> {
+    const codigo = normalizarCodigo(texto);
+    if (!codigo) return null;
+    await this.clientes.cargar();
+    return this.clientes.clientes().find(c => c.codigo?.codigo === codigo) ?? null;
+  }
+
+  /** Marca el código como usado (por ejemplo si el cliente lo usó en el local). */
+  async marcarUsado(cliente: Cliente): Promise<boolean> {
+    const codigo = cliente.codigo;
+    if (!codigo || codigo.usado_at) return false;
+    const ahora = new Date().toISOString();
+
+    if (!environment.modoDemo) {
+      const { data, error } = await this.supabase.client
+        .from('codigos_descuento')
+        .update({ usado_at: ahora })
+        .eq('codigo', codigo.codigo)
+        .is('usado_at', null)
+        .select('codigo');
+      if (error || !data?.length) return false;
+    }
+    this.clientes.clientes.update(lista =>
+      lista.map(c => (c.codigo?.codigo === codigo.codigo ? { ...c, codigo: { ...codigo, usado_at: ahora } } : c)),
+    );
+    return true;
+  }
+
+  mensajeParaCliente(cliente: Cliente): string {
+    const c = cliente.codigo!;
+    const vence = new Date(c.expira_at).toLocaleDateString('es-AR', { day: '2-digit', month: 'long' });
+    return (
+      `¡Hola ${cliente.nombre || ''}! 🍝 Tu código de *10% OFF* en tu primera compra en Casarecce es:\n\n` +
+      `*${formatearCodigo(c.codigo)}*\n\n` +
+      `Es de un solo uso y vence el ${vence}. Ingresalo en la web desde "10% OFF 1ª Compra" → "Ya tengo mi código".`
+    );
+  }
+}

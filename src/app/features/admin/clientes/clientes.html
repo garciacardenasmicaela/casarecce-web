@@ -1,24 +1,58 @@
-<h3>2. Libreta de Clientes Registrados</h3>
-<mat-card appearance="outlined">
-  @if (clientes().length) {
-    <table mat-table [dataSource]="clientes()">
-      <ng-container matColumnDef="nombre">
-        <th mat-header-cell *matHeaderCellDef>Nombre</th>
-        <td mat-cell *matCellDef="let c">{{ c.nombre }}</td>
-      </ng-container>
-      <ng-container matColumnDef="whatsapp">
-        <th mat-header-cell *matHeaderCellDef>WhatsApp</th>
-        <td mat-cell *matCellDef="let c">{{ c.whatsapp }}</td>
-      </ng-container>
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef>Email</th>
-        <td mat-cell *matCellDef="let c">{{ c.email }}</td>
-      </ng-container>
+<app-verificador-codigo />
 
-      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-      <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
-    </table>
-  } @else {
-    <app-empty-state icono="groups" mensaje="Todavía no hay clientes registrados." />
-  }
-</mat-card>
+<section>
+  <h3>2. Libreta de Clientes y Códigos 10% OFF</h3>
+  <mat-card appearance="outlined" class="lista">
+    @if (clientes().length) {
+      <table mat-table [dataSource]="clientes()">
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let c">{{ c.nombre }}</td>
+        </ng-container>
+        <ng-container matColumnDef="contacto">
+          <th mat-header-cell *matHeaderCellDef>Contacto</th>
+          <td mat-cell *matCellDef="let c">
+            <div class="contacto">{{ c.whatsapp || '-' }}<small>{{ c.email }}</small></div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="codigo">
+          <th mat-header-cell *matHeaderCellDef>Código</th>
+          <td mat-cell *matCellDef="let c">
+            @if (c.codigo) { <span class="codigo">{{ formatear(c.codigo.codigo) }}</span> } @else { - }
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let c">
+            @if (c.codigo) { <app-estado-codigo-chip [codigo]="c.codigo" /> }
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="vence">
+          <th mat-header-cell *matHeaderCellDef>Vence</th>
+          <td mat-cell *matCellDef="let c">{{ c.codigo ? (c.codigo.expira_at | date: 'dd/MM/yy') : '-' }}</td>
+        </ng-container>
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let c">
+            @if (c.codigo && c.whatsapp) {
+              <a mat-icon-button [href]="enlaceWhatsApp(c)" target="_blank" rel="noopener"
+                 matTooltip="Enviar código por WhatsApp" aria-label="Enviar código por WhatsApp">
+                <mat-icon fontSet="fa-brands" fontIcon="fa-whatsapp" />
+              </a>
+            }
+            @if (c.codigo) {
+              <button mat-icon-button type="button" (click)="copiar(c)" matTooltip="Copiar código" aria-label="Copiar código">
+                <mat-icon>content_copy</mat-icon>
+              </button>
+            }
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+        <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
+      </table>
+    } @else {
+      <app-empty-state icono="groups" mensaje="Todavía no hay clientes registrados." />
+    }
+  </mat-card>
+</section>

@@ -1,6 +1,8 @@
+@use 'variables' as v;
 @use 'mixins' as m;
-:host { display: block; }
+:host { display: grid; gap: 2rem; }
 h3 { margin: 0 0 0.75rem; @include m.etiqueta-marca(0.875rem, 0.05em); }
-mat-card { background: #fff; overflow: auto; }
-table { width: 100%; background: transparent; }
-table { min-width: 28rem; }
+.lista { background: v.$crema-pure; overflow: auto; }
+table { width: 100%; min-width: 44rem; background: transparent; }
+.contacto { display: grid; small { color: rgba(v.$carbon, 0.6); } }
+.codigo { @include m.numero(700); letter-spacing: 0.1em; }

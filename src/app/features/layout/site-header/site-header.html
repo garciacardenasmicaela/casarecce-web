@@ -16,8 +16,8 @@
           <span>Mi Pedido ({{ cart.cantidad() }})</span>
         </button>
         <button mat-menu-item (click)="dialogs.abrirDescuento()">
-          <mat-icon>{{ clientes.descuentoActivo() ? 'check' : 'redeem' }}</mat-icon>
-          <span>{{ clientes.descuentoActivo() ? '10% Activo' : '10% OFF 1ª Compra' }}</span>
+          <mat-icon>{{ descuento.activo() ? 'check' : 'redeem' }}</mat-icon>
+          <span>{{ descuento.activo() ? '10% Activo' : '10% OFF 1ª Compra' }}</span>
         </button>
         <a mat-menu-item routerLink="/admin">
           <mat-icon>manage_accounts</mat-icon>
@@ -38,10 +38,10 @@
 
     @if (!esMovil()) {
       <div class="acciones">
-        <button mat-flat-button class="descuento" [class.activo]="clientes.descuentoActivo()"
+        <button mat-flat-button class="descuento" [class.activo]="descuento.activo()"
                 (click)="dialogs.abrirDescuento()">
-          <mat-icon>{{ clientes.descuentoActivo() ? "check" : "redeem" }}</mat-icon>
-          @if (clientes.descuentoActivo()) { 10% Activo } @else { 10% OFF 1ª Compra }
+          <mat-icon>{{ descuento.activo() ? "check" : "redeem" }}</mat-icon>
+          @if (descuento.activo()) { 10% Activo } @else { 10% OFF 1ª Compra }
         </button>
         <a mat-stroked-button routerLink="/admin" class="admin">
           <mat-icon>manage_accounts</mat-icon>Admin

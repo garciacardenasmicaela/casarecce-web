@@ -4,7 +4,7 @@
     [titulo]="catalogo.tituloActual()"
     subtitulo="Todas nuestras opciones detallan cuántas porciones rinden y su stock disponible hoy." />
 
-  @if (clientes.descuentoActivo()) {
+  @if (descuento.activo()) {
     <mat-chip class="descuento"><mat-icon matChipAvatar>check_circle</mat-icon> Beneficio 10% OFF Activado</mat-chip>
   }
 </div>

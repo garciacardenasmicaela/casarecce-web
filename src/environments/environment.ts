@@ -7,4 +7,6 @@ export const environment = {
   supabaseUrl: 'https://nqapfokapniihohysbbb.supabase.co',
   supabaseKey: 'sb_publishable_saJBdIKNhYTeZzMyXeG12A_H0DYPjAG',
   whatsappLocal: '5493815267382',
+  // true cuando la Edge Function enviar-codigo está desplegada (ver README). Mientras sea false, el local envía el código por WhatsApp desde el panel.
+  envioEmailAutomatico: false,
 };

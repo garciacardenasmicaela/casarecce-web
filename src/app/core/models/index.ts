@@ -38,6 +38,24 @@ export interface DatosCliente {
 export interface Cliente extends DatosCliente {
   id?: string;
   created_at?: string;
+  codigo?: CodigoDescuento | null;
+}
+
+/** Código de 10% OFF de primera compra (uno por cliente, un solo uso, vence a los 7 días). */
+export interface CodigoDescuento {
+  codigo: string; // 8 caracteres sin guion
+  creado_at: string;
+  expira_at: string;
+  usado_at: string | null;
+}
+
+export type EstadoCodigo = 'vigente' | 'usado' | 'vencido';
+
+export type ResultadoSolicitud = 'nuevo' | 'renovado' | 'reenviado' | 'espera' | 'usado' | 'email_invalido' | 'error';
+
+export interface ResultadoValidacion {
+  valido: boolean;
+  motivo?: 'inexistente' | 'usado' | 'vencido' | 'error';
 }
 
 export interface LineaCarrito {
@@ -77,4 +95,5 @@ export interface ResumenPedido {
   descuento: number;
   total: number;
   descuentoAplicado: boolean;
+  codigoDescuento: string | null;
 }

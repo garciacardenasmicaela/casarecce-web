@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { CartService } from '../../core/services/cart.service';
-import { CustomerService } from '../../core/services/customer.service';
+import { DescuentoService } from '../../core/descuento/descuento.service';
 import { DialogsService } from '../../core/services/dialogs.service';
 import { PedidoService } from '../../core/pedido/pedido.service';
 import { EmptyState } from '../../shared/components/empty-state/empty-state';
@@ -20,7 +20,7 @@ import { CheckoutForm } from './checkout-form/checkout-form';
 })
 export class Carrito {
   protected readonly cart = inject(CartService);
-  protected readonly clientes = inject(CustomerService);
+  protected readonly descuento = inject(DescuentoService);
   private readonly dialogs = inject(DialogsService);
   private readonly pedidos = inject(PedidoService);
   private readonly dialogRef = inject(MatDialogRef<Carrito>);
@@ -30,8 +30,8 @@ export class Carrito {
     this.dialogs.abrirDescuento();
   }
 
-  enviar() {
+  async enviar() {
     const datos = this.checkout()?.obtener();
-    if (datos && this.pedidos.confirmar(datos)) this.dialogRef.close();
+    if (datos && (await this.pedidos.confirmar(datos))) this.dialogRef.close();
   }
 }

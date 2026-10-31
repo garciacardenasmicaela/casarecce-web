@@ -4,9 +4,9 @@
     <h2 mat-dialog-title>Tu Pedido</h2>
     <p>Armá tu pedido y envialo por WhatsApp</p>
   </div>
-  <button mat-flat-button class="beneficio" [class.activo]="clientes.descuentoActivo()"
-          [disabled]="clientes.descuentoActivo()" (click)="activarDescuento()">
-    {{ clientes.descuentoActivo() ? 'Activo ✓' : '10% OFF' }}
+  <button mat-flat-button class="beneficio" [class.activo]="descuento.activo()"
+          [disabled]="descuento.activo()" (click)="activarDescuento()">
+    {{ descuento.activo() ? 'Activo ✓' : '10% OFF' }}
   </button>
   <button mat-icon-button mat-dialog-close aria-label="Cerrar"><mat-icon>close</mat-icon></button>
 </header>

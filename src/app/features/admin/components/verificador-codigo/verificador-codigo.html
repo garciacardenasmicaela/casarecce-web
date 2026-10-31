@@ -1,0 +1,37 @@
+<mat-card appearance="outlined">
+  <mat-card-header><h4>Verificar Código de 10% OFF</h4></mat-card-header>
+  <mat-card-content>
+    <form class="busqueda" (ngSubmit)="verificar()">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Código del cliente</mat-label>
+        <input matInput class="campo-codigo" [formControl]="texto" placeholder="ABCD-EFGH" autocomplete="off" maxlength="9">
+      </mat-form-field>
+      <button mat-flat-button type="submit" [disabled]="cargando()"><mat-icon>search</mat-icon> Verificar</button>
+    </form>
+
+    @if (buscado()) {
+      @if (cliente(); as c) {
+        <div class="resultado">
+          <div class="fila">
+            <span class="codigo">{{ formateado() }}</span>
+            <app-estado-codigo-chip [codigo]="c.codigo!" />
+          </div>
+          <p><mat-icon>person</mat-icon> {{ c.nombre || 'Sin nombre' }}</p>
+          <p><mat-icon>call</mat-icon> {{ c.whatsapp || '-' }}</p>
+          <p><mat-icon>mail</mat-icon> {{ c.email || '-' }}</p>
+          <p><mat-icon>event</mat-icon>
+            @if (c.codigo!.usado_at) { Usado el {{ c.codigo!.usado_at | date: 'dd/MM/yyyy HH:mm' }} }
+            @else { Vence el {{ c.codigo!.expira_at | date: 'dd/MM/yyyy HH:mm' }} }
+          </p>
+          @if (vigente()) {
+            <button mat-stroked-button type="button" (click)="marcarUsado()">
+              <mat-icon>check_circle</mat-icon> Marcar como usado
+            </button>
+          }
+        </div>
+      } @else {
+        <p class="no-existe"><mat-icon>error</mat-icon> No encontramos ese código.</p>
+      }
+    }
+  </mat-card-content>
+</mat-card>

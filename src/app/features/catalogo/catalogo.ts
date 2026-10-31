@@ -5,7 +5,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Producto } from '../../core/models';
 import { CartService } from '../../core/services/cart.service';
 import { CatalogService } from '../../core/services/catalog.service';
-import { CustomerService } from '../../core/services/customer.service';
+import { DescuentoService } from '../../core/descuento/descuento.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { EmptyState } from '../../shared/components/empty-state/empty-state';
 import { ProductCard } from '../../shared/components/product-card/product-card';
@@ -20,7 +20,7 @@ import { SectionHeader } from '../../shared/components/section-header/section-he
 })
 export class Catalogo {
   protected readonly catalogo = inject(CatalogService);
-  protected readonly clientes = inject(CustomerService);
+  protected readonly descuento = inject(DescuentoService);
   private readonly carrito = inject(CartService);
   private readonly notificar = inject(NotificationService);
 

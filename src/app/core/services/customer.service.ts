@@ -11,7 +11,6 @@ export class CustomerService {
   private readonly supabase = inject(SupabaseService);
 
   readonly clientes = signal<Cliente[]>(environment.modoDemo ? CLIENTES_MOCK : []);
-  readonly descuentoActivo = signal(false);
   /** Últimos datos ingresados: sirven para precargar el pedido. */
   readonly datosActuales = signal<DatosCliente | null>(null);
 
@@ -35,15 +34,18 @@ export class CustomerService {
     if (environment.modoDemo) return;
     const { data, error } = await this.supabase.client
       .from('clientes')
-      .select('id, nombre, whatsapp, email, created_at')
+      .select('id, nombre, whatsapp, email, created_at, codigos_descuento(codigo, creado_at, expira_at, usado_at)')
       .order('created_at', { ascending: false });
     if (error) return console.error(error);
-    this.clientes.set((data ?? []).map(c => ({ ...c, whatsapp: c.whatsapp ?? '', email: c.email ?? '' })));
-  }
-
-  activarDescuento(datos: DatosCliente) {
-    this.registrar(datos);
-    this.descuentoActivo.set(true);
+    this.clientes.set(
+      (data ?? []).map(({ codigos_descuento, ...c }) => ({
+        ...c,
+        whatsapp: c.whatsapp ?? '',
+        email: c.email ?? '',
+        // PostgREST devuelve objeto o lista según la relación: se normaliza
+        codigo: (Array.isArray(codigos_descuento) ? codigos_descuento[0] : codigos_descuento) ?? null,
+      })),
+    );
   }
 
   registrar(datos: DatosCliente) {

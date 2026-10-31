@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
 import { CartService } from '../../../core/services/cart.service';
-import { CustomerService } from '../../../core/services/customer.service';
+import { DescuentoService } from '../../../core/descuento/descuento.service';
 import { DialogsService } from '../../../core/services/dialogs.service';
 import { BrandLogo } from '../../../shared/components/brand-logo/brand-logo';
 
@@ -23,7 +23,7 @@ import { BrandLogo } from '../../../shared/components/brand-logo/brand-logo';
 export class SiteHeader {
   protected readonly cart = inject(CartService);
   protected readonly dialogs = inject(DialogsService);
-  protected readonly clientes = inject(CustomerService);
+  protected readonly descuento = inject(DescuentoService);
 
   /** Celular: menos de 768px. Ahí solo quedan el logo y la hamburguesa. */
   protected readonly esMovil = toSignal(

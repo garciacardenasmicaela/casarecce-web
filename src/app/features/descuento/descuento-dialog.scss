@@ -3,8 +3,8 @@
 
 :host { display: block; position: relative; padding: 2rem 1.5rem 1rem; background: v.$crema-light; }
 
-.cerrar { position: absolute; top: 0.75rem; right: 0.75rem; background: v.$crema; }
-.encabezado { display: grid; justify-items: center; text-align: center; gap: 0.25rem; margin-bottom: 1rem; }
+.cerrar { position: absolute; top: 0.75rem; right: 0.75rem; background: v.$crema; z-index: 1; }
+.encabezado { display: grid; justify-items: center; text-align: center; gap: 0.25rem; margin-bottom: 0.5rem; }
 .insignia {
   width: 4rem; height: 4rem; border-radius: 50%; display: grid; place-items: center;
   background: v.$rojo; color: #fff; @include m.numero(800); font-size: 1.25rem;
@@ -12,10 +12,24 @@
 }
 .eyebrow { @include m.etiqueta-marca(0.625rem, 0.2em); color: v.$rojo; }
 h2 { margin: 0; padding: 0; font-size: 1.625rem; line-height: 1.2; &::before { display: none; } em { color: v.$rojo; } }
-.detalle { font-size: 0.8125rem; line-height: 1.6; color: rgba(v.$carbon, 0.75); margin: 0.5rem 0 0; }
-mat-dialog-content { padding: 0; }
-mat-dialog-actions { padding: 0; }
-.aplicar { width: 100%; height: 3rem; @include m.etiqueta-marca(0.75rem, 0.15em); }
+
+.pestanas { --mat-tab-header-divider-height: 1px; }
+.panel { padding-top: 1.25rem; display: grid; }
+.detalle { font-size: 0.8125rem; line-height: 1.6; color: rgba(v.$carbon, 0.75); margin: 0 0 1rem; }
+mat-form-field { width: 100%; }
+.campo-codigo { text-transform: uppercase; letter-spacing: 0.25em; font-weight: 700; @include m.numero(700); }
+.aplicar { width: 100%; height: 3rem; margin-top: 0.5rem; @include m.etiqueta-marca(0.75rem, 0.15em); }
+
+.resultado {
+  display: grid; justify-items: center; text-align: center; gap: 0.5rem; padding: 1rem;
+  border-radius: 1rem; margin-bottom: 0.5rem; font-size: 0.875rem;
+  p { margin: 0; }
+  .chico { font-size: 0.75rem; opacity: 0.8; }
+  mat-icon { font-size: 2rem; width: 2rem; height: 2rem; }
+  &.ok { background: rgba(v.$esmeralda, 0.08); color: v.$esmeralda-dark; }
+  &.error { background: v.$rosado; color: v.$rojo-dark; }
+}
+.error-codigo { margin: 0 0 0.5rem; font-size: 0.8125rem; font-weight: 600; color: v.$rojo; }
 
 @media (max-width: 599.98px) {
   :host { padding: 1.5rem 1rem 1rem; max-height: 100dvh; overflow-y: auto; }

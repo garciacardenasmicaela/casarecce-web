@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OPCIONES_ENTREGA, OPCIONES_PAGO } from '../config/local.config';
 import { DatosPedido, ResumenPedido } from '../models';
+import { formatearCodigo } from '../descuento/codigo.utils';
 import { PrecioPipe } from '../../shared/pipes/precio.pipe';
 
 const SEPARADOR = '━━━━━━━━━━━━━━━━━━';
@@ -57,7 +58,10 @@ export class PedidoMensajeBuilder {
 
   private totales(r: ResumenPedido) {
     const lineas = [`Subtotal: ${this.precio.transform(r.subtotal)}`];
-    if (r.descuentoAplicado) lineas.push(`🏷️ Descuento 10% bienvenida: -${this.precio.transform(r.descuento)}`);
+    if (r.descuentoAplicado) {
+      const codigo = r.codigoDescuento ? ` (código ${formatearCodigo(r.codigoDescuento)})` : '';
+      lineas.push(`🏷️ Descuento 10% bienvenida${codigo}: -${this.precio.transform(r.descuento)}`);
+    }
     lineas.push(`💰 *TOTAL: ${this.precio.transform(r.total)}*`);
     return lineas.join('\n');
   }

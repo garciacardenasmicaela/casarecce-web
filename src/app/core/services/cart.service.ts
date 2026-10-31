@@ -2,13 +2,13 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { DESCUENTO_BIENVENIDA } from '../config/local.config';
 import { ItemCarrito, LineaCarrito, Producto } from '../models';
 import { CatalogService } from './catalog.service';
-import { CustomerService } from './customer.service';
+import { DescuentoService } from '../descuento/descuento.service';
 import { NotificationService } from './notification.service';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
   private readonly catalogo = inject(CatalogService);
-  private readonly clientes = inject(CustomerService);
+  private readonly descuentos = inject(DescuentoService);
   private readonly notificar = inject(NotificationService);
 
   private readonly lineas = signal<LineaCarrito[]>([]);
@@ -24,7 +24,7 @@ export class CartService {
   readonly cantidad = computed(() => this.items().reduce((s, i) => s + i.cantidad, 0));
   readonly subtotal = computed(() => this.items().reduce((s, i) => s + i.producto.precio * i.cantidad, 0));
   readonly descuento = computed(() =>
-    this.clientes.descuentoActivo() ? Math.round(this.subtotal() * DESCUENTO_BIENVENIDA) : 0,
+    this.descuentos.activo() ? Math.round(this.subtotal() * DESCUENTO_BIENVENIDA) : 0,
   );
   readonly total = computed(() => this.subtotal() - this.descuento());
   readonly vacio = computed(() => this.items().length === 0);

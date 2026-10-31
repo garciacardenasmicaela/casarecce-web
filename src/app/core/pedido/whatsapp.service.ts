@@ -10,6 +10,13 @@ export class WhatsAppService {
     return `https://wa.me/${this.numeroLocal}?text=${encodeURIComponent(mensaje)}`;
   }
 
+  /** Enlace para escribirle a un cliente (Argentina: agrega 549 si falta el código de país). */
+  enlaceACliente(telefono: string, mensaje: string): string {
+    let n = telefono.replace(/\D/g, '').replace(/^0+/, '');
+    if (!n.startsWith('54')) n = '549' + n;
+    return `https://wa.me/${n}?text=${encodeURIComponent(mensaje)}`;
+  }
+
   /** Abre el chat con el mensaje listo para enviar. Devuelve false si el navegador lo bloqueó. */
   abrirChat(mensaje: string): boolean {
     const ventana = window.open(this.enlace(mensaje), '_blank', 'noopener');

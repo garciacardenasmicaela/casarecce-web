@@ -1,0 +1,8 @@
+@use 'variables' as v;
+.chip {
+  --mat-chip-container-height: 24px;
+  font-size: 0.6875rem; font-weight: 700;
+  &.vigente { --mat-chip-elevated-container-color: #{rgba(v.$esmeralda, 0.12)}; --mat-chip-label-text-color: #{v.$esmeralda-dark}; }
+  &.usado { --mat-chip-elevated-container-color: #{v.$crema}; --mat-chip-label-text-color: #{v.$carbon}; }
+  &.vencido { --mat-chip-elevated-container-color: #{v.$rosado}; --mat-chip-label-text-color: #{v.$rojo-dark}; }
+}
