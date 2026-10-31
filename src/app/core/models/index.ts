@@ -67,3 +67,14 @@ export interface Novedad {
   mensaje: string;
   enviada_at?: string | null;
 }
+
+/** Foto fija del pedido al momento de confirmarlo (lo que se envía por WhatsApp). */
+export interface ResumenPedido {
+  numero: string;
+  fecha: Date;
+  items: ItemCarrito[];
+  subtotal: number;
+  descuento: number;
+  total: number;
+  descuentoAplicado: boolean;
+}
