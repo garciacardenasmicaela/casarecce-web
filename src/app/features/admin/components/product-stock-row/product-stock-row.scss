@@ -1,6 +1,18 @@
 @use 'variables' as v;
-:host { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.875rem 1rem; border-bottom: 1px solid v.$crema; }
-.datos { flex: 1; min-width: 12rem; }
+:host { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; padding: 0.875rem 1rem; border-bottom: 1px solid v.$crema-border; }
+.foto { width: 3rem; height: 3rem; border-radius: 0.75rem; object-fit: cover; flex-shrink: 0; background: v.$crema; }
+.datos { flex: 1; min-width: 10rem; }
 .nombre { margin: 0; font: 700 0.8125rem v.$font-brand; }
 .detalle { margin: 0.125rem 0 0; font-size: 0.75rem; color: rgba(v.$carbon, 0.6); }
 .precio { width: 8.5rem; }
+.estado {
+  min-width: 8.5rem; font-weight: 700; font-size: 0.75rem;
+  --mat-button-outlined-label-text-color: #{v.$esmeralda-dark};
+  --mat-button-outlined-outline-color: #{rgba(v.$esmeralda, 0.4)};
+  background: rgba(v.$esmeralda, 0.08);
+  &.agotado {
+    --mat-button-outlined-label-text-color: #{v.$rojo};
+    --mat-button-outlined-outline-color: #{rgba(v.$rojo, 0.4)};
+    background: v.$rosado;
+  }
+}

@@ -12,7 +12,7 @@ import { SectionHeader } from '../../shared/components/section-header/section-he
 })
 export class LocalInfo {
   protected readonly pasos = [
-    { titulo: '1. Elegís online', texto: 'Con porciones claras en cada plato para calcular fácil.' },
+    { titulo: '1. Elegís online', texto: 'Con porciones exactas en cada plato para calcular fácil.' },
     { titulo: '2. Sin registros', texto: 'Tu pedido sale armado y prolijo directo al WhatsApp del local.' },
     { titulo: '3. Retiro o Envío', texto: 'Retirás por el local o coordinamos envío por Uber Flash.' },
   ];

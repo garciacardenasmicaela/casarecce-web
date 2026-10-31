@@ -4,14 +4,14 @@
     <form class="form" [formGroup]="form" (ngSubmit)="publicar()">
       <mat-form-field appearance="outline">
         <mat-label>Nombre del plato</mat-label>
-        <input matInput formControlName="nombre" placeholder="Ñoquis de Calabaza">
+        <input matInput formControlName="nombre" placeholder="Ej: Ñoquis de Calabaza">
         <mat-error>Ingresá un nombre</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Categoría</mat-label>
         <mat-select formControlName="categoria">
-          @for (c of categorias; track c.slug) { <mat-option [value]="c.slug">{{ c.nombre }}</mat-option> }
+          @for (c of categorias; track c.slug) { <mat-option [value]="c.slug">Categoría: {{ c.nombre }}</mat-option> }
         </mat-select>
       </mat-form-field>
 
@@ -23,8 +23,14 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
+        <mat-label>Stock inicial (unidades)</mat-label>
+        <input matInput type="number" min="0" formControlName="stock">
+        <mat-error>Ingresá las unidades disponibles</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="ancho">
         <mat-label>Porciones que rinde</mat-label>
-        <input matInput formControlName="porciones" placeholder="Rinde 2 platos">
+        <input matInput formControlName="porciones" placeholder="Ej: Caja x 12 u. • Rinde 2 platos">
         <mat-error>Indicá cuántas porciones rinde</mat-error>
       </mat-form-field>
 
@@ -33,6 +39,11 @@
         <input matInput formControlName="descripcion">
         <mat-error>Escribí una descripción</mat-error>
       </mat-form-field>
+
+      <div class="ancho imagen">
+        <span class="rotulo">Imagen del Plato (subir archivo o pegar URL)</span>
+        <app-image-upload (cambio)="alElegirImagen($event)" />
+      </div>
 
       <button mat-flat-button type="submit" class="ancho"><mat-icon>add</mat-icon> Publicar Plato en la Web</button>
     </form>

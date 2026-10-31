@@ -17,3 +17,8 @@ Sitio web y catálogo online de Casarecce. Angular + Angular Material + Supabase
 - `src/app/features/local-info` · quiénes somos, ubicación, horarios, redes
 - `src/app/features/admin` · login, stock/precios, clientes, novedades por email
 - `supabase/migrations` · esquema SQL
+
+## Actualización v2 (stock por unidades + fotos)
+Si ya ejecutaste `0001` y `0002` de la versión anterior, ejecutá además en el SQL Editor de Supabase:
+`supabase/migrations/0003_stock_por_unidades_y_fotos.sql` (pasa `disponible` a `stock` y crea el bucket `productos` para las fotos).
+Es seguro correrla más de una vez.

@@ -1,12 +1,15 @@
 <app-estado-local-card />
 
 <section>
-  <h3>1. Control Diario de Stock y Precios</h3>
+  <h3>1. Control Diario de Stock por Unidades y Precios</h3>
+  <p class="ayuda">Ajustá las unidades disponibles o tocá el botón para agotar/reponer rápido.</p>
   <mat-card appearance="outlined" class="lista">
     @for (p of catalogo.productos(); track p.id) {
       <app-product-stock-row
         [producto]="p"
         (precioCambiado)="cambiarPrecio(p.id, $event)"
+        (stockAjustado)="ajustarStock(p.id, $event)"
+        (stockFijado)="fijarStock(p.id, $event)"
         (stockAlternado)="alternarStock(p.id)" />
     }
   </mat-card>

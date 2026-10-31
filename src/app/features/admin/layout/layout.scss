@@ -1,9 +1,9 @@
 @use 'variables' as v;
 @use 'mixins' as m;
 :host { display: block; min-height: 100vh; background: v.$crema-light; }
-.barra { gap: 0.75rem; background: v.$carbon; color: #fff; --mat-button-text-label-text-color: #{v.$crema}; }
+.barra { gap: 0.75rem; background: v.$rojo; color: #fff; --mat-button-text-label-text-color: #{v.$crema}; }
 .titulos { flex: 1; display: grid; line-height: 1.2; }
 .titulo { @include m.etiqueta-marca(0.875rem, 0.08em); }
 .subtitulo { font-size: 0.75rem; color: rgba(v.$crema, 0.8); display: none; @include m.desde(v.$bp-sm) { display: block; } }
-.pestanas { background: #fff; }
+.pestanas { background: v.$crema-pure; }
 .contenido { display: block; @include m.contenedor(56rem); padding-block: 1.5rem; }

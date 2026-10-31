@@ -1,3 +1,9 @@
 <button mat-icon-button class="boton" aria-label="Quitar uno" (click)="cambiar.emit(-1)"><mat-icon>remove</mat-icon></button>
-<span class="valor">{{ cantidad() }}</span>
+@if (editable()) {
+  <input class="valor editable" type="number" min="0" inputmode="numeric" aria-label="Unidades"
+         [value]="cantidad()" (change)="confirmar($event)">
+} @else {
+  <span class="valor">{{ cantidad() }}</span>
+}
+@if (sufijo()) { <span class="sufijo">{{ sufijo() }}</span> }
 <button mat-icon-button class="boton" aria-label="Agregar uno" (click)="cambiar.emit(1)"><mat-icon>add</mat-icon></button>

@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
 import { LOCAL_INFO } from '../../../core/config/local.config';
 import { DialogsService } from '../../../core/services/dialogs.service';
 import { StoreStatusService } from '../../../core/services/store-status.service';
@@ -9,7 +8,7 @@ import { StatusBadge } from '../../../shared/components/status-badge/status-badg
 
 @Component({
   selector: 'app-status-bar',
-  imports: [MatButtonModule, MatIconModule, RouterLink, StatusBadge],
+  imports: [MatButtonModule, MatIconModule, StatusBadge],
   templateUrl: './status-bar.html',
   styleUrl: './status-bar.scss',
 })

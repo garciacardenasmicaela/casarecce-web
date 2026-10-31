@@ -11,13 +11,17 @@
     </a>
 
     <div class="acciones">
-      <button mat-stroked-button class="solo-sm" (click)="dialogs.abrirDescuento()">
-        <mat-icon>redeem</mat-icon> 10% OFF
+      <button mat-flat-button class="descuento" [class.activo]="clientes.descuentoActivo()"
+              (click)="dialogs.abrirDescuento()">
+        <mat-icon>{{ clientes.descuentoActivo() ? "check" : "redeem" }}</mat-icon>
+        @if (clientes.descuentoActivo()) { 10% Activo } @else { 10% OFF <span class="solo-sm">1ª Compra</span> }
       </button>
-      <a mat-stroked-button routerLink="/admin"><mat-icon>manage_accounts</mat-icon> Admin</a>
+      <a mat-stroked-button routerLink="/admin" class="admin">
+        <mat-icon>manage_accounts</mat-icon><span class="solo-md">Admin</span>
+      </a>
       <button mat-flat-button class="pedido" (click)="dialogs.abrirCarrito()">
         <mat-icon>shopping_bag</mat-icon>
-        <span class="solo-sm">Pedido</span>
+        <span class="solo-sm">Mi Pedido</span>
         <span class="contador">{{ cart.cantidad() }}</span>
       </button>
     </div>

@@ -1,4 +1,4 @@
--- Casarecce-web · esquema inicial
+-- Casarecce-web · esquema inicial (v2: stock por unidades)
 
 create table productos (
   id uuid primary key default gen_random_uuid(),
@@ -8,7 +8,7 @@ create table productos (
   precio numeric(12,2) not null check (precio > 0),
   porciones text not null default '',
   imagen_url text,
-  disponible boolean not null default true,
+  stock int not null default 0 check (stock >= 0), -- unidades disponibles hoy (0 = agotado)
   created_at timestamptz not null default now()
 );
 

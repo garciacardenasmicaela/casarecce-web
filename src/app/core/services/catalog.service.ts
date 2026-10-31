@@ -1,12 +1,12 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { CATEGORIAS } from '../config/local.config';
+import { CATEGORIAS, STOCK_REPOSICION } from '../config/local.config';
 import { PRODUCTOS_MOCK } from '../data/mock-data';
-import { CategoriaFiltro, NuevoProducto, Producto } from '../models';
+import { CategoriaFiltro, ImagenNueva, NuevoProducto, Producto } from '../models';
 import { NotificationService } from './notification.service';
 import { SupabaseService } from './supabase.service';
 
-const IMAGEN_POR_DEFECTO =
+export const IMAGEN_PLATO_POR_DEFECTO =
   'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=800';
 
 @Injectable({ providedIn: 'root' })
@@ -36,7 +36,7 @@ export class CatalogService {
     this.cargando.set(true);
     const { data, error } = await this.supabase.client
       .from('productos')
-      .select('id, categoria, nombre, descripcion, precio, porciones, imagen_url, disponible')
+      .select('id, categoria, nombre, descripcion, precio, porciones, imagen_url, stock')
       .order('created_at', { ascending: false })
       .order('nombre');
     this.cargando.set(false);
@@ -63,19 +63,41 @@ export class CatalogService {
     this.categoriaActiva.set(cat);
   }
 
-  async alternarStock(id: string): Promise<boolean> {
+  // ---- stock y precios (admin) ----
+  /** Agotado ↔ repuesto con unidades de reposición. */
+  alternarStock(id: string): Promise<boolean> {
     const p = this.buscar(id);
-    return p ? this.guardar(id, { disponible: !p.disponible }) : false;
+    return p ? this.guardar(id, { stock: p.stock > 0 ? 0 : STOCK_REPOSICION }) : Promise.resolve(false);
   }
 
-  async actualizarPrecio(id: string, precio: number): Promise<boolean> {
-    return precio > 0 ? this.guardar(id, { precio }) : false;
+  ajustarStock(id: string, delta: number): Promise<boolean> {
+    const p = this.buscar(id);
+    return p ? this.guardar(id, { stock: Math.max(0, p.stock + delta) }) : Promise.resolve(false);
   }
 
-  async agregar(nuevo: NuevoProducto): Promise<boolean> {
-    const fila = { ...nuevo, imagen_url: IMAGEN_POR_DEFECTO, disponible: true };
+  fijarStock(id: string, unidades: number): Promise<boolean> {
+    return this.guardar(id, { stock: Number.isFinite(unidades) ? Math.max(0, Math.floor(unidades)) : 0 });
+  }
+
+  actualizarPrecio(id: string, precio: number): Promise<boolean> {
+    return precio > 0 ? this.guardar(id, { precio }) : Promise.resolve(false);
+  }
+
+  async agregar(nuevo: NuevoProducto, imagen?: ImagenNueva): Promise<boolean> {
+    let imagen_url = IMAGEN_PLATO_POR_DEFECTO;
+    if (imagen?.archivo) {
+      const subida = environment.modoDemo ? imagen.vistaPrevia : await this.subirImagen(imagen.archivo);
+      if (!subida) {
+        this.notificar.mostrar('No se pudo subir la imagen. Probá con otra o pegá un link.');
+        return false;
+      }
+      imagen_url = subida;
+    } else if (imagen?.url) {
+      imagen_url = imagen.url;
+    }
+
+    const fila = { ...nuevo, imagen_url };
     let producto: Producto;
-
     if (environment.modoDemo) {
       producto = { ...fila, id: crypto.randomUUID() };
     } else {
@@ -85,6 +107,18 @@ export class CatalogService {
     }
     this.productos.update(lista => [producto, ...lista]);
     return true;
+  }
+
+  private async subirImagen(archivo: File): Promise<string | null> {
+    const extension = archivo.name.split('.').pop()?.toLowerCase() || 'jpg';
+    const ruta = `${crypto.randomUUID()}.${extension}`;
+    const bucket = this.supabase.client.storage.from('productos');
+    const { error } = await bucket.upload(ruta, archivo, { contentType: archivo.type });
+    if (error) {
+      console.error('No se pudo subir la imagen', error);
+      return null;
+    }
+    return bucket.getPublicUrl(ruta).data.publicUrl;
   }
 
   private async guardar(id: string, cambios: Partial<Producto>): Promise<boolean> {

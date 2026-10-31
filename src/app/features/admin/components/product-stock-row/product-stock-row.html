@@ -1,3 +1,5 @@
+<img class="foto" [src]="producto().imagen_url || imagenPorDefecto" appImgFallback [alt]="producto().nombre">
+
 <div class="datos">
   <p class="nombre">{{ producto().nombre }}</p>
   <p class="detalle">{{ producto().porciones }}</p>
@@ -8,6 +10,9 @@
   <input matInput type="number" min="1" [value]="producto().precio" (change)="alCambiarPrecio($event)" aria-label="Precio">
 </mat-form-field>
 
-<mat-slide-toggle [checked]="producto().disponible" (change)="stockAlternado.emit()">
-  {{ producto().disponible ? 'Disponible' : 'Agotado por hoy' }}
-</mat-slide-toggle>
+<app-qty-stepper [cantidad]="producto().stock" [editable]="true" sufijo="u."
+                 (cambiar)="stockAjustado.emit($event)" (fijar)="stockFijado.emit($event)" />
+
+<button mat-stroked-button class="estado" [class.agotado]="producto().stock === 0" (click)="stockAlternado.emit()">
+  {{ producto().stock > 0 ? 'Disponible' : 'Agotado (0 u.)' }}
+</button>

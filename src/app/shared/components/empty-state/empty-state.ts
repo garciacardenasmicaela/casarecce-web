@@ -10,4 +10,5 @@ import { MatIconModule } from '@angular/material/icon';
 export class EmptyState {
   icono = input('inbox');
   mensaje = input.required<string>();
+  detalle = input<string>();
 }

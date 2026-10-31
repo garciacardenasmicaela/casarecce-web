@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { NuevoProducto } from '../../../core/models';
+import { ImagenNueva, NuevoProducto } from '../../../core/models';
 import { CatalogService } from '../../../core/services/catalog.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { PrecioPipe } from '../../../shared/pipes/precio.pipe';
@@ -23,7 +23,15 @@ export class AdminProductos {
   async alternarStock(id: string) {
     if (!(await this.catalogo.alternarStock(id))) return;
     const p = this.catalogo.buscar(id)!;
-    this.notificar.mostrar(`${p.nombre}: ${p.disponible ? 'Disponible' : 'Agotado por hoy'}`);
+    this.notificar.mostrar(`${p.nombre}: ${p.stock > 0 ? p.stock + " u. disponibles" : "Agotado por hoy"}`);
+  }
+
+  ajustarStock(id: string, delta: number) {
+    return this.catalogo.ajustarStock(id, delta);
+  }
+
+  fijarStock(id: string, unidades: number) {
+    return this.catalogo.fijarStock(id, unidades);
   }
 
   async cambiarPrecio(id: string, valor: number) {
@@ -33,9 +41,9 @@ export class AdminProductos {
     }
   }
 
-  async crear(nuevo: NuevoProducto) {
-    if (await this.catalogo.agregar(nuevo)) {
-      this.notificar.mostrar(`"${nuevo.nombre}" publicado en el catálogo`);
+  async crear({ producto, imagen }: { producto: NuevoProducto; imagen: ImagenNueva | null }) {
+    if (await this.catalogo.agregar(producto, imagen ?? undefined)) {
+      this.notificar.mostrar(`"${producto.nombre}" publicado en el catálogo`);
     }
   }
 }

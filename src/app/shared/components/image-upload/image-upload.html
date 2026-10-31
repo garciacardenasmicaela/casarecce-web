@@ -1,0 +1,21 @@
+<div class="bloque">
+  <div class="previa">
+    @if (vistaPrevia()) {
+      <img [src]="vistaPrevia()" alt="Vista previa del plato">
+    } @else {
+      <mat-icon>image</mat-icon>
+    }
+  </div>
+  <div class="campos">
+    <label class="subir">
+      <input type="file" accept="image/*" hidden (change)="elegirArchivo($event)">
+      <span class="mat-mdc-outlined-button boton-archivo" role="button">
+        <mat-icon>upload</mat-icon> {{ nombreArchivo() || 'Subir foto' }}
+      </span>
+    </label>
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>…o pegá la URL de la imagen</mat-label>
+      <input matInput type="url" [formControl]="url" placeholder="https://...">
+    </mat-form-field>
+  </div>
+</div>

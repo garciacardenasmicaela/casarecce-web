@@ -10,5 +10,5 @@ import { BrandMark } from '../brand-mark/brand-mark';
 export class BrandMonogram {
   tamano = input(56);
   fondo = input('#DD1323');
-  trazo = input('#F7F4EB');
+  trazo = input('#FAF7F2');
 }

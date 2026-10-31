@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class DatosClienteFields {
   grupo = input.required<FormGroup>();
-  /** true: nombre a ancho completo y WhatsApp + Email lado a lado. */
-  compacto = input(false);
+  /** true: Nombre y WhatsApp lado a lado (el email siempre ocupa el ancho completo). */
+  dosColumnas = input(false);
+  emailOpcional = input(false);
 }

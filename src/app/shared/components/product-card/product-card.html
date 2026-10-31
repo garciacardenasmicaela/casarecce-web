@@ -1,9 +1,8 @@
-<mat-card class="tarjeta" [class.agotado]="!producto().disponible">
+<mat-card class="tarjeta" [class.agotado]="agotado()">
   <div class="foto">
-    <img [src]="producto().imagen_url || imagenPorDefecto" appImgFallback
-         [alt]="producto().nombre">
-    <span class="porciones">{{ producto().porciones }}</span>
-    @if (!producto().disponible) {
+    <img [src]="producto().imagen_url || imagenPorDefecto" appImgFallback [alt]="producto().nombre">
+    <span class="porciones"><mat-icon>restaurant</mat-icon>{{ producto().porciones }}</span>
+    @if (agotado()) {
       <div class="velo"><span class="sello">Agotado por hoy</span></div>
     }
   </div>
@@ -15,13 +14,21 @@
   </mat-card-content>
 
   <mat-card-actions class="pie">
-    <span class="precio">{{ producto().precio | precio }}</span>
-    @if (producto().disponible) {
-      <button mat-flat-button (click)="agregar.emit(producto())">
-        <mat-icon>add</mat-icon> Agregar
-      </button>
-    } @else {
-      <button mat-flat-button disabled>Sin stock hoy</button>
-    }
+    <div class="precio-bloque">
+      <span class="leyenda">Precio</span>
+      <span class="precio">{{ producto().precio | precio }}</span>
+    </div>
+    <div class="accion">
+      @if (!agotado()) {
+        <span class="stock" [class.pocas]="pocas()">
+          {{ pocas() ? '¡Últimas ' + producto().stock + ' u.!' : producto().stock + ' u. disponibles' }}
+        </span>
+        <button mat-flat-button (click)="agregar.emit(producto())">
+          <mat-icon>add</mat-icon> Agregar
+        </button>
+      } @else {
+        <button mat-flat-button disabled>Sin stock hoy</button>
+      }
+    </div>
   </mat-card-actions>
 </mat-card>

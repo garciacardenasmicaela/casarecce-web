@@ -5,15 +5,15 @@
 
 .cabecera {
   display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; padding-bottom: 1rem;
-  border-bottom: 1px solid v.$crema;
+  border-bottom: 1px solid v.$crema-border;
   @include m.desde(v.$bp-sm) { flex-direction: row; align-items: flex-end; justify-content: space-between; }
 }
 
 .descuento {
-  --mat-chip-elevated-container-color: #{rgba(v.$rojo, 0.1)};
-  --mat-chip-label-text-color: #{v.$rojo};
-  --mdc-chip-elevated-container-color: #{rgba(v.$rojo, 0.1)};
-  --mdc-chip-label-text-color: #{v.$rojo};
+  --mat-chip-elevated-container-color: #{rgba(v.$esmeralda, 0.1)};
+  --mat-chip-label-text-color: #{v.$esmeralda-dark};
+  --mat-chip-with-avatar-avatar-size: 18px;
+  mat-icon { color: v.$esmeralda; }
   @include m.etiqueta-marca(0.75rem, 0.02em);
 }
 

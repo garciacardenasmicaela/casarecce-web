@@ -1,12 +1,12 @@
 <div class="barra">
   <div class="estado">
-    <span class="rotulo">Estado del local:</span>
+    <span class="rotulo">Estado:</span>
     <app-status-badge [estado]="estado()" />
   </div>
 
-  <div class="acciones">
-    <span class="horario"><mat-icon>schedule</mat-icon>{{ horario }}</span>
-    <button mat-button (click)="dialogs.abrirDescuento()">10% OFF 1° Compra</button>
-    <a mat-button routerLink="/admin"><mat-icon>tune</mat-icon>Admin</a>
-  </div>
+  <button mat-button class="beneficio" (click)="dialogs.abrirDescuento()">
+    ¿Primera compra? Activá tu beneficio de bienvenida (10% OFF) aquí
+  </button>
+
+  <span class="horario"><mat-icon>schedule</mat-icon>{{ horario }}</span>
 </div>

@@ -11,13 +11,24 @@
 }
 
 .circulo {
+  position: relative; overflow: hidden;
   width: 5rem; height: 5rem; border-radius: 50%;
   display: grid; place-items: center;
-  background: v.$crema; border: 2px solid rgba(v.$carbon, 0.1);
-  transition: transform 0.2s, background 0.2s;
-  mat-icon { font-size: 1.75rem; width: 1.75rem; height: 1.75rem; }
+  background: v.$crema; border: 2px solid v.$crema-border;
+  transition: transform 0.25s, background 0.25s, box-shadow 0.25s;
+  mat-icon { font-size: 1.75rem; width: 1.75rem; height: 1.75rem; position: relative; }
+  // brillo que cruza al pasar el mouse
+  &::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.55) 50%, transparent 65%);
+    transform: translateX(-120%); transition: transform 0.6s;
+  }
 }
-.pill:hover .circulo { transform: scale(1.05); }
-.activa .circulo { background: v.$rojo; border-color: v.$rojo; color: #fff; }
+.pill:hover .circulo {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 18px rgba(v.$rojo, 0.2);
+  &::after { transform: translateX(120%); }
+}
+.activa .circulo { background: v.$rojo; border-color: v.$rojo; color: #fff; box-shadow: 0 8px 16px rgba(v.$rojo, 0.3); }
 
 .etiqueta { @include m.etiqueta-marca(0.75rem, 0.05em); }

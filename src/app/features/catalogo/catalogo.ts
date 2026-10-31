@@ -25,7 +25,6 @@ export class Catalogo {
   private readonly notificar = inject(NotificationService);
 
   agregar(producto: Producto) {
-    this.carrito.agregar(producto);
-    this.notificar.mostrar(`"${producto.nombre}" agregado al pedido`);
+    if (this.carrito.agregar(producto)) this.notificar.mostrar(`"${producto.nombre}" agregado al pedido`);
   }
 }

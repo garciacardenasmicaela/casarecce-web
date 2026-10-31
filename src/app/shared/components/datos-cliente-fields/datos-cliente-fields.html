@@ -1,19 +1,19 @@
-<div [formGroup]="grupo()" class="campos" [class.compacto]="compacto()">
-  <mat-form-field appearance="outline" class="nombre">
-    <mat-label>Nombre y apellido</mat-label>
-    <input matInput formControlName="nombre" autocomplete="name">
+<div [formGroup]="grupo()" class="campos" [class.dos]="dosColumnas()">
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre y Apellido</mat-label>
+    <input matInput formControlName="nombre" placeholder="Ej: María Gómez" autocomplete="name">
     <mat-error>Ingresá tu nombre</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>WhatsApp</mat-label>
-    <input matInput type="tel" formControlName="whatsapp" placeholder="381..." autocomplete="tel">
+    <input matInput type="tel" formControlName="whatsapp" placeholder="Ej: 381 555 1234" autocomplete="tel">
     <mat-error>Ingresá tu WhatsApp</mat-error>
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Email</mat-label>
-    <input matInput type="email" formControlName="email" autocomplete="email">
+  <mat-form-field appearance="outline" class="email">
+    <mat-label>{{ emailOpcional() ? 'Email (opcional)' : 'Email' }}</mat-label>
+    <input matInput type="email" formControlName="email" placeholder="tu@email.com" autocomplete="email">
     <mat-error>Ingresá un email válido</mat-error>
   </mat-form-field>
 </div>

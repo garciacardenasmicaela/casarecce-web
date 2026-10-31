@@ -5,13 +5,13 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { CustomerService } from '../../core/services/customer.service';
 import { NotificationService } from '../../core/services/notification.service';
-import { BrandMonogram } from '../../shared/components/brand-monogram/brand-monogram';
+
 import { DatosClienteFields } from '../../shared/components/datos-cliente-fields/datos-cliente-fields';
 import { crearFormCliente } from '../../shared/forms/cliente-form';
 
 @Component({
   selector: 'app-descuento-dialog',
-  imports: [ReactiveFormsModule, MatDialogModule, MatButtonModule, MatIconModule, BrandMonogram, DatosClienteFields],
+  imports: [ReactiveFormsModule, MatDialogModule, MatButtonModule, MatIconModule, DatosClienteFields],
   templateUrl: './descuento-dialog.html',
   styleUrl: './descuento-dialog.scss',
 })

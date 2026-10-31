@@ -4,7 +4,7 @@
 :host { display: block; }
 :host(.centrado) { text-align: center; }
 
-.eyebrow { @include m.etiqueta-marca; color: v.$rojo; margin: 0 0 0.25rem; }
-h2 { margin: 0; font-size: 1.5rem; font-weight: 700; color: v.$carbon;
-  @include m.desde(v.$bp-sm) { font-size: 1.875rem; } }
-.subtitulo { margin: 0.25rem 0 0; font-size: 0.875rem; color: rgba(v.$carbon, 0.7); }
+.eyebrow { @include m.etiqueta-marca(0.75rem, 0.2em); color: v.$rojo; margin: 0 0 0.5rem; }
+h2 { margin: 0; font-size: 1.875rem; font-weight: 700; color: v.$carbon;
+  @include m.desde(v.$bp-sm) { font-size: 2.25rem; } }
+.subtitulo { margin: 0.5rem 0 0; font-size: 0.9375rem; color: rgba(v.$carbon, 0.7); }

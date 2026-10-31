@@ -1,10 +1,11 @@
 <div class="cabecera">
   <app-section-header
+    eyebrow="Elaboración Artesanal"
     [titulo]="catalogo.tituloActual()"
-    subtitulo="Todas nuestras opciones indican cuántas porciones rinden para que calcules sin dudar." />
+    subtitulo="Todas nuestras opciones detallan cuántas porciones rinden y su stock disponible hoy." />
 
   @if (clientes.descuentoActivo()) {
-    <mat-chip class="descuento"><mat-icon matChipAvatar>sell</mat-icon> 10% OFF Bienvenida Activado</mat-chip>
+    <mat-chip class="descuento"><mat-icon matChipAvatar>check_circle</mat-icon> Beneficio 10% OFF Activado</mat-chip>
   }
 </div>
 

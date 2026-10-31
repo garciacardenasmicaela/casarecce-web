@@ -1,7 +1,26 @@
 @use '@angular/material' as mat;
 @use 'variables' as v;
 
-// Tema Material 3 base + tipografía de marca
+// Cocomat restringido a letras; dígitos y símbolos ($ % + -) con Outfit para que se vean nítidos
+@font-face {
+  font-family: 'CocomatDigits';
+  src: local('Outfit'), local('Plus Jakarta Sans');
+  unicode-range: U+0030-0039, U+0024, U+0025, U+002B, U+002D;
+}
+@font-face {
+  font-family: 'CocomatAlpha';
+  src: local('Cocomat'), url('https://fonts.cdnfonts.com/s/15053/Cocomat-Light-trial.woff') format('woff');
+  font-weight: 400;
+  unicode-range: U+0041-005A, U+0061-007A, U+00C0-00FF;
+}
+@font-face {
+  font-family: 'CocomatAlpha';
+  src: local('Cocomat Bold'), url('https://fonts.cdnfonts.com/s/15053/Cocomat-Bold-trial.woff') format('woff');
+  font-weight: 700;
+  unicode-range: U+0041-005A, U+0061-007A, U+00C0-00FF;
+}
+
+// Tema Material 3 base
 html {
   @include mat.theme((
     color: (
@@ -10,7 +29,7 @@ html {
     ),
     typography: (
       plain-family: ('Plus Jakarta Sans', sans-serif),
-      brand-family: ('Cocomat', 'Montserrat', sans-serif),
+      brand-family: ('CocomatDigits', 'CocomatAlpha', 'Cocomat', 'Outfit', sans-serif),
       bold-weight: 700,
       medium-weight: 600,
       regular-weight: 400,
@@ -22,10 +41,6 @@ html {
 // Paleta oficial sobre los tokens de Material
 :root {
   --c-rojo: #{v.$rojo};
-  --c-bordo: #{v.$bordo};
-  --c-crema: #{v.$crema};
-  --c-crema-light: #{v.$crema-light};
-  --c-crema-card: #{v.$crema-card};
   --c-carbon: #{v.$carbon};
 
   --mat-sys-primary: #{v.$rojo};
@@ -40,21 +55,27 @@ html {
   --mat-sys-background: #{v.$crema-light};
   --mat-sys-on-surface: #{v.$carbon};
   --mat-sys-on-background: #{v.$carbon};
-  --mat-sys-surface-container: #{v.$crema-card};
-  --mat-sys-surface-container-high: #{v.$crema-card};
+  --mat-sys-surface-container: #{v.$crema-pure};
+  --mat-sys-surface-container-high: #{v.$crema-pure};
   --mat-sys-surface-container-highest: #{v.$crema};
-  --mat-sys-outline: #{v.$carbon}66;
-  --mat-sys-outline-variant: #{v.$crema};
+  --mat-sys-outline: #{v.$crema-border};
+  --mat-sys-outline-variant: #{v.$crema-border};
 
-  // Botones redondeados (pill) como en la maqueta
+  // Botones y etiquetas con Cocomat
+  --mat-sys-label-large-font: #{v.$font-cocomat};
+  --mat-sys-label-medium-font: #{v.$font-cocomat};
+  --mat-sys-title-medium-font: #{v.$font-cocomat};
+
+  // Formas: pill en botones, redondeado en campos, tarjetas y diálogos
   --mat-button-filled-container-shape: 999px;
   --mat-button-outlined-container-shape: 999px;
   --mat-button-text-container-shape: 999px;
   --mat-button-tonal-container-shape: 999px;
-  // Tarjetas y diálogos
   --mat-card-elevated-container-shape: 24px;
   --mat-card-outlined-container-shape: 24px;
   --mat-dialog-container-shape: 24px;
+  --mat-form-field-outlined-container-shape: 12px;
+  --mdc-outlined-text-field-container-shape: 12px;
 }
 
 html, body { min-height: 100%; }
@@ -63,15 +84,18 @@ body {
   font-family: v.$font-body;
   background: v.$crema-light;
   color: v.$carbon;
+  font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
 }
-h1, h2, h3, h4 { font-family: v.$font-brand; letter-spacing: 0.02em; }
+// Títulos: Playfair Display (h1/h2) y Cocomat (h3/h4)
+h1, h2 { font-family: v.$font-serif; letter-spacing: 0; }
+h3, h4 { font-family: v.$font-cocomat; letter-spacing: 0.025em; }
 
 ::selection { background: v.$rojo; color: #fff; }
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: v.$crema-light; }
-::-webkit-scrollbar-thumb { background: v.$crema; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: v.$carbon; }
+::-webkit-scrollbar-thumb { background: v.$crema-border; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: v.$rojo; }
 
 html { scroll-behavior: smooth; scroll-padding-top: 7rem; }
 
@@ -82,5 +106,5 @@ html { scroll-behavior: smooth; scroll-padding-top: 7rem; }
 .casarecce-toast {
   --mdc-snackbar-container-color: #{v.$carbon};
   --mdc-snackbar-supporting-text-color: #{v.$crema-light};
-  --mat-snack-bar-button-color: #{v.$crema};
+  --mat-snack-bar-button-color: #{v.$ambar-claro};
 }

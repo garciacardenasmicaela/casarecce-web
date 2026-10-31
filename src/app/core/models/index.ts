@@ -17,10 +17,17 @@ export interface Producto {
   precio: number;
   porciones: string; // ej: "Caja x 12 u. • Rinde 2 platos abundantes"
   imagen_url: string | null;
-  disponible: boolean;
+  stock: number; // unidades disponibles hoy (0 = agotado)
 }
 
-export type NuevoProducto = Omit<Producto, 'id' | 'imagen_url' | 'disponible'>;
+export type NuevoProducto = Omit<Producto, 'id' | 'imagen_url'>;
+
+/** Imagen elegida en el admin: archivo subido o link, con vista previa. */
+export interface ImagenNueva {
+  archivo: File | null;
+  url: string;
+  vistaPrevia: string;
+}
 
 export interface DatosCliente {
   nombre: string;

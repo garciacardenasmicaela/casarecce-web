@@ -4,11 +4,10 @@
 :host { display: block; position: sticky; top: 0; z-index: 40; }
 
 .header {
-  height: 6rem;
-  padding: 0;
+  height: 6rem; padding: 0;
   background: rgba(v.$crema-light, 0.95);
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid v.$crema;
+  border-bottom: 1px solid v.$crema-border;
   --mat-toolbar-container-background-color: transparent;
   --mat-toolbar-container-text-color: #{v.$carbon};
 }
@@ -25,17 +24,33 @@
 }
 
 .logo { text-decoration: none; }
-.acciones { display: flex; align-items: center; gap: 0.625rem;
-  --mat-button-outlined-label-text-color: #{v.$carbon};
-  --mat-button-outlined-outline-color: #{v.$crema};
-  button, a { font-family: v.$font-brand; font-weight: 700; font-size: 0.75rem; } }
-.solo-sm { display: none; @include m.desde(v.$bp-sm) { display: inline-flex; } }
+.acciones {
+  display: flex; align-items: center; gap: 0.5rem;
+  button, a { font-family: v.$font-brand; font-weight: 700; font-size: 0.75rem; }
+}
+.solo-sm { display: none; @include m.desde(v.$bp-sm) { display: inline; } }
+.solo-md { display: none; @include m.desde(v.$bp-md) { display: inline; } }
 
+.descuento {
+  --mat-button-filled-container-color: #{v.$rosado};
+  --mat-button-filled-label-text-color: #{v.$rojo};
+  border: 1px solid rgba(v.$rojo, 0.2);
+  &.activo {
+    --mat-button-filled-container-color: #{rgba(v.$esmeralda, 0.1)};
+    --mat-button-filled-label-text-color: #{v.$esmeralda-dark};
+    border-color: rgba(v.$esmeralda, 0.3);
+  }
+}
+.admin {
+  --mat-button-outlined-label-text-color: #{v.$carbon};
+  --mat-button-outlined-outline-color: #{v.$crema-border};
+}
 .pedido {
-  text-transform: uppercase; letter-spacing: 0.08em;
-  &:hover { --mat-button-filled-container-color: #{v.$bordo}; }
+  --mat-button-filled-container-color: #{v.$rojo};
+  --mat-button-filled-label-text-color: #fff;
+  &:hover { --mat-button-filled-container-color: #{v.$rojo-dark}; }
 }
 .contador {
   background: #fff; color: v.$rojo; border-radius: 999px;
-  padding: 0.125rem 0.375rem; font-size: 0.6875rem; line-height: 1; margin-left: 0.5rem;
+  padding: 0.125rem 0.4375rem; font-size: 0.6875rem; line-height: 1; margin-left: 0.5rem;
 }

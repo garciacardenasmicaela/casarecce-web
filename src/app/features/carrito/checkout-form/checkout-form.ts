@@ -36,7 +36,7 @@ export class CheckoutForm {
 
   protected readonly cliente = crearFormCliente(false);
   protected readonly pedido = new FormGroup({
-    cuando: new FormControl(OPCIONES_CUANDO[0], { nonNullable: true }),
+    cuando: new FormControl(OPCIONES_CUANDO[0].valor, { nonNullable: true }),
     entrega: new FormControl<MetodoEntrega>('retiro', { nonNullable: true }),
     pago: new FormControl<MetodoPago>('transferencia', { nonNullable: true }),
     efectivoCon: new FormControl('', { nonNullable: true }),

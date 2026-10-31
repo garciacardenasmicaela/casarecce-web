@@ -2,7 +2,7 @@
   <div class="texto">
     <mat-chip class="etiqueta"><span class="punto"></span> Pastificio &amp; Pasticceria en Tucumán</mat-chip>
 
-    <h1>Dulces y pastas hechas a mano, <span>como en casa.</span></h1>
+    <h1>Dulces y pastas hechas a mano, <em>como en casa.</em></h1>
 
     <p>
       Amasamos cada mañana con sémola seleccionada, huevos de campo y rellenos abundantes.
@@ -10,14 +10,14 @@
     </p>
 
     <div class="botones">
-      <a mat-flat-button routerLink="/" fragment="catalogo">Ver Menú del Día</a>
-      <button mat-stroked-button (click)="dialogs.abrirDescuento()">Activar 10% OFF 1° Compra</button>
+      <a mat-flat-button routerLink="/" fragment="catalogo">Ver Carta del Día <mat-icon iconPositionEnd>arrow_downward</mat-icon></a>
+      <a mat-stroked-button routerLink="/" fragment="nosotros">Nuestra Historia</a>
     </div>
 
-    <ul class="ventajas">
-      <li><mat-icon>check</mat-icon> Porciones claras por caja</li>
-      <li><mat-icon>check</mat-icon> Retiro o Uber Flash</li>
-    </ul>
+    <p class="invitacion">
+      ¿Es tu primer pedido? Registrá tus datos y obtené un
+      <button type="button" class="enlace" (click)="dialogs.abrirDescuento()">10% de descuento</button>
+    </p>
   </div>
 
   <div class="foto">

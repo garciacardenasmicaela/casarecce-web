@@ -1,4 +1,9 @@
 @use 'variables' as v;
 .empty-state { text-align: center; padding: 3rem 1rem; display: grid; justify-items: center; gap: 0.5rem; }
-mat-icon { font-size: 2rem; width: 2rem; height: 2rem; color: v.$crema; }
-p { margin: 0; font-size: 0.875rem; font-weight: 500; color: rgba(v.$carbon, 0.7); }
+.circulo {
+  width: 4rem; height: 4rem; border-radius: 50%; display: grid; place-items: center;
+  background: v.$crema; color: rgba(v.$carbon, 0.4);
+  mat-icon { font-size: 1.75rem; width: 1.75rem; height: 1.75rem; }
+}
+.mensaje { margin: 0; font-size: 0.9375rem; font-weight: 700; color: v.$carbon; }
+.detalle { margin: 0; font-size: 0.8125rem; color: rgba(v.$carbon, 0.65); max-width: 22rem; }

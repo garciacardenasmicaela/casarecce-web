@@ -1,15 +1,27 @@
-// Cromática oficial Casarecce
+// Cromática oficial Casarecce (diseño v2)
 $rojo: #DD1323;
-$bordo: #6E0911;
-$bordo-dark: #52060C;
-$crema: #DDD5C0;
-$crema-light: #F7F4EB;
-$crema-card: #EFECE2;
+$rojo-dark: #B50E1B;       // hover y footer
+$crema: #F3ECE1;           // almendra: hero, medallones, "Nosotros"
+$crema-light: #FAF7F2;     // fondo general
+$crema-pure: #FFFDF9;      // tarjetas
+$crema-border: #E6DDD0;    // bordes
 $carbon: #3C3847;
+$rosado: #FFF5F5;          // botones de beneficio
+$esmeralda: #059669;       // WhatsApp / beneficio activo
+$esmeralda-dark: #047857;
+$ambar: #FCD34D;
+$ambar-claro: #FDE68A;
+$ambar-fondo: #FFFBEB;
+$ambar-borde: #FDE68A;
 
-$font-brand: 'Cocomat', 'Montserrat', sans-serif;
+// Cocomat sólo para letras; los dígitos caen a Outfit (ver styles.scss)
+$font-cocomat: 'CocomatDigits', 'CocomatAlpha', 'Cocomat', 'Outfit', 'Plus Jakarta Sans', sans-serif;
+$font-brand: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+$font-num: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+$font-serif: 'Playfair Display', serif;
 $font-body: 'Plus Jakarta Sans', sans-serif;
 
 $bp-sm: 640px;
 $bp-md: 768px;
 $bp-lg: 1024px;
+$bp-xl: 1280px;

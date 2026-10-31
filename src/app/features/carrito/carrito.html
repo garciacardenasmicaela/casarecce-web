@@ -2,26 +2,19 @@
   <span class="icono"><mat-icon>shopping_bag</mat-icon></span>
   <div class="titulos">
     <h2 mat-dialog-title>Tu Pedido</h2>
-    <p>Directo al WhatsApp de Casarecce</p>
+    <p>Armá tu pedido y envialo por WhatsApp</p>
   </div>
+  <button mat-flat-button class="beneficio" [class.activo]="clientes.descuentoActivo()"
+          [disabled]="clientes.descuentoActivo()" (click)="activarDescuento()">
+    {{ clientes.descuentoActivo() ? 'Activo ✓' : '10% OFF' }}
+  </button>
   <button mat-icon-button mat-dialog-close aria-label="Cerrar"><mat-icon>close</mat-icon></button>
 </header>
 
 <div class="cuerpo">
-  <div class="banner">
-    <div>
-      <span class="banner-titulo">🎁 10% OFF 1° Compra</span>
-      <span class="banner-texto">
-        {{ clientes.descuentoActivo() ? '¡10% OFF activado en tu pedido!' : '¿Es tu primer pedido? Activalo en un toque.' }}
-      </span>
-    </div>
-    <button mat-flat-button [disabled]="clientes.descuentoActivo()" (click)="activarDescuento()">
-      {{ clientes.descuentoActivo() ? 'Activo' : 'Activar' }}
-    </button>
-  </div>
-
   @if (cart.vacio()) {
-    <app-empty-state icono="shopping_basket" mensaje="Todavía no agregaste platos a tu pedido." />
+    <app-empty-state icono="shopping_basket" mensaje="Tu carrito está vacío"
+      detalle="Elegí tus pastas frescas, tartas o dulces del catálogo para armar tu pedido." />
   } @else {
     <div class="lista">
       @for (item of cart.items(); track item.producto.id) {

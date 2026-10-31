@@ -5,27 +5,32 @@
 
 .cabecera {
   display: flex; align-items: center; gap: 0.625rem; padding: 1rem 1.25rem;
-  background: #fff; border-bottom: 1px solid v.$crema;
+  background: v.$crema-pure; border-bottom: 1px solid v.$crema-border;
 }
-.icono { width: 2rem; height: 2rem; border-radius: 50%; background: v.$rojo; color: #fff; display: grid; place-items: center;
+.icono { width: 2.25rem; height: 2.25rem; border-radius: 50%; background: v.$rojo; color: #fff; display: grid; place-items: center;
   mat-icon { font-size: 1.125rem; width: 1.125rem; height: 1.125rem; } }
 .titulos { flex: 1; }
-h2 { margin: 0; padding: 0; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.08em; &::before { display: none; } }
+h2 { margin: 0; padding: 0; font-size: 1.125rem; &::before { display: none; } }
 .titulos p { margin: 0; font-size: 0.6875rem; color: rgba(v.$carbon, 0.6); }
 
-.cuerpo { flex: 1; overflow-y: auto; padding: 1.25rem; display: grid; gap: 1.25rem; align-content: start; }
-
-.banner {
-  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
-  background: rgba(v.$crema, 0.7); border: 1px solid rgba(v.$carbon, 0.15); border-radius: 1rem;
-  padding: 0.875rem; font-size: 0.75rem;
-  div { display: grid; }
-  button { flex-shrink: 0; }
+.beneficio {
+  --mat-button-filled-container-color: #{v.$rosado};
+  --mat-button-filled-label-text-color: #{v.$rojo};
+  --mat-button-filled-container-height: 30px;
+  font-size: 0.6875rem; font-weight: 800;
+  &.activo, &[disabled] {
+    --mat-button-filled-disabled-container-color: #{rgba(v.$esmeralda, 0.1)};
+    --mat-button-filled-disabled-label-text-color: #{v.$esmeralda-dark};
+  }
 }
-.banner-titulo { @include m.etiqueta-marca(0.75rem, 0.02em); color: v.$rojo; }
-.banner-texto { color: rgba(v.$carbon, 0.75); }
 
+.cuerpo { flex: 1; overflow-y: auto; padding: 1.25rem; display: grid; gap: 1.25rem; align-content: start; }
 .lista { display: grid; }
 
-.pie { padding: 1.25rem; background: #fff; border-top: 1px solid v.$crema; display: grid; gap: 0.75rem; }
-.enviar { height: 3.25rem; @include m.etiqueta-marca(0.75rem, 0.12em); }
+.pie { padding: 1.25rem; background: v.$crema-pure; border-top: 1px solid v.$crema-border; display: grid; gap: 0.75rem; }
+.enviar {
+  height: 3.25rem; @include m.etiqueta-marca(0.75rem, 0.12em);
+  --mat-button-filled-container-color: #{v.$esmeralda};
+  --mat-button-filled-label-text-color: #fff;
+  &:hover { --mat-button-filled-container-color: #{v.$esmeralda-dark}; }
+}

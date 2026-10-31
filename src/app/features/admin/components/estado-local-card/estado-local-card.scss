@@ -1,6 +1,6 @@
 @use 'variables' as v;
 @use 'mixins' as m;
-mat-card { background: #fff; }
+mat-card { background: v.$crema-pure; }
 .contenido { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
 h4 { margin: 0; @include m.etiqueta-marca(0.75rem, 0.05em); }
 p { margin: 0.25rem 0 0; font-size: 0.75rem; color: rgba(v.$carbon, 0.7); }
