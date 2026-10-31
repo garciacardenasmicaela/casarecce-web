@@ -1,0 +1,4 @@
+@use 'mixins' as m;
+:host { display: grid; gap: 2rem; }
+h3 { margin: 0 0 0.75rem; @include m.etiqueta-marca(0.875rem, 0.05em); }
+.lista { background: #fff; overflow: hidden; }

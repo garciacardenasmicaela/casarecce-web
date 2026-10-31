@@ -1,0 +1,62 @@
+<div class="contenido">
+  <div class="columnas">
+    <section class="marca">
+      <app-brand-logo variante="negativo" [tamano]="64" />
+      <p>Elaboración diaria de pastas frescas, salsas caseras, tartas saladas y repostería artesanal en San Miguel de Tucumán.</p>
+      <div class="redes">
+        <a mat-icon-button [href]="info.instagramUrl" target="_blank" rel="noopener" aria-label="Instagram">
+          <mat-icon fontSet="fa-brands" fontIcon="fa-instagram" />
+        </a>
+        <a mat-icon-button [href]="info.facebookUrl" target="_blank" rel="noopener" aria-label="Facebook">
+          <mat-icon fontSet="fa-brands" fontIcon="fa-facebook-f" />
+        </a>
+        <a mat-icon-button [href]="info.whatsappUrl" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <mat-icon fontSet="fa-brands" fontIcon="fa-whatsapp" />
+        </a>
+      </div>
+    </section>
+
+    <section class="info">
+      <h3>Ubicación &amp; Horarios</h3>
+      <p class="dato">
+        <mat-icon>location_on</mat-icon>
+        <span>{{ info.ciudad }}<br>
+          <a [href]="info.mapsUrl" target="_blank" rel="noopener">Abrir ubicación en Google Maps</a>
+        </span>
+      </p>
+      <p class="dato">
+        <mat-icon>schedule</mat-icon>
+        <span>
+          @for (h of info.horarios; track h.dias) {
+            <strong>{{ h.dias }}:</strong> {{ h.horas }}<br>
+          }
+        </span>
+      </p>
+      <p class="dato">
+        <mat-icon fontSet="fa-brands" fontIcon="fa-whatsapp" />
+        <span>Pedidos y consultas: {{ info.whatsappTexto }}</span>
+      </p>
+    </section>
+
+    <section class="novedades">
+      <h3>Especiales de Fin de Semana</h3>
+      <p>Dejanos tu correo para recibir avisos cuando saquemos pastas rellenas especiales o promociones de mitad de semana.</p>
+      <form class="suscripcion" (ngSubmit)="suscribir()">
+        <mat-form-field appearance="outline" subscriptSizing="dynamic">
+          <mat-label>Tu correo electrónico</mat-label>
+          <input matInput type="email" [formControl]="email" autocomplete="email">
+        </mat-form-field>
+        <button mat-flat-button type="submit">Sumarme</button>
+      </form>
+      <div class="extras">
+        <button mat-button type="button" (click)="dialogs.abrirDescuento()">Canjear 10% OFF</button>
+        <a mat-button routerLink="/admin"><mat-icon>lock</mat-icon> Admin</a>
+      </div>
+    </section>
+  </div>
+
+  <div class="legal">
+    <p>&copy; {{ anio }} Casarecce — Dulces &amp; Pastas Artesanales. Todos los derechos reservados.</p>
+    <p>Identidad Visual: Cocomat &amp; Cromática Oficial Casarecce</p>
+  </div>
+</div>

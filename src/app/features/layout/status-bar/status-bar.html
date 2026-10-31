@@ -1,0 +1,12 @@
+<div class="barra">
+  <div class="estado">
+    <span class="rotulo">Estado del local:</span>
+    <app-status-badge [estado]="estado()" />
+  </div>
+
+  <div class="acciones">
+    <span class="horario"><mat-icon>schedule</mat-icon>{{ horario }}</span>
+    <button mat-button (click)="dialogs.abrirDescuento()">10% OFF 1° Compra</button>
+    <a mat-button routerLink="/admin"><mat-icon>tune</mat-icon>Admin</a>
+  </div>
+</div>

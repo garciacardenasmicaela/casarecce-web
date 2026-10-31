@@ -1,0 +1,9 @@
+:host { display: inline-flex; align-items: center; gap: 0.625rem; }
+.texto { font-weight: 600; }
+.punto {
+  width: 0.5rem; height: 0.5rem; border-radius: 50%;
+  &.abierto { background: #34d399; animation: pulso 1.6s infinite; }
+  &.encargos_fin_de_semana { background: #fbbf24; animation: pulso 1.6s infinite; }
+  &.cerrado { background: #DD1323; }
+}
+@keyframes pulso { 50% { opacity: 0.4; } }

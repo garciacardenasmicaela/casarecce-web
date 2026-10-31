@@ -1,0 +1,8 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+:host { display: block; @include m.contenedor(64rem); padding-block: 1.5rem; }
+.grilla {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; max-width: 48rem; margin: 2rem auto 0;
+  @include m.desde(v.$bp-sm) { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+}

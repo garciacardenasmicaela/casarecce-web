@@ -1,0 +1,11 @@
+<app-section-header eyebrow="Nuestra Elaboración" titulo="Explorá por Categoría" [centrado]="true" />
+
+<div class="grilla">
+  @for (c of catalogo.categorias; track c.slug) {
+    <app-category-pill
+      [icono]="c.icono"
+      [etiqueta]="c.nombre"
+      [activa]="catalogo.categoriaActiva() === c.slug"
+      (seleccionar)="catalogo.seleccionarCategoria(c.slug)" />
+  }
+</div>

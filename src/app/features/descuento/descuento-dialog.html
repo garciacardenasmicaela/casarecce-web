@@ -1,0 +1,22 @@
+<button mat-icon-button mat-dialog-close class="cerrar" aria-label="Cerrar"><mat-icon>close</mat-icon></button>
+
+<div class="encabezado">
+  <app-brand-monogram [tamano]="48" />
+  <div>
+    <span class="eyebrow">Beneficio de Bienvenida</span>
+    <h2 mat-dialog-title>10% OFF en tu 1° Compra</h2>
+  </div>
+</div>
+
+<form (ngSubmit)="aplicar()">
+  <mat-dialog-content>
+    <p class="detalle">
+      Dejanos tu nombre, WhatsApp y correo para aplicar automáticamente el 10% de descuento en tu carrito hoy.
+    </p>
+    <app-datos-cliente-fields [grupo]="form" />
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-flat-button type="submit" class="aplicar">Aplicar 10% OFF Ahora</button>
+  </mat-dialog-actions>
+</form>

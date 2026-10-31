@@ -1,0 +1,6 @@
+@use 'variables' as v;
+:host { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.875rem 1rem; border-bottom: 1px solid v.$crema; }
+.datos { flex: 1; min-width: 12rem; }
+.nombre { margin: 0; font: 700 0.8125rem v.$font-brand; }
+.detalle { margin: 0.125rem 0 0; font-size: 0.75rem; color: rgba(v.$carbon, 0.6); }
+.precio { width: 8.5rem; }

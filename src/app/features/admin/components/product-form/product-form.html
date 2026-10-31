@@ -1,0 +1,40 @@
+<mat-card appearance="outlined">
+  <mat-card-header><h4>Agregar Nuevo Plato al Catálogo</h4></mat-card-header>
+  <mat-card-content>
+    <form class="form" [formGroup]="form" (ngSubmit)="publicar()">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre del plato</mat-label>
+        <input matInput formControlName="nombre" placeholder="Ñoquis de Calabaza">
+        <mat-error>Ingresá un nombre</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Categoría</mat-label>
+        <mat-select formControlName="categoria">
+          @for (c of categorias; track c.slug) { <mat-option [value]="c.slug">{{ c.nombre }}</mat-option> }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Precio</mat-label>
+        <span matTextPrefix>$&nbsp;</span>
+        <input matInput type="number" formControlName="precio" placeholder="8500">
+        <mat-error>Ingresá un precio válido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Porciones que rinde</mat-label>
+        <input matInput formControlName="porciones" placeholder="Rinde 2 platos">
+        <mat-error>Indicá cuántas porciones rinde</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="ancho">
+        <mat-label>Descripción tentadora corta</mat-label>
+        <input matInput formControlName="descripcion">
+        <mat-error>Escribí una descripción</mat-error>
+      </mat-form-field>
+
+      <button mat-flat-button type="submit" class="ancho"><mat-icon>add</mat-icon> Publicar Plato en la Web</button>
+    </form>
+  </mat-card-content>
+</mat-card>

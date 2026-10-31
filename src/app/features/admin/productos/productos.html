@@ -1,0 +1,15 @@
+<app-estado-local-card />
+
+<section>
+  <h3>1. Control Diario de Stock y Precios</h3>
+  <mat-card appearance="outlined" class="lista">
+    @for (p of catalogo.productos(); track p.id) {
+      <app-product-stock-row
+        [producto]="p"
+        (precioCambiado)="cambiarPrecio(p.id, $event)"
+        (stockAlternado)="alternarStock(p.id)" />
+    }
+  </mat-card>
+</section>
+
+<app-product-form (crear)="crear($event)" />

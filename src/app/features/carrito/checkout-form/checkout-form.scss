@@ -1,0 +1,14 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+:host { display: block; }
+.checkout { display: grid; gap: 0.25rem; padding-top: 1rem; border-top: 1px solid v.$crema; }
+.titulo { display: flex; align-items: center; justify-content: space-between; }
+h4 { margin: 0; @include m.etiqueta-marca(0.75rem, 0.05em); }
+.sociales { display: flex; gap: 0.125rem; mat-icon { font-size: 1rem; width: 1rem; height: 1rem; } }
+
+.opciones { display: grid; }
+mat-form-field { width: 100%; }
+.pago { display: grid; gap: 0 0.625rem; @include m.desde(v.$bp-sm) { grid-template-columns: 1fr 1fr; } }
+.aviso { margin: -0.5rem 0 1rem; padding: 0.625rem; font-size: 0.6875rem; line-height: 1.5;
+  background: rgba(v.$crema, 0.6); border-radius: 0.5rem; }

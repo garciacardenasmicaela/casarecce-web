@@ -1,0 +1,58 @@
+<section class="checkout">
+  <div class="titulo">
+    <h4>Tus Datos (Sin contraseña)</h4>
+    <div class="sociales">
+      <button mat-icon-button type="button" title="Autocompletar con Google" (click)="loginSocial('google')">
+        <mat-icon fontSet="fa-brands" fontIcon="fa-google" />
+      </button>
+      <button mat-icon-button type="button" title="Autocompletar con Facebook" (click)="loginSocial('facebook')">
+        <mat-icon fontSet="fa-brands" fontIcon="fa-facebook-f" />
+      </button>
+      <button mat-icon-button type="button" title="Autocompletar con Apple ID" (click)="loginSocial('apple')">
+        <mat-icon fontSet="fa-brands" fontIcon="fa-apple" />
+      </button>
+    </div>
+  </div>
+
+  <app-datos-cliente-fields [grupo]="cliente" [compacto]="true" />
+
+  <div [formGroup]="pedido" class="opciones">
+    <mat-form-field appearance="outline">
+      <mat-label>¿Para cuándo lo querés?</mat-label>
+      <mat-select formControlName="cuando">
+        @for (o of cuando; track o) { <mat-option [value]="o">{{ o }}</mat-option> }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Forma de entrega</mat-label>
+      <mat-select formControlName="entrega">
+        @for (o of entregas; track o.valor) { <mat-option [value]="o.valor">{{ o.etiqueta }}</mat-option> }
+      </mat-select>
+    </mat-form-field>
+    @if (entrega() === 'uber_flash') {
+      <p class="aviso"><strong>Aclaración transparente:</strong> {{ avisoUber }}</p>
+    }
+
+    <div class="pago">
+      <mat-form-field appearance="outline">
+        <mat-label>Forma de pago</mat-label>
+        <mat-select formControlName="pago">
+          @for (o of pagos; track o.valor) { <mat-option [value]="o.valor">{{ o.etiqueta }}</mat-option> }
+        </mat-select>
+      </mat-form-field>
+
+      @if (pago() === 'efectivo') {
+        <mat-form-field appearance="outline">
+          <mat-label>¿Con cuánto abonás?</mat-label>
+          <input matInput formControlName="efectivoCon" placeholder="Ej: $20.000">
+        </mat-form-field>
+      }
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Aclaraciones especiales</mat-label>
+      <input matInput formControlName="notas" placeholder="Ej: sin queso rallado, salsas aparte...">
+    </mat-form-field>
+  </div>
+</section>

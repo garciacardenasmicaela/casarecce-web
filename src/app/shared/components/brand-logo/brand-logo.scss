@@ -1,0 +1,35 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.texto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  line-height: 1;
+}
+
+.sup, .inf { @include m.etiqueta-marca(0.625rem, 0.26em); color: v.$carbon; }
+.sup b { color: v.$rojo; }
+.inf { font-size: 0.5625rem; letter-spacing: 0.28em; opacity: 0.75; }
+
+.marca {
+  font-family: v.$font-brand;
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: 0.14em;
+  color: v.$rojo;
+  margin-block: 0.125rem;
+}
+
+:host(.negativo) {
+  .sup, .inf { color: v.$crema; }
+  .sup b { color: v.$crema; }
+  .marca { color: #fff; }
+}

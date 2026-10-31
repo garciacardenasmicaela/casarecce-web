@@ -1,0 +1,5 @@
+<div class="fila"><span>Subtotal</span><span>{{ subtotal() | precio }}</span></div>
+@if (descuento() > 0) {
+  <div class="fila descuento"><span>Descuento 10% bienvenida</span><span>-{{ descuento() | precio }}</span></div>
+}
+<div class="fila total"><span>Total aproximado</span><span>{{ total() | precio }}</span></div>

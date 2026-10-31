@@ -1,0 +1,25 @@
+<mat-toolbar class="header">
+  <div class="interior">
+    <nav class="nav">
+      @for (e of enlaces; track e.fragmento) {
+        <a mat-button routerLink="/" [fragment]="e.fragmento">{{ e.texto }}</a>
+      }
+    </nav>
+
+    <a routerLink="/" class="logo" aria-label="Casarecce, inicio">
+      <app-brand-logo />
+    </a>
+
+    <div class="acciones">
+      <button mat-stroked-button class="solo-sm" (click)="dialogs.abrirDescuento()">
+        <mat-icon>redeem</mat-icon> 10% OFF
+      </button>
+      <a mat-stroked-button routerLink="/admin"><mat-icon>manage_accounts</mat-icon> Admin</a>
+      <button mat-flat-button class="pedido" (click)="dialogs.abrirCarrito()">
+        <mat-icon>shopping_bag</mat-icon>
+        <span class="solo-sm">Pedido</span>
+        <span class="contador">{{ cart.cantidad() }}</span>
+      </button>
+    </div>
+  </div>
+</mat-toolbar>

@@ -1,0 +1,13 @@
+<div class="datos">
+  <p class="nombre">{{ producto().nombre }}</p>
+  <p class="detalle">{{ producto().porciones }}</p>
+</div>
+
+<mat-form-field appearance="outline" subscriptSizing="dynamic" class="precio">
+  <span matTextPrefix>$&nbsp;</span>
+  <input matInput type="number" min="1" [value]="producto().precio" (change)="alCambiarPrecio($event)" aria-label="Precio">
+</mat-form-field>
+
+<mat-slide-toggle [checked]="producto().disponible" (change)="stockAlternado.emit()">
+  {{ producto().disponible ? 'Disponible' : 'Agotado por hoy' }}
+</mat-slide-toggle>

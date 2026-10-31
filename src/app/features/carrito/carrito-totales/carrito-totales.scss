@@ -1,0 +1,5 @@
+@use 'variables' as v;
+:host { display: grid; gap: 0.25rem; font-size: 0.875rem; }
+.fila { display: flex; justify-content: space-between; color: rgba(v.$carbon, 0.7); }
+.descuento { color: v.$rojo; font-weight: 600; }
+.total { margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid v.$crema; color: v.$carbon; font: 700 1rem v.$font-brand; }

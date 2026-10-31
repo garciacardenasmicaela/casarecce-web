@@ -1,0 +1,5 @@
+<div class="datos">
+  <p class="nombre">{{ item().producto.nombre }}</p>
+  <p class="detalle">{{ item().producto.porciones }} • {{ item().producto.precio | precio }} c/u</p>
+</div>
+<app-qty-stepper [cantidad]="item().cantidad" (cambiar)="cambiar.emit($event)" />

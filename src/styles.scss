@@ -1,0 +1,86 @@
+@use '@angular/material' as mat;
+@use 'variables' as v;
+
+// Tema Material 3 base + tipografía de marca
+html {
+  @include mat.theme((
+    color: (
+      primary: mat.$red-palette,
+      tertiary: mat.$orange-palette,
+    ),
+    typography: (
+      plain-family: ('Plus Jakarta Sans', sans-serif),
+      brand-family: ('Cocomat', 'Montserrat', sans-serif),
+      bold-weight: 700,
+      medium-weight: 600,
+      regular-weight: 400,
+    ),
+    density: 0,
+  ));
+}
+
+// Paleta oficial sobre los tokens de Material
+:root {
+  --c-rojo: #{v.$rojo};
+  --c-bordo: #{v.$bordo};
+  --c-crema: #{v.$crema};
+  --c-crema-light: #{v.$crema-light};
+  --c-crema-card: #{v.$crema-card};
+  --c-carbon: #{v.$carbon};
+
+  --mat-sys-primary: #{v.$rojo};
+  --mat-sys-on-primary: #fff;
+  --mat-sys-primary-container: #{v.$crema};
+  --mat-sys-on-primary-container: #{v.$carbon};
+  --mat-sys-secondary: #{v.$carbon};
+  --mat-sys-on-secondary: #fff;
+  --mat-sys-secondary-container: #{v.$crema};
+  --mat-sys-on-secondary-container: #{v.$carbon};
+  --mat-sys-surface: #{v.$crema-light};
+  --mat-sys-background: #{v.$crema-light};
+  --mat-sys-on-surface: #{v.$carbon};
+  --mat-sys-on-background: #{v.$carbon};
+  --mat-sys-surface-container: #{v.$crema-card};
+  --mat-sys-surface-container-high: #{v.$crema-card};
+  --mat-sys-surface-container-highest: #{v.$crema};
+  --mat-sys-outline: #{v.$carbon}66;
+  --mat-sys-outline-variant: #{v.$crema};
+
+  // Botones redondeados (pill) como en la maqueta
+  --mat-button-filled-container-shape: 999px;
+  --mat-button-outlined-container-shape: 999px;
+  --mat-button-text-container-shape: 999px;
+  --mat-button-tonal-container-shape: 999px;
+  // Tarjetas y diálogos
+  --mat-card-elevated-container-shape: 24px;
+  --mat-card-outlined-container-shape: 24px;
+  --mat-dialog-container-shape: 24px;
+}
+
+html, body { min-height: 100%; }
+body {
+  margin: 0;
+  font-family: v.$font-body;
+  background: v.$crema-light;
+  color: v.$carbon;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { font-family: v.$font-brand; letter-spacing: 0.02em; }
+
+::selection { background: v.$rojo; color: #fff; }
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: v.$crema-light; }
+::-webkit-scrollbar-thumb { background: v.$crema; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: v.$carbon; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 7rem; }
+
+// Carrito: diálogo anclado a la derecha, alto completo
+.cart-panel .mat-mdc-dialog-surface { border-radius: 0 !important; }
+
+// Notificaciones (snackbar)
+.casarecce-toast {
+  --mdc-snackbar-container-color: #{v.$carbon};
+  --mdc-snackbar-supporting-text-color: #{v.$crema-light};
+  --mat-snack-bar-button-color: #{v.$crema};
+}

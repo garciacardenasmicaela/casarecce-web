@@ -1,0 +1,21 @@
+<mat-toolbar class="barra">
+  <app-brand-monogram [tamano]="36" />
+  <div class="titulos">
+    <span class="titulo">Panel de Control — Admin</span>
+    <span class="subtitulo">Gestión rápida de stock diario, precios, clientes y novedades</span>
+  </div>
+  <a mat-button routerLink="/"><mat-icon>storefront</mat-icon> Ver sitio</a>
+  <button mat-button (click)="salir()"><mat-icon>logout</mat-icon> Salir</button>
+</mat-toolbar>
+
+<nav mat-tab-nav-bar [tabPanel]="panel" class="pestanas">
+  @for (p of pestanas; track p.ruta) {
+    <a mat-tab-link [routerLink]="p.ruta" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+      <mat-icon>{{ p.icono }}</mat-icon>&nbsp;{{ p.texto }}
+    </a>
+  }
+</nav>
+
+<mat-tab-nav-panel #panel class="contenido">
+  <router-outlet />
+</mat-tab-nav-panel>

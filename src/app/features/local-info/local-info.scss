@@ -1,0 +1,26 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+:host {
+  display: block; margin-top: 2rem; padding-block: 4rem;
+  background: rgba(v.$crema, 0.6); border-block: 1px solid v.$crema;
+}
+
+.contenido {
+  @include m.contenedor; display: grid; gap: 2.5rem; align-items: center;
+  @include m.desde(v.$bp-lg) { grid-template-columns: 5fr 7fr; }
+}
+
+.sello { display: flex; justify-content: center; }
+.marco { padding: 2rem; background: v.$crema-light; width: 16rem;
+  @include m.desde(v.$bp-sm) { width: 18rem; } }
+
+.historia { display: grid; gap: 1rem;
+  h2 { font-size: 2rem; }
+  > p { margin: 0; line-height: 1.6; color: rgba(v.$carbon, 0.8); } }
+
+.pasos { display: grid; gap: 1rem; padding-top: 0.75rem;
+  @include m.desde(v.$bp-sm) { grid-template-columns: repeat(3, 1fr); } }
+.paso { background: v.$crema-light; --mat-card-outlined-outline-color: #{v.$crema}; }
+.paso-titulo { margin: 0; font: 700 0.875rem v.$font-brand; color: v.$rojo; text-transform: uppercase; }
+.paso-texto { margin: 0.25rem 0 0; font-size: 0.75rem; color: rgba(v.$carbon, 0.75); }

@@ -1,0 +1,26 @@
+<div class="hero">
+  <div class="texto">
+    <mat-chip class="etiqueta"><span class="punto"></span> Pastificio &amp; Pasticceria en Tucumán</mat-chip>
+
+    <h1>Dulces y pastas hechas a mano, <span>como en casa.</span></h1>
+
+    <p>
+      Amasamos cada mañana con sémola seleccionada, huevos de campo y rellenos abundantes.
+      Armá tu pedido en pocos clics y envialo directo a nuestro WhatsApp sin registros complicados.
+    </p>
+
+    <div class="botones">
+      <a mat-flat-button routerLink="/" fragment="catalogo">Ver Menú del Día</a>
+      <button mat-stroked-button (click)="dialogs.abrirDescuento()">Activar 10% OFF 1° Compra</button>
+    </div>
+
+    <ul class="ventajas">
+      <li><mat-icon>check</mat-icon> Porciones claras por caja</li>
+      <li><mat-icon>check</mat-icon> Retiro o Uber Flash</li>
+    </ul>
+  </div>
+
+  <div class="foto">
+    <img [src]="imagen" alt="Pastas frescas artesanales Casarecce" appImgFallback>
+  </div>
+</div>

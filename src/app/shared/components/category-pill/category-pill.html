@@ -1,0 +1,4 @@
+<button type="button" matRipple class="pill" [class.activa]="activa()" (click)="seleccionar.emit()">
+  <span class="circulo"><mat-icon>{{ icono() }}</mat-icon></span>
+  <span class="etiqueta">{{ etiqueta() }}</span>
+</button>

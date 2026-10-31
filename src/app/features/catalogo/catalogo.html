@@ -1,0 +1,21 @@
+<div class="cabecera">
+  <app-section-header
+    [titulo]="catalogo.tituloActual()"
+    subtitulo="Todas nuestras opciones indican cuántas porciones rinden para que calcules sin dudar." />
+
+  @if (clientes.descuentoActivo()) {
+    <mat-chip class="descuento"><mat-icon matChipAvatar>sell</mat-icon> 10% OFF Bienvenida Activado</mat-chip>
+  }
+</div>
+
+@if (catalogo.cargando()) {
+  <mat-progress-bar mode="indeterminate" />
+} @else if (catalogo.visibles().length) {
+  <div class="grilla">
+    @for (p of catalogo.visibles(); track p.id) {
+      <app-product-card [producto]="p" [categoria]="catalogo.nombreCategoria(p.categoria)" (agregar)="agregar($event)" />
+    }
+  </div>
+} @else {
+  <app-empty-state icono="restaurant_menu" mensaje="Por ahora no hay productos en esta categoría." />
+}

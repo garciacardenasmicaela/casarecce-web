@@ -1,0 +1,8 @@
+@use 'variables' as v;
+
+:host { display: block; }
+svg { width: 100%; height: auto; }
+text { font-family: v.$font-brand; }
+.sup { fill: v.$rojo; font-weight: 800; }
+.inf { fill: v.$carbon; font-weight: 700; }
+.punto { fill: v.$carbon; }

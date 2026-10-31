@@ -1,0 +1,23 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+:host { display: block; }
+
+.pill {
+  width: 100%;
+  display: flex; flex-direction: column; align-items: center; gap: 0.625rem;
+  padding: 0.75rem; border: 0; border-radius: 1rem; background: none; cursor: pointer;
+  color: v.$carbon;
+}
+
+.circulo {
+  width: 5rem; height: 5rem; border-radius: 50%;
+  display: grid; place-items: center;
+  background: v.$crema; border: 2px solid rgba(v.$carbon, 0.1);
+  transition: transform 0.2s, background 0.2s;
+  mat-icon { font-size: 1.75rem; width: 1.75rem; height: 1.75rem; }
+}
+.pill:hover .circulo { transform: scale(1.05); }
+.activa .circulo { background: v.$rojo; border-color: v.$rojo; color: #fff; }
+
+.etiqueta { @include m.etiqueta-marca(0.75rem, 0.05em); }

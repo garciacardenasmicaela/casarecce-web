@@ -1,0 +1,42 @@
+<header class="cabecera">
+  <span class="icono"><mat-icon>shopping_bag</mat-icon></span>
+  <div class="titulos">
+    <h2 mat-dialog-title>Tu Pedido</h2>
+    <p>Directo al WhatsApp de Casarecce</p>
+  </div>
+  <button mat-icon-button mat-dialog-close aria-label="Cerrar"><mat-icon>close</mat-icon></button>
+</header>
+
+<div class="cuerpo">
+  <div class="banner">
+    <div>
+      <span class="banner-titulo">🎁 10% OFF 1° Compra</span>
+      <span class="banner-texto">
+        {{ clientes.descuentoActivo() ? '¡10% OFF activado en tu pedido!' : '¿Es tu primer pedido? Activalo en un toque.' }}
+      </span>
+    </div>
+    <button mat-flat-button [disabled]="clientes.descuentoActivo()" (click)="activarDescuento()">
+      {{ clientes.descuentoActivo() ? 'Activo' : 'Activar' }}
+    </button>
+  </div>
+
+  @if (cart.vacio()) {
+    <app-empty-state icono="shopping_basket" mensaje="Todavía no agregaste platos a tu pedido." />
+  } @else {
+    <div class="lista">
+      @for (item of cart.items(); track item.producto.id) {
+        <app-carrito-item [item]="item" (cambiar)="cart.cambiarCantidad(item.producto.id, $event)" />
+      }
+    </div>
+    <app-checkout-form />
+  }
+</div>
+
+@if (!cart.vacio()) {
+  <footer class="pie">
+    <app-carrito-totales [subtotal]="cart.subtotal()" [descuento]="cart.descuento()" [total]="cart.total()" />
+    <button mat-flat-button class="enviar" (click)="enviar()">
+      <mat-icon fontSet="fa-brands" fontIcon="fa-whatsapp" /> Enviar Pedido por WhatsApp
+    </button>
+  </footer>
+}

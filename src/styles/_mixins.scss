@@ -1,0 +1,25 @@
+@use 'variables' as v;
+
+// Contenedor centrado (reemplaza max-w-6xl mx-auto px-4 de la maqueta)
+@mixin contenedor($max: 72rem) {
+  max-width: $max;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (min-width: v.$bp-sm) { padding-inline: 1.5rem; }
+}
+
+// Texto en mayúsculas con la tipografía de marca
+@mixin etiqueta-marca($size: 0.6875rem, $tracking: 0.22em) {
+  font-family: v.$font-brand;
+  font-weight: 700;
+  font-size: $size;
+  letter-spacing: $tracking;
+  text-transform: uppercase;
+}
+
+@mixin hasta($bp) {
+  @media (max-width: $bp - 1px) { @content; }
+}
+@mixin desde($bp) {
+  @media (min-width: $bp) { @content; }
+}

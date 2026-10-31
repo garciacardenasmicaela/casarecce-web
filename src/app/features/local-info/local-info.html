@@ -1,0 +1,25 @@
+<div class="contenido">
+  <div class="sello">
+    <mat-card appearance="outlined" class="marco"><app-brand-seal /></mat-card>
+  </div>
+
+  <div class="historia">
+    <app-section-header eyebrow="Tradición &amp; Calidad" titulo="El verdadero sabor artesanal en cada mesa" />
+    <p>
+      En <strong>Casarecce</strong> elaboramos pastas frescas, comidas listas para tu freezer y pastelería tradicional
+      respetando los tiempos del trabajo hecho a mano. Usamos materia prima fresca, sin conservantes artificiales,
+      para que disfrutes un almuerzo o merienda inolvidable.
+    </p>
+
+    <div class="pasos">
+      @for (paso of pasos; track paso.titulo) {
+        <mat-card appearance="outlined" class="paso">
+          <mat-card-content>
+            <p class="paso-titulo">{{ paso.titulo }}</p>
+            <p class="paso-texto">{{ paso.texto }}</p>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  </div>
+</div>

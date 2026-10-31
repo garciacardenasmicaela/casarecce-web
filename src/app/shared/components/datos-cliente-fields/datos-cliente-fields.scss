@@ -1,0 +1,10 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.campos { display: grid; gap: 0.25rem; }
+.compacto {
+  grid-template-columns: 1fr 1fr;
+  .nombre { grid-column: 1 / -1; }
+  @include m.hasta(v.$bp-sm) { grid-template-columns: 1fr; }
+}
+mat-form-field { width: 100%; }
