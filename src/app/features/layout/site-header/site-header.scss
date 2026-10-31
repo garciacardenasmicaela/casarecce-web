@@ -58,10 +58,11 @@
   padding: 0.125rem 0.4375rem; font-size: 0.6875rem; line-height: 1; margin-left: 0.5rem;
 }
 
-@media (max-width: 599.98px) {
-  .interior { gap: 0.25rem; }
-  .acciones { gap: 0.25rem; }
-  .descuento { --mat-button-filled-horizontal-padding: 8px; }
-  .descuento mat-icon, .admin mat-icon, .pedido mat-icon { margin-right: 0; }
-  .descuento, .admin { --mat-button-filled-container-height: 36px; --mat-button-outlined-container-height: 36px; }
+
+.espaciador { width: 48px; @include m.desde(v.$bp-lg) { display: none; } }
+
+// Celular: logo centrado + hamburguesa a la izquierda
+@media (max-width: 767.98px) {
+  .interior { gap: 0; }
+  .logo { flex: 1; display: flex; justify-content: center; }
 }

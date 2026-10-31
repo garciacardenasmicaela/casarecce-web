@@ -1,11 +1,28 @@
 <mat-toolbar class="header">
   <div class="interior">
-    <button mat-icon-button class="hamburguesa" [matMenuTriggerFor]="menu" aria-label="Menú">
-      <mat-icon>menu</mat-icon>
+    <!-- Menú hamburguesa: enlaces (hasta lg) + acciones (solo en celular) -->
+    <button mat-icon-button class="hamburguesa" [matMenuTriggerFor]="menu" aria-label="Abrir menú">
+      <mat-icon [matBadge]="esMovil() ? cart.cantidad() : null" matBadgeSize="small"
+                [matBadgeHidden]="!esMovil() || cart.cantidad() === 0">menu</mat-icon>
     </button>
-    <mat-menu #menu="matMenu">
+    <mat-menu #menu="matMenu" class="menu-sitio">
       @for (e of enlaces; track e.fragmento) {
         <a mat-menu-item routerLink="/" [fragment]="e.fragmento">{{ e.texto }}</a>
+      }
+      @if (esMovil()) {
+        <mat-divider />
+        <button mat-menu-item (click)="dialogs.abrirCarrito()">
+          <mat-icon>shopping_bag</mat-icon>
+          <span>Mi Pedido ({{ cart.cantidad() }})</span>
+        </button>
+        <button mat-menu-item (click)="dialogs.abrirDescuento()">
+          <mat-icon>{{ clientes.descuentoActivo() ? 'check' : 'redeem' }}</mat-icon>
+          <span>{{ clientes.descuentoActivo() ? '10% Activo' : '10% OFF 1ª Compra' }}</span>
+        </button>
+        <a mat-menu-item routerLink="/admin">
+          <mat-icon>manage_accounts</mat-icon>
+          <span>Admin</span>
+        </a>
       }
     </mat-menu>
 
@@ -19,20 +36,25 @@
       <app-brand-logo />
     </a>
 
-    <div class="acciones">
-      <button mat-flat-button class="descuento" [class.activo]="clientes.descuentoActivo()"
-              (click)="dialogs.abrirDescuento()">
-        <mat-icon>{{ clientes.descuentoActivo() ? "check" : "redeem" }}</mat-icon>
-        @if (clientes.descuentoActivo()) { 10% Activo } @else { 10% OFF <span class="solo-sm">1ª Compra</span> }
-      </button>
-      <a mat-stroked-button routerLink="/admin" class="admin">
-        <mat-icon>manage_accounts</mat-icon><span class="solo-md">Admin</span>
-      </a>
-      <button mat-flat-button class="pedido" (click)="dialogs.abrirCarrito()">
-        <mat-icon>shopping_bag</mat-icon>
-        <span class="solo-sm">Mi Pedido</span>
-        <span class="contador">{{ cart.cantidad() }}</span>
-      </button>
-    </div>
+    @if (!esMovil()) {
+      <div class="acciones">
+        <button mat-flat-button class="descuento" [class.activo]="clientes.descuentoActivo()"
+                (click)="dialogs.abrirDescuento()">
+          <mat-icon>{{ clientes.descuentoActivo() ? "check" : "redeem" }}</mat-icon>
+          @if (clientes.descuentoActivo()) { 10% Activo } @else { 10% OFF 1ª Compra }
+        </button>
+        <a mat-stroked-button routerLink="/admin" class="admin">
+          <mat-icon>manage_accounts</mat-icon>Admin
+        </a>
+        <button mat-flat-button class="pedido" (click)="dialogs.abrirCarrito()">
+          <mat-icon>shopping_bag</mat-icon>
+          Mi Pedido
+          <span class="contador">{{ cart.cantidad() }}</span>
+        </button>
+      </div>
+    } @else {
+      <!-- Equilibra el logo al centro en celular -->
+      <span class="espaciador"></span>
+    }
   </div>
 </mat-toolbar>

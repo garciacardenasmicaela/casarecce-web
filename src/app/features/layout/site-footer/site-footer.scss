@@ -56,7 +56,16 @@ a { color: v.$crema; }
   p { font-size: 0.75rem; color: rgba(v.$crema, 0.6); }
 }
 
-@media (max-width: 599.98px) {
-  .suscripcion { flex-direction: column; align-items: stretch; button { width: 100%; } }
-  .extras { flex-wrap: wrap; gap: 0.25rem; }
+
+// Celular: todo el contenido centrado
+@media (max-width: 767.98px) {
+  :host { text-align: center; }
+  .marca { justify-items: center; }
+  .redes { justify-content: center; }
+  .info { justify-items: center; }
+  .dato { flex-direction: column; align-items: center; gap: 0.25rem; text-align: center; }
+  .novedades { display: grid; justify-items: center; p { max-width: 24rem; } }
+  .suscripcion { flex-direction: column; align-items: stretch; width: 100%; max-width: 24rem; button { width: 100%; } }
+  .extras { justify-content: center; flex-wrap: wrap; gap: 0.25rem; }
+  .legal { align-items: center; text-align: center; }
 }
