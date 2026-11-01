@@ -21,6 +21,15 @@ export class SupabaseService {
     return this.client.auth.signInWithPassword({ email, password });
   }
 
+  /** Manda un código de 6 dígitos al email. Solo para usuarios que ya existen (no crea cuentas nuevas). */
+  enviarCodigoLogin(email: string) {
+    return this.client.auth.signInWithOtp({ email, options: { shouldCreateUser: false } });
+  }
+
+  verificarCodigoLogin(email: string, token: string) {
+    return this.client.auth.verifyOtp({ email, token, type: 'email' });
+  }
+
   // Ingreso social del cliente (Google / Facebook / Apple)
   signInWithProvider(provider: 'google' | 'facebook' | 'apple') {
     return this.client.auth.signInWithOAuth({ provider, options: { redirectTo: window.location.origin } });

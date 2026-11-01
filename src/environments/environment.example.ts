@@ -7,4 +7,5 @@ export const environment = {
   supabaseKey: 'TU-ANON-KEY',
   whatsappLocal: '549381XXXXXXX', // número del local, con código de país
   envioEmailAutomatico: false,
+  loginPorCodigo: false,
 };

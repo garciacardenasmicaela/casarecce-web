@@ -32,3 +32,10 @@ Es seguro correrla más de una vez.
   2. `supabase secrets set BREVO_API_KEY=... REMITENTE_EMAIL=...` y `supabase functions deploy enviar-codigo`.
   3. En Supabase → Database → Webhooks: crear uno sobre `codigos_descuento` (INSERT y UPDATE) que llame a la función.
   4. Poner `envioEmailAutomatico: true` en `environment.ts`.
+
+## Inicio de sesión del admin
+- **Email + contraseña:** funciona ya. Los 3 admins se crean en Supabase → Authentication → Users y se autorizan en la tabla `admins`.
+- **Email + código de verificación:** el código ya está listo en la pantalla de login, pero Supabase no deja editar la plantilla de mails sin SMTP propio. Para activarlo:
+  1. Supabase → Authentication → Emails → SMTP Settings: cargar el SMTP de Brevo (el mismo servicio del envío de códigos de descuento).
+  2. En la plantilla "Magic link or OTP", mostrar el código con `{{ .Token }}`.
+  3. Poner `loginPorCodigo: true` en `environment.ts`.

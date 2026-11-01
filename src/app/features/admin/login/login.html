@@ -2,21 +2,60 @@
   <app-brand-logo />
   <h2>Panel de Control</h2>
 
-  <form [formGroup]="form" (ngSubmit)="ingresar()">
-    <mat-form-field appearance="outline">
-      <mat-label>Email</mat-label>
-      <input matInput type="email" formControlName="email" autocomplete="username">
-      <mat-error>Ingresá un email válido</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Contraseña</mat-label>
-      <input matInput type="password" formControlName="password" autocomplete="current-password">
-      <mat-error>Ingresá tu contraseña</mat-error>
-    </mat-form-field>
+  <mat-tab-group mat-stretch-tabs="true" animationDuration="150ms" class="pestanas" (selectedIndexChange)="error.set('')">
+    <!-- Email + contraseña -->
+    <mat-tab label="Contraseña">
+      <form class="panel" [formGroup]="formClave" (ngSubmit)="ingresarConClave()">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" autocomplete="username">
+          <mat-error>Ingresá un email válido</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput [type]="mostrarClave() ? 'text' : 'password'" formControlName="password" autocomplete="current-password">
+          <button mat-icon-button matSuffix type="button" (click)="mostrarClave.set(!mostrarClave())"
+                  [attr.aria-label]="mostrarClave() ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+            <mat-icon>{{ mostrarClave() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error>Ingresá tu contraseña</mat-error>
+        </mat-form-field>
+        <button mat-flat-button type="submit" [disabled]="cargando()">Ingresar</button>
+      </form>
+    </mat-tab>
 
-    @if (error()) { <p class="error">{{ error() }}</p> }
-    <button mat-flat-button type="submit" [disabled]="cargando()">Ingresar</button>
-  </form>
+    <!-- Email + código de verificación -->
+    @if (codigoHabilitado) {
+    <mat-tab label="Código por email">
+      <div class="panel">
+        @if (!codigoEnviado()) {
+          <form (ngSubmit)="enviarCodigo()">
+            <p class="ayuda">Te enviamos un código de verificación al email del administrador.</p>
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" [formControl]="emailCodigo" autocomplete="username">
+              <mat-error>Ingresá un email válido</mat-error>
+            </mat-form-field>
+            <button mat-flat-button type="submit" [disabled]="cargando()">Enviar código</button>
+          </form>
+        } @else {
+          <form (ngSubmit)="verificarCodigo()">
+            <p class="ayuda">Enviamos un código a <b>{{ emailCodigo.value }}</b>. Revisá también el spam.</p>
+            <mat-form-field appearance="outline">
+              <mat-label>Código de verificación</mat-label>
+              <input matInput class="campo-codigo" [formControl]="codigo" inputmode="numeric" autocomplete="one-time-code" maxlength="8">
+              <mat-error>Ingresá el código que te llegó</mat-error>
+            </mat-form-field>
+            <button mat-flat-button type="submit" [disabled]="cargando()">Verificar e ingresar</button>
+            <button mat-button type="button" (click)="cambiarEmail()">Usar otro email</button>
+          </form>
+        }
+      </div>
+    </mat-tab>
+    }
+  </mat-tab-group>
+
+  @if (error()) { <p class="error">{{ error() }}</p> }
 
   @if (modoDemo) {
     <p class="demo">Modo demo activo: <a routerLink="/admin">entrar sin login</a></p>
