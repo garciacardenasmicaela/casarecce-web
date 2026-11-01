@@ -63,7 +63,7 @@
 }
 
 // Subtítulos y textos destacados en Cocomat (como en el diseño); los números caen a Outfit
-@mixin texto-marca($peso: 700) {
+@mixin texto-marca($peso: 400) {
   font-family: v.$font-cocomat;
   font-weight: $peso;
 }
