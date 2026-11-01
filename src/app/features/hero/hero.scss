@@ -1,13 +1,19 @@
 @use 'variables' as v;
 @use 'mixins' as m;
 
-:host { display: block; @include m.contenedor; padding-top: 1.5rem; padding-bottom: 2.5rem; }
+// Banda de fondo beige a todo el ancho (igual que "Nosotros"), sin tarjeta
+:host {
+  display: block;
+  background: v.$crema;
+  border-block: 1px solid v.$crema-border;
+  padding-block: 2.5rem;
+  @include m.desde(v.$bp-lg) { padding-block: 4rem; }
+}
 
 .hero {
+  @include m.contenedor;
   display: grid; gap: 2rem; align-items: center;
-  background: v.$crema; border: 1px solid v.$crema-border; border-radius: 1.5rem; padding: 1.5rem;
-  @include m.desde(v.$bp-sm) { padding: 2.5rem; }
-  @include m.desde(v.$bp-lg) { grid-template-columns: 1fr 1fr; padding: 3rem; }
+  @include m.desde(v.$bp-lg) { grid-template-columns: 1fr 1fr; gap: 3rem; }
 }
 
 .texto { display: grid; gap: 1.25rem; justify-items: start; }
@@ -51,7 +57,6 @@ p { margin: 0; line-height: 1.6; color: rgba(v.$carbon, 0.8); }
 }
 
 @media (max-width: 599.98px) {
-  :host { padding-inline: 0.75rem; }
-  .hero { padding: 1.25rem; }
+  :host { padding-block: 2rem; }
   .botones { width: 100%; a { flex: 1 1 100%; } }
 }
