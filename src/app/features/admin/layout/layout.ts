@@ -1,15 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SupabaseService } from '../../../core/services/supabase.service';
-import { BrandMonogram } from '../../../shared/components/brand-monogram/brand-monogram';
+import { BrandLogo } from '../../../shared/components/brand-logo/brand-logo';
 
 @Component({
   selector: 'app-admin-layout',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, MatToolbarModule, MatButtonModule, MatIconModule, MatTabsModule, BrandMonogram],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, MatToolbarModule, MatButtonModule, MatIconModule, BrandLogo],
   templateUrl: './layout.html',
   styleUrl: './layout.scss',
 })

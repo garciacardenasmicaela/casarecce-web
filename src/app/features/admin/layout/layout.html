@@ -1,25 +1,37 @@
-<mat-toolbar class="barra">
+<mat-toolbar class="header">
   <div class="interior">
-    <app-brand-monogram [tamano]="38" />
-    <div class="titulos">
-      <span class="titulo">Panel de Control</span>
-      <span class="subtitulo">Stock por unidades, precios, clientes y novedades</span>
-    </div>
-    <a mat-button routerLink="/"><mat-icon>storefront</mat-icon><span class="texto-btn">Ver sitio</span></a>
-    <button mat-button (click)="salir()"><mat-icon>logout</mat-icon><span class="texto-btn">Salir</span></button>
-  </div>
-</mat-toolbar>
+    <nav class="nav" aria-label="Secciones del panel">
+      @for (p of pestanas; track p.ruta) {
+        <a mat-button [routerLink]="p.ruta" routerLinkActive="activo">
+          <mat-icon>{{ p.icono }}</mat-icon>{{ p.texto }}
+        </a>
+      }
+    </nav>
 
-<div class="navegacion">
-  <nav mat-tab-nav-bar [tabPanel]="panel" class="pestanas" mat-stretch-tabs="false" mat-align-tabs="start">
+    <a routerLink="/admin" class="logo" aria-label="Panel de control Casarecce">
+      <app-brand-logo />
+    </a>
+
+    <div class="acciones">
+      <a mat-stroked-button routerLink="/" class="ver-sitio">
+        <mat-icon>storefront</mat-icon><span class="texto-btn">Ver sitio</span>
+      </a>
+      <button mat-flat-button class="salir" (click)="salir()">
+        <mat-icon>logout</mat-icon><span class="texto-btn">Salir</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Celular / tablet: las secciones pasan a una franja debajo del logo -->
+  <nav class="nav-movil" aria-label="Secciones del panel">
     @for (p of pestanas; track p.ruta) {
-      <a mat-tab-link [routerLink]="p.ruta" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+      <a mat-button [routerLink]="p.ruta" routerLinkActive="activo">
         <mat-icon>{{ p.icono }}</mat-icon>{{ p.texto }}
       </a>
     }
   </nav>
-</div>
+</mat-toolbar>
 
-<mat-tab-nav-panel #panel class="contenido">
+<main class="contenido">
   <router-outlet />
-</mat-tab-nav-panel>
+</main>

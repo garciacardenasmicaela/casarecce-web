@@ -2,6 +2,7 @@
 
 // Contenedor centrado
 @mixin contenedor($max: 72rem) {
+  box-sizing: border-box;
   max-width: $max;
   margin-inline: auto;
   padding-inline: 1rem;
