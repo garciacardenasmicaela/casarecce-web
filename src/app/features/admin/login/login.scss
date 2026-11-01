@@ -1,13 +1,14 @@
 @use 'variables' as v;
 @use 'mixins' as m;
 :host { display: grid; place-items: center; min-height: 100dvh; padding: 1rem; background: v.$crema-light; }
-.tarjeta { width: 100%; max-width: 26rem; padding: 2rem 1.5rem; gap: 1rem; display: grid; justify-items: center; background: v.$crema-pure; }
-h2 { margin: 0; font-size: 1.125rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.tarjeta { width: 100%; max-width: 26rem; padding: 2.25rem 1.75rem; gap: 1rem; display: grid; justify-items: center; background: v.$crema-pure; border-radius: 24px;
+  box-shadow: 0 1px 2px rgba(v.$carbon, 0.04), 0 16px 40px rgba(v.$carbon, 0.07); @include m.campos-suaves; }
+h2 { margin: 0; font: 700 1.125rem v.$font-body; color: v.$carbon; }
 .pestanas { width: 100%; }
 .panel, form { display: grid; width: 100%; }
 .panel { padding-top: 1.25rem; }
-.ayuda { margin: 0 0 1rem; font-size: 0.8125rem; line-height: 1.5; color: rgba(v.$carbon, 0.75); }
-button[type=submit] { height: 3rem; @include m.etiqueta-marca(0.75rem, 0.15em); }
+.ayuda { margin: 0 0 1rem; font-size: 0.8125rem; line-height: 1.5; color: rgba(v.$carbon, 0.7); }
+button[type=submit] { height: 3rem; font-weight: 700; }
 .campo-codigo { letter-spacing: 0.35em; font-weight: 700; @include m.numero(700); font-size: 1.125rem; }
 .error { color: v.$rojo; font-size: 0.8125rem; font-weight: 600; margin: 0; text-align: center; }
 .demo { margin: 0; font-size: 0.75rem; color: rgba(v.$carbon, 0.7); }

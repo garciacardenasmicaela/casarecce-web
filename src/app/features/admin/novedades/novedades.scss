@@ -1,6 +1,7 @@
+@use 'variables' as v;
 @use 'mixins' as m;
 :host { display: block; }
-h3 { margin: 0 0 0.75rem; @include m.etiqueta-marca(0.875rem, 0.05em); }
-mat-card { background: #fff; padding: 0.5rem; }
-form { display: grid; }
-button { height: 2.75rem; @include m.etiqueta-marca(0.75rem, 0.12em); }
+h3 { @include m.titulo-seccion; margin-bottom: 0.75rem; }
+mat-card { @include m.tarjeta-suave; padding: 0.75rem 1rem 1rem; }
+form { display: grid; @include m.campos-suaves; }
+button { height: 3rem; font-weight: 700; --mat-button-filled-container-color: #{v.$rojo}; --mat-button-filled-label-text-color: #fff; }

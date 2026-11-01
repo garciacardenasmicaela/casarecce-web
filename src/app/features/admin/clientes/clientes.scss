@@ -1,8 +1,14 @@
 @use 'variables' as v;
 @use 'mixins' as m;
 :host { display: grid; gap: 2rem; }
-h3 { margin: 0 0 0.75rem; @include m.etiqueta-marca(0.875rem, 0.05em); }
-.lista { background: v.$crema-pure; overflow: auto; }
-table { width: 100%; min-width: 44rem; background: transparent; }
-.contacto { display: grid; small { color: rgba(v.$carbon, 0.6); } }
+h3 { @include m.titulo-seccion; margin-bottom: 0.75rem; }
+.lista { @include m.tarjeta-suave; overflow: auto; padding: 0.5rem 0; }
+table {
+  width: 100%; min-width: 44rem; background: transparent;
+  --mat-table-header-headline-color: #{rgba(v.$carbon, 0.55)};
+  --mat-table-header-headline-size: 0.75rem;
+  --mat-table-row-item-outline-color: #{rgba(v.$crema-border, 0.6)};
+  tr.mat-mdc-row:hover { background: rgba(v.$crema, 0.35); }
+}
+.contacto { display: grid; small { color: rgba(v.$carbon, 0.55); } }
 .codigo { @include m.numero(700); letter-spacing: 0.1em; }

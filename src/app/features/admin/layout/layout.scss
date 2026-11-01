@@ -1,16 +1,47 @@
 @use 'variables' as v;
 @use 'mixins' as m;
-:host { display: block; min-height: 100dvh; background: v.$crema-light; }
-.barra { gap: 0.75rem; background: v.$rojo; color: #fff; --mat-button-text-label-text-color: #{v.$crema}; }
-.titulos { flex: 1; display: grid; line-height: 1.2; }
-.titulo { @include m.etiqueta-marca(0.875rem, 0.08em); }
-.subtitulo { font-size: 0.75rem; color: rgba(v.$crema, 0.8); display: none; @include m.desde(v.$bp-sm) { display: block; } }
-.pestanas { background: v.$crema-pure; }
-.contenido { display: block; @include m.contenedor(56rem); padding-block: 1.5rem; }
 
+:host { display: block; min-height: 100dvh; background: v.$crema-light; }
+
+// Cabecera clara y liviana
+.barra {
+  height: auto; min-height: 4rem; padding: 0.5rem 0;
+  background: v.$crema-pure;
+  border-bottom: 1px solid rgba(v.$crema-border, 0.7);
+  --mat-toolbar-container-background-color: transparent;
+  --mat-toolbar-container-text-color: #{v.$carbon};
+  --mat-button-text-label-text-color: #{rgba(v.$carbon, 0.8)};
+}
+.interior { @include m.contenedor(60rem); width: 100%; display: flex; align-items: center; gap: 0.75rem; }
+.titulos { flex: 1; display: grid; line-height: 1.25; min-width: 0; }
+.titulo { font: 700 1.0625rem v.$font-body; color: v.$carbon; }
+.subtitulo { font-size: 0.75rem; color: rgba(v.$carbon, 0.55); display: none; @include m.desde(v.$bp-sm) { display: block; } }
 .texto-btn { display: none; @include m.desde(v.$bp-sm) { display: inline; margin-left: 0.25rem; } }
-.barra { padding-inline: 0.75rem; height: auto; min-height: 56px; }
+
+// Pestañas tipo "pastilla"
+.navegacion { background: v.$crema-pure; border-bottom: 1px solid rgba(v.$crema-border, 0.7); }
+.pestanas {
+  @include m.contenedor(60rem); width: 100%;
+  --mat-tab-header-divider-height: 0;
+  --mat-tab-header-active-ripple-color: #{v.$rojo};
+  --mat-tab-header-inactive-ripple-color: #{v.$rojo};
+  --mat-tab-header-active-label-text-color: #{v.$rojo};
+  --mat-tab-header-active-focus-label-text-color: #{v.$rojo};
+  --mat-tab-header-active-hover-label-text-color: #{v.$rojo};
+  --mat-tab-header-inactive-label-text-color: #{rgba(v.$carbon, 0.65)};
+  --mat-tab-header-label-text-weight: 600;
+  --mat-tab-header-label-text-size: 0.875rem;
+  --mat-tab-header-active-focus-indicator-color: transparent;
+  --mat-tab-header-active-hover-indicator-color: #{v.$rojo};
+  --mat-tab-header-active-indicator-color: #{v.$rojo};
+  --mat-tab-header-active-indicator-height: 3px;
+  --mat-tab-header-active-indicator-shape: 3px 3px 0 0;
+  a mat-icon { margin-right: 0.5rem; font-size: 1.25rem; width: 1.25rem; height: 1.25rem; }
+}
+
+.contenido { display: block; @include m.contenedor(60rem); padding-block: 2rem; }
+
 @media (max-width: 599.98px) {
-  .titulo { font-size: 0.75rem; }
-  .contenido { padding-inline: 0.75rem; }
+  .titulo { font-size: 0.9375rem; }
+  .contenido { padding-block: 1.25rem; }
 }

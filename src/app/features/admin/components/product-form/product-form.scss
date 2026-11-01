@@ -1,10 +1,10 @@
 @use 'variables' as v;
 @use 'mixins' as m;
-mat-card { background: v.$crema-pure; padding: 0.5rem; }
-h4 { margin: 0.5rem 0 0.75rem; @include m.etiqueta-marca(0.75rem, 0.05em); color: v.$rojo; }
-.form { display: grid; gap: 0 0.75rem; @include m.desde(v.$bp-sm) { grid-template-columns: 1fr 1fr; } }
+mat-card { @include m.tarjeta-suave; padding: 0.75rem 1rem 1rem; }
+h4 { @include m.titulo-seccion; margin: 0.5rem 0 1.25rem; }
+.form { display: grid; gap: 0 1rem; @include m.campos-suaves; @include m.desde(v.$bp-sm) { grid-template-columns: 1fr 1fr; } }
 .ancho { @include m.desde(v.$bp-sm) { grid-column: 1 / -1; } }
-.imagen { margin-bottom: 1rem; }
-.rotulo { display: block; margin-bottom: 0.5rem; font-size: 0.75rem; font-weight: 600; color: rgba(v.$carbon, 0.75); }
-button[type='submit'] { height: 2.75rem; --mat-button-filled-container-color: #{v.$carbon}; }
+.imagen { margin-bottom: 1.25rem; }
+.rotulo { display: block; margin-bottom: 0.625rem; font-size: 0.8125rem; font-weight: 600; color: rgba(v.$carbon, 0.7); }
+button[type='submit'] { height: 3rem; font-weight: 700; --mat-button-filled-container-color: #{v.$rojo}; --mat-button-filled-label-text-color: #fff; }
 @media (max-width: 599.98px) { .imagen .rotulo { line-height: 1.4; } }
