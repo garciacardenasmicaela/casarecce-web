@@ -9,7 +9,7 @@
 }
 .foto { width: 3.25rem; height: 3.25rem; border-radius: 14px; object-fit: cover; flex-shrink: 0; background: v.$crema; }
 .datos { flex: 1; min-width: 8rem; }
-.nombre { margin: 0; font: 700 0.9375rem v.$font-body; color: v.$carbon; }
+.nombre { @include m.texto-marca; margin: 0; font-size: 0.9375rem; color: v.$carbon; }
 .detalle { margin: 0.125rem 0 0; font-size: 0.75rem; color: rgba(v.$carbon, 0.55); }
 .precio { width: 7.25rem; --mat-form-field-container-height: 44px; --mat-form-field-container-vertical-padding: 10px; }
 .estado {

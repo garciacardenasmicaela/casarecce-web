@@ -31,7 +31,7 @@
 }
 
 h3 { @include m.etiqueta-marca(0.75rem, 0.2em); color: v.$ambar; margin: 0 0 0.75rem; }
-p { margin: 0; font-size: 0.8125rem; line-height: 1.6; color: rgba(v.$crema, 0.8); }
+p { @include m.texto-marca(400); margin: 0; font-size: 0.8125rem; line-height: 1.6; color: rgba(v.$crema, 0.8); }
 a { color: v.$crema; }
 
 .marca { display: grid; gap: 1rem; justify-items: start; align-content: start; }

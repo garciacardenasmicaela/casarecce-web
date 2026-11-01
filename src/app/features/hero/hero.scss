@@ -31,7 +31,8 @@ h1 {
   @include m.desde(v.$bp-sm) { font-size: 3.5rem; }
   em { color: v.$rojo; font-style: italic; }
 }
-p { margin: 0; line-height: 1.6; color: rgba(v.$carbon, 0.8); }
+p { @include m.texto-marca; margin: 0; line-height: 1.6; color: rgba(v.$carbon, 0.85); }
+.texto > p:first-of-type { font-size: 1rem; }
 
 .botones {
   display: flex; flex-wrap: wrap; gap: 0.75rem; padding-top: 0.25rem;

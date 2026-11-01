@@ -17,12 +17,12 @@
 
 .historia { display: grid; gap: 1rem;
   h2 { font-size: 2rem; }
-  > p { margin: 0; line-height: 1.6; color: rgba(v.$carbon, 0.8); } }
+  > p { @include m.texto-marca; margin: 0; line-height: 1.6; color: rgba(v.$carbon, 0.85); } }
 
 .pasos { display: grid; gap: 1rem; padding-top: 0.75rem;
   @include m.desde(v.$bp-sm) { grid-template-columns: repeat(3, 1fr); } }
 .paso { background: v.$crema-pure; --mat-card-outlined-outline-color: #{v.$crema-border}; }
-.paso-titulo { margin: 0; font: 700 0.875rem v.$font-brand; color: v.$rojo; text-transform: uppercase; }
+.paso-titulo { @include m.texto-marca; margin: 0; font-size: 0.875rem; color: v.$rojo; text-transform: uppercase; }
 .paso-texto { margin: 0.25rem 0 0; font-size: 0.75rem; color: rgba(v.$carbon, 0.75); }
 
 @media (max-width: 599.98px) {

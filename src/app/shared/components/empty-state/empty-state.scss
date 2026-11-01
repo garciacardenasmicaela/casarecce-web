@@ -5,5 +5,5 @@
   background: v.$crema; color: rgba(v.$carbon, 0.4);
   mat-icon { font-size: 1.75rem; width: 1.75rem; height: 1.75rem; }
 }
-.mensaje { margin: 0; font-size: 0.9375rem; font-weight: 700; color: v.$carbon; }
+.mensaje { margin: 0; font-family: v.$font-cocomat; font-size: 0.9375rem; font-weight: 700; color: v.$carbon; }
 .detalle { margin: 0; font-size: 0.8125rem; color: rgba(v.$carbon, 0.65); max-width: 22rem; }

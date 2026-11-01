@@ -1,5 +1,5 @@
 @use 'variables' as v;
 @use 'mixins' as m;
 :host { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid v.$crema-border; font-size: 0.875rem; }
-.nombre { margin: 0; font: 700 0.875rem v.$font-brand; }
+.nombre { @include m.texto-marca; margin: 0; font-size: 0.875rem; }
 .detalle { margin: 0.125rem 0 0; font-size: 0.6875rem; color: rgba(v.$carbon, 0.65); }

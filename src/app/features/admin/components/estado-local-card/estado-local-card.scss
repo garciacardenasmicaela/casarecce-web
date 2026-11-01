@@ -3,6 +3,6 @@
 mat-card { @include m.tarjeta-suave; padding: 0.5rem; }
 .contenido { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
 h4 { @include m.titulo-seccion; }
-p { margin: 0.25rem 0 0; font-size: 0.8125rem; color: rgba(v.$carbon, 0.6); }
+p { @include m.texto-marca; margin: 0.25rem 0 0; font-size: 0.8125rem; color: rgba(v.$carbon, 0.6); }
 mat-form-field { min-width: 23rem; @include m.campos-suaves; }
 @media (max-width: 599.98px) { mat-form-field { min-width: 0; width: 100%; } }
