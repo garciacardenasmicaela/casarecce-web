@@ -21,7 +21,7 @@
 .nav {
   display: none; gap: 0.5rem;
   @include m.desde(v.$bp-lg) { display: flex; }
-  a { @include m.etiqueta-marca(0.75rem, 0.15em); color: rgba(v.$carbon, 0.8); &:hover { color: v.$rojo; } }
+  a { @include m.etiqueta-marca(0.75rem, 0.15em); font-family: v.$font-brand; color: rgba(v.$carbon, 0.8); &:hover { color: v.$rojo; } }
 }
 
 .hamburguesa { @include m.desde(v.$bp-lg) { display: none; } }
