@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,7 +16,7 @@ import { EstadoCodigoChip } from '../estado-codigo-chip/estado-codigo-chip';
 @Component({
   selector: 'app-verificador-codigo',
   imports: [
-    DatePipe, ReactiveFormsModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule,
+    DatePipe, ReactiveFormsModule, FormsModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule,
     EstadoCodigoChip,
   ],
   templateUrl: './verificador-codigo.html',

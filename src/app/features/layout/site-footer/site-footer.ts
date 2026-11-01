@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,7 +13,7 @@ import { BrandLogo } from '../../../shared/components/brand-logo/brand-logo';
 
 @Component({
   selector: 'app-site-footer',
-  imports: [ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, RouterLink, BrandLogo],
+  imports: [ReactiveFormsModule, FormsModule, MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, RouterLink, BrandLogo],
   templateUrl: './site-footer.html',
   styleUrl: './site-footer.scss',
   host: { id: 'footer-contacto' },

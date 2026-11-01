@@ -36,7 +36,7 @@ p { @include m.texto-marca; margin: 0; line-height: 1.6; color: rgba(v.$carbon, 
 
 .botones {
   display: flex; flex-wrap: wrap; gap: 0.75rem; padding-top: 0.25rem;
-  a { height: 3rem; @include m.etiqueta-marca(0.75rem, 0.15em); }
+  a { height: 3rem; @include m.etiqueta-marca(0.75rem, 0.15em); @include m.boton-brillo; }
   .mat-mdc-outlined-button {
     --mat-button-outlined-label-text-color: #{v.$carbon};
     --mat-button-outlined-outline-color: #{v.$crema-border};

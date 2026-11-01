@@ -67,3 +67,19 @@
   font-family: v.$font-cocomat;
   font-weight: $peso;
 }
+
+// Efecto de los botones de categoría: sube un poco, sombra roja suave y un brillo que lo cruza
+@mixin boton-brillo {
+  position: relative; overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s;
+  &::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.55) 50%, transparent 65%);
+    transform: translateX(-120%); transition: transform 0.6s;
+  }
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 18px rgba(v.$rojo, 0.2);
+    &::after { transform: translateX(120%); }
+  }
+}

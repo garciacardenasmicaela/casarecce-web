@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -19,7 +19,7 @@ import { crearFormCliente } from '../../shared/forms/cliente-form';
 @Component({
   selector: 'app-descuento-dialog',
   imports: [
-    ReactiveFormsModule, MatDialogModule, MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule,
+    ReactiveFormsModule, FormsModule, MatDialogModule, MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule,
     MatProgressBarModule, MatTabsModule, DatosClienteFields,
   ],
   templateUrl: './descuento-dialog.html',
