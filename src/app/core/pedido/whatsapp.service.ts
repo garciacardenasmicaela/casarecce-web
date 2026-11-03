@@ -19,8 +19,12 @@ export class WhatsAppService {
 
   /** Abre el chat con el mensaje listo para enviar. Devuelve false si el navegador lo bloqueó. */
   abrirChat(mensaje: string): boolean {
-    const ventana = window.open(this.enlace(mensaje), '_blank', 'noopener');
-    if (ventana) return true;
+    // Sin 'noopener' en las features: con él window.open devuelve siempre null y no se puede saber si se abrió
+    const ventana = window.open(this.enlace(mensaje), '_blank');
+    if (ventana) {
+      ventana.opener = null;
+      return true;
+    }
     // Popup bloqueado (común en celulares): se navega en la misma pestaña
     window.location.href = this.enlace(mensaje);
     return true;

@@ -2,7 +2,7 @@
   <div class="interior">
     <!-- Menú hamburguesa: enlaces (hasta lg) + acciones (solo en celular) -->
     <button mat-icon-button class="hamburguesa" [matMenuTriggerFor]="menu" aria-label="Abrir menú">
-      <mat-icon [matBadge]="esMovil() ? cart.cantidad() : null" matBadgeSize="small"
+      <mat-icon aria-hidden="false" [matBadge]="esMovil() ? cart.cantidad() : null" matBadgeSize="small"
                 [matBadgeHidden]="!esMovil() || cart.cantidad() === 0">menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu" class="menu-sitio">

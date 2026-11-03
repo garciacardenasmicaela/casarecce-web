@@ -62,8 +62,10 @@ export class CartService {
 
   private fijar(productoId: string, cantidad: number) {
     this.lineas.update(ls => {
-      const resto = ls.filter(l => l.productoId !== productoId);
-      return cantidad > 0 ? [...resto, { productoId, cantidad }] : resto;
+      if (cantidad <= 0) return ls.filter(l => l.productoId !== productoId);
+      return ls.some(l => l.productoId === productoId)
+        ? ls.map(l => (l.productoId === productoId ? { ...l, cantidad } : l)) // conserva el orden
+        : [...ls, { productoId, cantidad }];
     });
   }
 }
