@@ -72,11 +72,11 @@ export class CatalogService {
 
   ajustarStock(id: string, delta: number): Promise<boolean> {
     const p = this.buscar(id);
-    return p ? this.guardar(id, { stock: Math.max(0, p.stock + delta) }) : Promise.resolve(false);
+    return p ? this.guardar(id, { stock: Math.min(99_999, Math.max(0, p.stock + delta)) }) : Promise.resolve(false);
   }
 
   fijarStock(id: string, unidades: number): Promise<boolean> {
-    return this.guardar(id, { stock: Number.isFinite(unidades) ? Math.max(0, Math.floor(unidades)) : 0 });
+    return this.guardar(id, { stock: Number.isFinite(unidades) ? Math.min(99_999, Math.max(0, Math.floor(unidades))) : 0 });
   }
 
   actualizarPrecio(id: string, precio: number): Promise<boolean> {

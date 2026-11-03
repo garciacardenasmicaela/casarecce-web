@@ -42,6 +42,11 @@
                 <mat-icon fontSet="fa-brands" fontIcon="fa-whatsapp" />
               </a>
             }
+            @if (c.codigo && c.email) {
+              <a mat-icon-button [href]="enlaceEmail(c)" matTooltip="Enviar código por email" aria-label="Enviar código por email">
+                <mat-icon>mail</mat-icon>
+              </a>
+            }
             @if (c.codigo) {
               <button mat-icon-button type="button" (click)="copiar(c)" matTooltip="Copiar código" aria-label="Copiar código">
                 <mat-icon>content_copy</mat-icon>

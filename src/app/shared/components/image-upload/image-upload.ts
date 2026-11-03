@@ -1,10 +1,13 @@
-import { Component, output, signal } from '@angular/core';
+import { Component, inject, output, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ImagenNueva } from '../../../core/models';
+import { NotificationService } from '../../../core/services/notification.service';
+
+const MAX_BYTES = 5 * 1024 * 1024;
 
 /** Elegir foto: subir un archivo o pegar un link, con vista previa. */
 @Component({
@@ -15,6 +18,7 @@ import { ImagenNueva } from '../../../core/models';
 })
 export class ImageUpload {
   cambio = output<ImagenNueva>();
+  private readonly notificar = inject(NotificationService);
 
   protected readonly url = new FormControl('', { nonNullable: true });
   protected readonly vistaPrevia = signal('');
@@ -34,6 +38,11 @@ export class ImageUpload {
     const campo = evento.target as HTMLInputElement;
     const archivo = campo.files?.[0];
     if (!archivo) return;
+    if (!archivo.type.startsWith('image/') || archivo.size > MAX_BYTES) {
+      this.notificar.mostrar('Elegí una imagen (JPG, PNG o WebP) de hasta 5 MB.');
+      campo.value = '';
+      return;
+    }
     this.archivo = archivo;
     this.nombreArchivo.set(archivo.name);
     this.url.setValue('', { emitEvent: false });

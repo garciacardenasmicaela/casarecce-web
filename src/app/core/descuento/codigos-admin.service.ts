@@ -5,6 +5,12 @@ import { CustomerService } from '../services/customer.service';
 import { SupabaseService } from '../services/supabase.service';
 import { formatearCodigo, normalizarCodigo } from './codigo.utils';
 
+/** "2026-11-10T..." -> "10 de noviembre" */
+const fechaLarga = (iso: string) => {
+  const f = new Date(iso);
+  return `${f.getDate()} de ${f.toLocaleDateString('es-AR', { month: 'long' })}`;
+};
+
 /** Herramientas del panel admin: buscar un código, marcarlo como usado y armar el aviso por WhatsApp. */
 @Injectable({ providedIn: 'root' })
 export class CodigosAdminService {
@@ -33,6 +39,8 @@ export class CodigosAdminService {
         .is('usado_at', null)
         .select('codigo');
       if (error || !data?.length) return false;
+      // Igual que al canjear desde la web: queda registrado en la ficha del cliente
+      if (cliente.id) await this.supabase.client.from('clientes').update({ descuento_usado: true }).eq('id', cliente.id);
     }
     this.clientes.clientes.update(lista =>
       lista.map(c => (c.codigo?.codigo === codigo.codigo ? { ...c, codigo: { ...codigo, usado_at: ahora } } : c)),
@@ -40,11 +48,21 @@ export class CodigosAdminService {
     return true;
   }
 
+  /** Enlace "mailto:" con el código listo para enviar (texto plano, sin formato de WhatsApp). */
+  enlaceEmail(cliente: Cliente): string {
+    const c = cliente.codigo!;
+    const vence = fechaLarga(c.expira_at);
+    const cuerpo =
+      `Hola ${cliente.nombre || ''}!\n\nTu código de 10% OFF en tu primera compra en Casarecce es:\n\n${formatearCodigo(c.codigo)}\n\n` +
+      `Es de un solo uso y vence el ${vence}. Ingresalo en la web desde "10% OFF 1ª Compra" > "Ya tengo mi código".\n\nCasarecce`;
+    return `mailto:${encodeURIComponent(cliente.email)}?subject=${encodeURIComponent('Tu código de 10% OFF - Casarecce')}&body=${encodeURIComponent(cuerpo)}`;
+  }
+
   mensajeParaCliente(cliente: Cliente): string {
     const c = cliente.codigo!;
-    const vence = new Date(c.expira_at).toLocaleDateString('es-AR', { day: '2-digit', month: 'long' });
+    const vence = fechaLarga(c.expira_at);
     return (
-      `¡Hola ${cliente.nombre || ''}! 🍝 Tu código de *10% OFF* en tu primera compra en Casarecce es:\n\n` +
+      `¡Hola ${cliente.nombre || ''}! Tu código de *10% OFF* en tu primera compra en Casarecce es:\n\n` +
       `*${formatearCodigo(c.codigo)}*\n\n` +
       `Es de un solo uso y vence el ${vence}. Ingresalo en la web desde "10% OFF 1ª Compra" → "Ya tengo mi código".`
     );

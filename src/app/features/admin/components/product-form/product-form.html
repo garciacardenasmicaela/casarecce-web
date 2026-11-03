@@ -19,13 +19,13 @@
         <mat-label>Precio</mat-label>
         <span matTextPrefix>$&nbsp;</span>
         <input matInput type="number" formControlName="precio" placeholder="8500">
-        <mat-error>Ingresá un precio válido</mat-error>
+        <mat-error>Ingresá un precio válido (hasta $9.999.999)</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Stock inicial (unidades)</mat-label>
         <input matInput type="number" min="0" formControlName="stock">
-        <mat-error>Ingresá las unidades disponibles</mat-error>
+        <mat-error>Ingresá entre 0 y 99.999 unidades</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="ancho">

@@ -42,8 +42,17 @@ export class AdminClientes implements OnInit {
     return this.whatsapp.enlaceACliente(c.whatsapp, this.codigos.mensajeParaCliente(c));
   }
 
+  protected enlaceEmail(c: Cliente) {
+    return this.codigos.enlaceEmail(c);
+  }
+
   protected async copiar(c: Cliente) {
-    await navigator.clipboard?.writeText(formatearCodigo(c.codigo!.codigo));
-    this.notificar.mostrar('Código copiado');
+    try {
+      await navigator.clipboard.writeText(formatearCodigo(c.codigo!.codigo));
+      this.notificar.mostrar('Código copiado');
+    } catch {
+      // Sin permiso de portapapeles (p. ej. página sin https): se muestra el código para copiarlo a mano
+      this.notificar.mostrar(`Código: ${formatearCodigo(c.codigo!.codigo)}`);
+    }
   }
 }

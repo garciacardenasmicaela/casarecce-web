@@ -27,8 +27,8 @@ export class ProductForm {
   protected readonly form = new FormGroup({
     nombre: new FormControl('', { nonNullable: true, validators: Validators.required }),
     categoria: new FormControl<CategoriaSlug>('pastas', { nonNullable: true }),
-    precio: new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(1)] }),
-    stock: new FormControl<number>(STOCK_INICIAL_NUEVO, { nonNullable: true, validators: [Validators.required, Validators.min(0)] }),
+    precio: new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(1), Validators.max(9_999_999)] }),
+    stock: new FormControl<number>(STOCK_INICIAL_NUEVO, { nonNullable: true, validators: [Validators.required, Validators.min(0), Validators.max(99_999)] }),
     porciones: new FormControl('', { nonNullable: true, validators: Validators.required }),
     descripcion: new FormControl('', { nonNullable: true, validators: Validators.required }),
   });

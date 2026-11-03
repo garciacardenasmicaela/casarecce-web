@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, viewChild } from '@angular/core';
+import { FormControl, FormGroup, FormGroupDirective, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,6 +18,8 @@ export class AdminNovedades {
   private readonly novedades = inject(NovedadesService);
   private readonly notificar = inject(NotificationService);
 
+  private readonly formulario = viewChild(FormGroupDirective);
+
   protected readonly form = new FormGroup({
     titulo: new FormControl('', { nonNullable: true, validators: Validators.required }),
     mensaje: new FormControl('', { nonNullable: true, validators: Validators.required }),
@@ -29,7 +31,7 @@ export class AdminNovedades {
     // TODO: el envío masivo por email requiere un proveedor de correo (Edge Function). Por ahora se guarda.
     if (await this.novedades.guardar({ titulo, mensaje })) {
       this.notificar.mostrar(`Novedad "${titulo}" guardada. Falta conectar el proveedor de email para enviarla.`);
-      this.form.reset();
+      this.formulario()?.resetForm(); // limpia también el estado "enviado" (si no, quedan en rojo)
     } else {
       this.notificar.mostrar('No se pudo guardar. ¿Iniciaste sesión como administrador?');
     }

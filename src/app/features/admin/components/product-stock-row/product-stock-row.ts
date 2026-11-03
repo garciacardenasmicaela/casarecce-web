@@ -23,6 +23,12 @@ export class ProductStockRow {
   protected readonly imagenPorDefecto = IMAGEN_POR_DEFECTO;
 
   protected alCambiarPrecio(evento: Event) {
-    this.precioCambiado.emit(Number((evento.target as HTMLInputElement).value));
+    const campo = evento.target as HTMLInputElement;
+    const precio = Number(campo.value);
+    if (!(precio > 0)) {
+      campo.value = String(this.producto().precio); // vacío o 0: se mantiene el precio actual
+      return;
+    }
+    this.precioCambiado.emit(precio);
   }
 }
