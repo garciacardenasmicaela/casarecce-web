@@ -4,83 +4,84 @@ import { DatosPedido, ResumenPedido } from '../models';
 import { formatearCodigo } from '../descuento/codigo.utils';
 import { PrecioPipe } from '../../shared/pipes/precio.pipe';
 
-const SEPARADOR = '━━━━━━━━━━━━━━━━━━';
+const SEPARADOR = '━━━━━━━━━━━━━━━━━━━━';
 
 /**
  * Arma el texto del pedido que le llega al local por WhatsApp.
  * Es una función pura de (datos del cliente + resumen): no toca el carrito ni el DOM.
- * Usa el formato de WhatsApp: *negrita* y _cursiva_.
+ * Una sección por bloque, separadas por una línea, sin íconos. Usa el formato de WhatsApp: *negrita* y _cursiva_.
  */
 @Injectable({ providedIn: 'root' })
 export class PedidoMensajeBuilder {
   private readonly precio = new PrecioPipe();
 
   construir(datos: DatosPedido, resumen: ResumenPedido): string {
-    return [
+    const secciones = [
       this.encabezado(resumen),
-      SEPARADOR,
       this.cliente(datos),
-      '',
-      this.detalle(resumen),
-      SEPARADOR,
-      this.totales(resumen),
-      SEPARADOR,
-      this.entregaYPago(datos, resumen),
-      ...this.notas(datos),
-      SEPARADOR,
-      '_Pedido generado desde la web de Casarecce_ 🍝',
-    ].join('\n');
+      this.pedido(resumen),
+      this.total(resumen),
+      this.entrega(datos),
+      this.pago(datos, resumen),
+      ...this.aclaraciones(datos),
+    ];
+    return secciones.join(`\n${SEPARADOR}\n`);
   }
 
   private encabezado(r: ResumenPedido) {
-    const fecha = r.fecha.toLocaleString('es-AR', {
-      weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit',
-    });
-    return `🍝 *NUEVO PEDIDO · CASARECCE*\n🧾 Pedido *#${r.numero}*\n🕒 ${fecha}`;
+    const f = r.fecha;
+    const dia = f.toLocaleDateString('es-AR', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' });
+    const hora = f.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit', hour12: false });
+    const diaCapitalizado = dia.charAt(0).toUpperCase() + dia.slice(1);
+    return [`*NUEVO PEDIDO · CASARECCE*`, `Pedido N° *${r.numero}*`, `${diaCapitalizado} · ${hora} hs`].join('\n');
   }
 
   private cliente(d: DatosPedido) {
     return [
-      '👤 *Cliente*',
-      d.nombre,
-      `📞 WhatsApp: ${d.whatsapp}`,
-      `✉️ Email: ${d.email || 'No especificado'}`,
+      '*CLIENTE*',
+      `Nombre: ${d.nombre}`,
+      `WhatsApp: ${d.whatsapp}`,
+      `Email: ${d.email || 'No especificado'}`,
     ].join('\n');
   }
 
-  private detalle(r: ResumenPedido) {
-    const lineas = r.items.map(
-      ({ producto, cantidad }) =>
-        `• ${cantidad} × ${producto.nombre} — ${this.precio.transform(producto.precio * cantidad)}\n   _${producto.porciones}_`,
+  private pedido(r: ResumenPedido) {
+    const items = r.items.map(({ producto, cantidad }) =>
+      [
+        `*${cantidad} x ${producto.nombre}*`,
+        `${producto.porciones}`,
+        `${this.precio.transform(producto.precio)} c/u  →  ${this.precio.transform(producto.precio * cantidad)}`,
+      ].join('\n'),
     );
-    return ['🛒 *Detalle del pedido*', ...lineas].join('\n');
+    return ['*PEDIDO*', items.join('\n\n')].join('\n');
   }
 
-  private totales(r: ResumenPedido) {
-    const lineas = [`Subtotal: ${this.precio.transform(r.subtotal)}`];
+  private total(r: ResumenPedido) {
+    const lineas = ['*TOTAL*', `Subtotal: ${this.precio.transform(r.subtotal)}`];
     if (r.descuentoAplicado) {
       const codigo = r.codigoDescuento ? ` (código ${formatearCodigo(r.codigoDescuento)})` : '';
-      lineas.push(`🏷️ Descuento 10% bienvenida${codigo}: -${this.precio.transform(r.descuento)}`);
+      lineas.push(`Descuento 10% primera compra${codigo}: -${this.precio.transform(r.descuento)}`);
     }
-    lineas.push(`💰 *TOTAL: ${this.precio.transform(r.total)}*`);
+    lineas.push('', `*TOTAL A PAGAR: ${this.precio.transform(r.total)}*`);
     return lineas.join('\n');
   }
 
-  private entregaYPago(d: DatosPedido, r: ResumenPedido) {
+  private entrega(d: DatosPedido) {
     const entrega = OPCIONES_ENTREGA.find(o => o.valor === d.entrega)!;
-    const pago = OPCIONES_PAGO.find(o => o.valor === d.pago)!;
-
-    const lineas = [`📅 Para cuándo: ${d.cuando}`, `📍 Entrega: ${entrega.detalle}`];
-    if (d.entrega === 'uber_flash') lineas.push(`   _El envío corre por cuenta del cliente._`);
-
-    lineas.push(`💳 Pago: ${pago.detalle}`);
-    if (d.pago === 'efectivo' && d.efectivoCon) lineas.push(`   Abona con: ${d.efectivoCon}`);
-    if (d.pago === 'transferencia') lineas.push(`   _Por favor, pasame el Alias/CBU para transferir ${this.precio.transform(r.total)}._`);
+    const lineas = ['*ENTREGA*', `Para cuándo: ${d.cuando}`, `Forma de entrega: *${entrega.detalle}*`];
+    if (d.entrega === 'uber_flash') lineas.push('_El envío corre por cuenta del cliente._');
     return lineas.join('\n');
   }
 
-  private notas(d: DatosPedido) {
-    return d.notas ? ['', `📝 *Aclaraciones:* ${d.notas}`] : [];
+  private pago(d: DatosPedido, r: ResumenPedido) {
+    const pago = OPCIONES_PAGO.find(o => o.valor === d.pago)!;
+    const lineas = ['*PAGO*', `Forma de pago: *${pago.detalle}*`];
+    if (d.pago === 'efectivo' && d.efectivoCon) lineas.push(`Abona con: ${d.efectivoCon}`);
+    if (d.pago === 'transferencia') lineas.push(`_Pasar Alias/CBU para transferir ${this.precio.transform(r.total)}._`);
+    return lineas.join('\n');
+  }
+
+  private aclaraciones(d: DatosPedido) {
+    return d.notas ? [['*ACLARACIONES*', d.notas].join('\n')] : [];
   }
 }
-
