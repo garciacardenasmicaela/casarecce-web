@@ -51,6 +51,7 @@
   --mat-button-outlined-outline-color: #{v.$crema-border};
 }
 .pedido {
+  @include m.boton-brillo; // mismo efecto que las categorías (y se dispara solo al agregar un plato)
   --mat-button-filled-container-color: #{v.$rojo};
   --mat-button-filled-label-text-color: #fff;
   &:hover { --mat-button-filled-container-color: #{v.$rojo-dark}; }

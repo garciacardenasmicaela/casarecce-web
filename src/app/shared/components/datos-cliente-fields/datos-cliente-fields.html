@@ -5,11 +5,20 @@
     <mat-error>Ingresá tu nombre</mat-error>
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>WhatsApp</mat-label>
-    <input matInput type="tel" formControlName="whatsapp" placeholder="Ej: 381 555 1234" autocomplete="tel">
-    <mat-error>Ingresá un WhatsApp válido (con característica)</mat-error>
-  </mat-form-field>
+  @if (campo() === 'dni') {
+    <mat-form-field appearance="outline">
+      <mat-label>DNI</mat-label>
+      <input matInput inputmode="numeric" formControlName="dni" placeholder="Ej: 30123456" maxlength="10" autocomplete="off">
+      <mat-hint>Un solo beneficio por persona</mat-hint>
+      <mat-error>Ingresá un DNI válido (7 u 8 números)</mat-error>
+    </mat-form-field>
+  } @else {
+    <mat-form-field appearance="outline">
+      <mat-label>WhatsApp</mat-label>
+      <input matInput type="tel" formControlName="whatsapp" placeholder="Ej: 381 555 1234" autocomplete="tel">
+      <mat-error>Ingresá un WhatsApp válido (con característica)</mat-error>
+    </mat-form-field>
+  }
 
   <mat-form-field appearance="outline" class="email">
     <mat-label>{{ emailOpcional() ? 'Email (opcional)' : 'Email' }}</mat-label>

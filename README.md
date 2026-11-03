@@ -26,7 +26,7 @@ Es seguro correrla más de una vez.
 ## Códigos de 10% OFF (primera compra)
 - Migración: `supabase/migrations/0004_codigos_descuento.sql` (ya ejecutada en el proyecto).
 - Cada cliente tiene **un solo código**, de **un solo uso**, que **vence a los 7 días** (la base lo garantiza).
-- El código nunca viaja al navegador del cliente: se ve en el panel admin (Clientes) y se entrega por WhatsApp o email.
+- El código nunca viaja al navegador del cliente: se ve en el panel admin (Clientes) y se entrega por email. El beneficio se controla por DNI (migración 0005): un DNI = un código, aunque use varios emails.
 - **Envío automático por email (opcional, gratis):** `supabase/functions/enviar-codigo` + Brevo.
   1. Crear cuenta en Brevo, verificar un remitente y copiar la API key.
   2. `supabase secrets set BREVO_API_KEY=... REMITENTE_EMAIL=...` y `supabase functions deploy enviar-codigo`.

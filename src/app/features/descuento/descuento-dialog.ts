@@ -13,7 +13,7 @@ import { DescuentoService } from '../../core/descuento/descuento.service';
 import { ResultadoSolicitud } from '../../core/models';
 import { NotificationService } from '../../core/services/notification.service';
 import { DatosClienteFields } from '../../shared/components/datos-cliente-fields/datos-cliente-fields';
-import { crearFormCliente } from '../../shared/forms/cliente-form';
+import { crearFormDescuento } from '../../shared/forms/cliente-form';
 
 /** "10% OFF en tu 1ª compra": pedir el código (por email) o ingresar uno que ya tenés. */
 @Component({
@@ -31,7 +31,7 @@ export class DescuentoDialog {
   private readonly dialogRef = inject(MatDialogRef<DescuentoDialog>);
 
   protected readonly dias = DIAS_VIGENCIA;
-  protected readonly form = crearFormCliente(true);
+  protected readonly form = crearFormDescuento();
   protected readonly codigo = new FormControl('', { nonNullable: true, validators: Validators.required });
 
   protected readonly cargando = signal(false);
@@ -58,10 +58,13 @@ export class DescuentoDialog {
 
   protected mensajeError(r: ResultadoSolicitud) {
     return {
-      usado: 'Este contacto ya usó su beneficio de primera compra.',
+      usado: 'Este DNI ya usó su beneficio de primera compra.',
       email_invalido: 'Revisá el email: no parece válido.',
+      dni_invalido: 'Revisá el DNI: tiene que tener 7 u 8 números.',
+      dni_registrado: 'Este DNI ya pidió su código con otro email. Revisá la casilla con la que lo pediste (y el spam).',
+      email_en_uso: 'Ese email ya está registrado con otro DNI. Usá tu propio email.',
       error: 'No pudimos generar tu código. Probá de nuevo en un momento.',
-    }[r as 'usado' | 'email_invalido' | 'error'];
+    }[r as 'usado' | 'email_invalido' | 'dni_invalido' | 'dni_registrado' | 'email_en_uso' | 'error'];
   }
 
   volver() {

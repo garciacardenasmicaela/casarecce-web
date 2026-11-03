@@ -7,7 +7,9 @@
       <table mat-table [dataSource]="clientes()">
         <ng-container matColumnDef="nombre">
           <th mat-header-cell *matHeaderCellDef>Nombre</th>
-          <td mat-cell *matCellDef="let c">{{ c.nombre }}</td>
+          <td mat-cell *matCellDef="let c">
+            <div class="contacto">{{ c.nombre }}@if (c.dni) {<small>DNI {{ c.dni }}</small>}</div>
+          </td>
         </ng-container>
         <ng-container matColumnDef="contacto">
           <th mat-header-cell *matHeaderCellDef>Contacto</th>

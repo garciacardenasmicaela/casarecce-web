@@ -19,7 +19,7 @@
             @if (porEmail) {
               <p><strong>¡Listo!</strong> Te enviamos tu código a <b>{{ s.email }}</b>. Revisá también la carpeta de spam.</p>
             } @else {
-              <p><strong>¡Listo!</strong> Ya registramos tu pedido de código. El local te lo envía por WhatsApp o a <b>{{ s.email }}</b> en breve.</p>
+              <p><strong>¡Listo!</strong> Ya registramos tu pedido de código. El local te lo envía a <b>{{ s.email }}</b> en breve.</p>
             }
             <p class="chico">Vence a los {{ dias }} días y se usa una sola vez.</p>
             <p class="chico">Cuando lo tengas, ingresalo en la pestaña "Ya tengo mi código".</p>
@@ -37,7 +37,7 @@
             Dejanos tus datos y te generamos un código de <b>10% OFF</b> para tu primera compra.
             Es personal, de un solo uso y vence a los {{ dias }} días.
           </p>
-          <app-datos-cliente-fields [grupo]="form" />
+          <app-datos-cliente-fields [grupo]="form" campo="dni" />
           <button mat-flat-button type="submit" class="aplicar" [disabled]="cargando()">Recibir mi código</button>
         </form>
       }

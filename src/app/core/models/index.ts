@@ -35,8 +35,16 @@ export interface DatosCliente {
   email: string;
 }
 
+/** Datos para pedir el 10% OFF: el DNI es lo que evita pedir el beneficio más de una vez. */
+export interface DatosDescuento {
+  nombre: string;
+  dni: string;
+  email: string;
+}
+
 export interface Cliente extends DatosCliente {
   id?: string;
+  dni?: string | null;
   created_at?: string;
   codigo?: CodigoDescuento | null;
 }
@@ -51,7 +59,9 @@ export interface CodigoDescuento {
 
 export type EstadoCodigo = 'vigente' | 'usado' | 'vencido';
 
-export type ResultadoSolicitud = 'nuevo' | 'renovado' | 'reenviado' | 'espera' | 'usado' | 'email_invalido' | 'error';
+export type ResultadoSolicitud =
+  | 'nuevo' | 'renovado' | 'reenviado' | 'espera'
+  | 'usado' | 'email_invalido' | 'dni_invalido' | 'dni_registrado' | 'email_en_uso' | 'error';
 
 export interface ResultadoValidacion {
   valido: boolean;

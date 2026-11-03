@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { DatosCliente, ResultadoSolicitud, ResultadoValidacion } from '../models';
+import { DatosDescuento, ResultadoSolicitud, ResultadoValidacion } from '../models';
 import { CustomerService } from '../services/customer.service';
 import { SupabaseService } from '../services/supabase.service';
 import { DIAS_VIGENCIA, estadoDeCodigo, generarCodigoDemo, normalizarCodigo } from './codigo.utils';
@@ -14,10 +14,10 @@ export class CodigosApi {
   private readonly supabase = inject(SupabaseService);
   private readonly clientes = inject(CustomerService);
 
-  async solicitar(datos: DatosCliente): Promise<ResultadoSolicitud> {
+  async solicitar(datos: DatosDescuento): Promise<ResultadoSolicitud> {
     if (environment.modoDemo) return this.solicitarDemo(datos);
     const { data, error } = await this.supabase.client.rpc('solicitar_codigo', {
-      p_nombre: datos.nombre, p_whatsapp: datos.whatsapp, p_email: datos.email,
+      p_nombre: datos.nombre, p_dni: datos.dni, p_email: datos.email,
     });
     if (error) { console.error(error); return 'error'; }
     return (data?.estado ?? 'error') as ResultadoSolicitud;
@@ -43,9 +43,16 @@ export class CodigosApi {
     return this.clientes.clientes().find(cl => cl.codigo?.codigo === c);
   }
 
-  private solicitarDemo(d: DatosCliente): ResultadoSolicitud {
+  private solicitarDemo(d: DatosDescuento): ResultadoSolicitud {
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email)) return 'email_invalido';
-    const existente = this.clientes.clientes().find(c => c.email.toLowerCase() === d.email.toLowerCase());
+    const dni = d.dni.replace(/\D/g, '');
+    if (!/^\d{7,8}$/.test(dni)) return 'dni_invalido';
+    const email = d.email.toLowerCase();
+    const porDni = this.clientes.clientes().find(c => c.dni === dni);
+    if (porDni && porDni.email.toLowerCase() !== email) return 'dni_registrado';
+    const porEmail = this.clientes.clientes().find(c => c.email.toLowerCase() === email);
+    if (!porDni && porEmail?.dni) return 'email_en_uso';
+    const existente = porDni ?? porEmail;
     if (existente?.codigo?.usado_at) return 'usado';
     if (existente?.codigo && estadoDeCodigo(existente.codigo) === 'vigente') return 'espera';
 
@@ -57,7 +64,9 @@ export class CodigosApi {
       usado_at: null,
     };
     this.clientes.clientes.update(lista =>
-      existente ? lista.map(c => (c === existente ? { ...c, codigo } : c)) : [{ ...d, codigo }, ...lista],
+      existente
+        ? lista.map(c => (c === existente ? { ...c, dni, codigo } : c))
+        : [{ nombre: d.nombre, whatsapp: '', email: d.email, dni, codigo }, ...lista],
     );
     return existente ? 'renovado' : 'nuevo';
   }

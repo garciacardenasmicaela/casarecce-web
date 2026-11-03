@@ -34,7 +34,7 @@ export class CustomerService {
     if (environment.modoDemo) return;
     const { data, error } = await this.supabase.client
       .from('clientes')
-      .select('id, nombre, whatsapp, email, created_at, codigos_descuento(codigo, creado_at, expira_at, usado_at)')
+      .select('id, nombre, whatsapp, dni, email, created_at, codigos_descuento(codigo, creado_at, expira_at, usado_at)')
       .order('created_at', { ascending: false });
     if (error) return console.error(error);
     this.clientes.set(

@@ -1,7 +1,7 @@
 <mat-toolbar class="header">
   <div class="interior">
     <!-- Menú hamburguesa: enlaces (hasta lg) + acciones (solo en celular) -->
-    <button mat-icon-button class="hamburguesa" [matMenuTriggerFor]="menu" aria-label="Abrir menú">
+    <button #botonMenu mat-icon-button class="hamburguesa" [matMenuTriggerFor]="menu" aria-label="Abrir menú">
       <mat-icon aria-hidden="false" [matBadge]="esMovil() ? cart.cantidad() : null" matBadgeSize="small"
                 [matBadgeHidden]="!esMovil() || cart.cantidad() === 0">menu</mat-icon>
     </button>
@@ -46,7 +46,7 @@
         <a mat-stroked-button routerLink="/admin" class="admin">
           <mat-icon>manage_accounts</mat-icon>Admin
         </a>
-        <button mat-flat-button class="pedido" (click)="dialogs.abrirCarrito()">
+        <button #botonPedido mat-flat-button class="pedido" (click)="dialogs.abrirCarrito()">
           <mat-icon>shopping_bag</mat-icon>
           Mi Pedido
           <span class="contador">{{ cart.cantidad() }}</span>

@@ -1,5 +1,5 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { DatosCliente, ResultadoSolicitud } from '../models';
+import { DatosDescuento, ResultadoSolicitud } from '../models';
 import { NotificationService } from '../services/notification.service';
 import { CodigosApi } from './codigos.api';
 import { normalizarCodigo } from './codigo.utils';
@@ -14,7 +14,7 @@ export class DescuentoService {
   readonly codigoAplicado = signal<string | null>(null);
   readonly activo = computed(() => this.codigoAplicado() !== null);
 
-  solicitar(datos: DatosCliente): Promise<ResultadoSolicitud> {
+  solicitar(datos: DatosDescuento): Promise<ResultadoSolicitud> {
     return this.api.solicitar(datos);
   }
 

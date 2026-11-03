@@ -1,5 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, effect, inject, viewChild } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,6 +30,33 @@ export class SiteHeader {
     inject(BreakpointObserver).observe('(max-width: 767.98px)').pipe(map(r => r.matches)),
     { initialValue: false },
   );
+
+  private readonly botonPedido = viewChild('botonPedido', { read: ElementRef<HTMLElement> });
+  private readonly botonMenu = viewChild('botonMenu', { read: ElementRef<HTMLElement> });
+  private cantidadPrevia = 0;
+
+  constructor() {
+    // Al sumar un plato, "Mi Pedido" hace zoom y un brillo lo cruza para avisar que se agregó
+    effect(() => {
+      const cantidad = this.cart.cantidad();
+      if (cantidad > this.cantidadPrevia) this.avisarAgregado();
+      this.cantidadPrevia = cantidad;
+    });
+  }
+
+  private avisarAgregado() {
+    const zoom = [{ transform: 'scale(1)' }, { transform: 'scale(1.14)', offset: 0.35 }, { transform: 'scale(1)' }];
+    const opciones = { duration: 600, easing: 'ease-out' };
+    const pedido = this.botonPedido()?.nativeElement;
+    if (pedido) {
+      pedido.animate(zoom, opciones);
+      pedido.animate(
+        [{ transform: 'translateX(-120%)' }, { transform: 'translateX(120%)' }],
+        { duration: 700, easing: 'ease-in-out', pseudoElement: '::after' },
+      );
+    }
+    this.botonMenu()?.nativeElement.animate(zoom, opciones); // en celular, el carrito vive en la hamburguesa
+  }
 
   protected readonly enlaces = [
     { texto: 'Catálogo', fragmento: 'catalogo' },
