@@ -10,8 +10,9 @@
 }
 .sufijo { font-size: 0.75rem; color: rgba(v.$carbon, 0.6); }
 .boton {
-  --mat-icon-button-state-layer-size: 28px;
+  --mat-icon-button-state-layer-size: 32px;
   --mat-icon-button-icon-size: 16px;
-  width: 28px; height: 28px; padding: 0; background: v.$crema;
+  width: 32px; height: 32px; padding: 0; background: v.$crema;
+  @media (pointer: coarse) { --mat-icon-button-state-layer-size: 40px; width: 40px; height: 40px; } // más fácil de tocar con el dedo
   &:hover { background: v.$rojo; color: #fff; }
 }

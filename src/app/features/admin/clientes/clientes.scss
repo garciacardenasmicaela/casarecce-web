@@ -1,6 +1,6 @@
 @use 'variables' as v;
 @use 'mixins' as m;
-:host { display: grid; gap: 2rem; }
+:host { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; } // minmax(0): la tabla ancha scrollea dentro de su tarjeta y no ensancha la página
 h3 { @include m.titulo-seccion; margin-bottom: 0.75rem; }
 .lista { @include m.tarjeta-suave; overflow: auto; padding: 0.5rem 0; }
 table {

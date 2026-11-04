@@ -16,6 +16,7 @@
   @include m.desde(v.$bp-lg) { grid-template-columns: 1fr 1fr; gap: 3rem; }
 }
 
+.hero > * { min-width: 0; } // sin esto, la etiqueta (nowrap) ensancha la columna y el hero se sale de la pantalla en celulares angostos
 .texto { display: grid; gap: 1.25rem; justify-items: start; }
 
 .etiqueta {
@@ -24,7 +25,7 @@
   --mat-chip-outline-color: #{v.$crema-border};
   @include m.etiqueta-marca(0.6875rem, 0.18em);
 }
-.punto { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: v.$rojo; margin-right: 0.5rem; }
+.punto { display: inline-block; vertical-align: middle; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: v.$rojo; margin-right: 0.5rem; }
 
 h1 {
   margin: 0; font-size: 2.25rem; font-weight: 700; line-height: 1.1;

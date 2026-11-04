@@ -27,7 +27,10 @@
 
 .columnas {
   display: grid; gap: 2.5rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(v.$crema, 0.15);
-  @include m.desde(v.$bp-md) { grid-template-columns: repeat(3, 1fr); }
+  > * { min-width: 0; }
+  // Tablet: 2 columnas (la marca arriba, ocupando todo el ancho); 3 columnas recién desde 1024 px
+  @include m.desde(v.$bp-md) { grid-template-columns: repeat(2, minmax(0, 1fr)); .marca { grid-column: 1 / -1; } }
+  @include m.desde(v.$bp-lg) { grid-template-columns: repeat(3, minmax(0, 1fr)); .marca { grid-column: auto; } }
 }
 
 h3 { @include m.etiqueta-marca(0.75rem, 0.2em); color: v.$ambar; margin: 0 0 0.75rem; }

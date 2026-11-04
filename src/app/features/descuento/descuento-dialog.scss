@@ -13,7 +13,7 @@
 .eyebrow { @include m.etiqueta-marca(0.625rem, 0.2em); color: v.$rojo; }
 h2 { margin: 0; padding: 0; font-size: 1.625rem; line-height: 1.2; &::before { display: none; } em { color: v.$rojo; } }
 
-.pestanas { --mat-tab-header-divider-height: 1px; }
+.pestanas { --mat-tab-header-divider-height: 1px; --mat-tab-header-label-text-size: 0.875rem; }
 .panel { padding-top: 1.25rem; display: grid; }
 .detalle { font-family: v.$font-cocomat; font-weight: 400; font-size: 0.8125rem; line-height: 1.6; color: rgba(v.$carbon, 0.75); margin: 0 0 1rem; }
 mat-form-field { width: 100%; }

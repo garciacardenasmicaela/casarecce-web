@@ -20,7 +20,7 @@
   @include m.desde(v.$bp-sm) { height: 6rem; }
 }
 
-.logo { text-decoration: none; min-width: 0; }
+.logo { text-decoration: none; min-width: 0; flex: 0 1 auto; }
 
 .nav {
   display: none; gap: 0.5rem; flex: 1;
@@ -48,6 +48,11 @@
   --mat-button-filled-container-color: #{v.$rojo};
   --mat-button-filled-label-text-color: #fff;
   &:hover { --mat-button-filled-container-color: #{v.$rojo-dark}; }
+}
+// Celulares angostos: los botones quedan solo con el ícono, compactos, para que no pisen el logo
+@media (max-width: 479.98px) {
+  .acciones { gap: 0.25rem; flex-shrink: 0;
+    a, button { min-width: 2.5rem; width: 2.5rem; padding: 0; .mat-icon { margin: 0; } } }
 }
 .texto-btn { display: none; @include m.desde(v.$bp-md) { display: inline; margin-left: 0.25rem; } }
 
