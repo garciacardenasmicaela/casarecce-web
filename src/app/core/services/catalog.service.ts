@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { CATEGORIAS, STOCK_REPOSICION } from '../config/local.config';
 import { PRODUCTOS_MOCK } from '../data/mock-data';
 import { CategoriaFiltro, ImagenNueva, NuevoProducto, Producto } from '../models';
+import { reducirImagen } from '../../shared/utils/imagen';
 import { NotificationService } from './notification.service';
 import { SupabaseService } from './supabase.service';
 
@@ -17,6 +18,8 @@ export class CatalogService {
   readonly categorias = CATEGORIAS;
   readonly productos = signal<Producto[]>(environment.modoDemo ? PRODUCTOS_MOCK : []);
   readonly cargando = signal(!environment.modoDemo);
+  /** true si la primera carga falló (se muestra un botón para reintentar). */
+  readonly error = signal(false);
   readonly categoriaActiva = signal<CategoriaFiltro>('all');
 
   readonly visibles = computed(() => {
@@ -29,11 +32,20 @@ export class CatalogService {
   );
 
   constructor() {
-    if (!environment.modoDemo) void this.cargar();
+    if (environment.modoDemo) return;
+    void this.cargar();
+    // El stock cambia durante el día: se refresca al volver a la pestaña y cada minuto mientras se mira la página
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') void this.cargar(true);
+    });
+    setInterval(() => {
+      if (document.visibilityState === 'visible') void this.cargar(true);
+    }, 60_000);
   }
 
-  async cargar() {
-    this.cargando.set(true);
+  /** `silencioso`: refresco en segundo plano (sin barra de carga ni avisos de error). */
+  async cargar(silencioso = false) {
+    if (!silencioso) this.cargando.set(true);
     const { data, error } = await this.supabase.client
       .from('productos')
       .select('id, categoria, nombre, descripcion, precio, porciones, imagen_url, stock')
@@ -43,9 +55,11 @@ export class CatalogService {
 
     if (error) {
       console.error('No se pudo cargar el catálogo', error);
-      this.notificar.mostrar('No se pudo cargar el catálogo. Probá recargar la página.');
+      // Si ya había productos en pantalla, se dejan (un refresco fallido no debe borrar el catálogo)
+      if (!silencioso && !this.productos().length) this.error.set(true);
       return;
     }
+    this.error.set(false);
     const orden = (slug: string) => this.categorias.findIndex(c => c.slug === slug);
     const lista = (data ?? []).map(p => ({ ...p, precio: Number(p.precio) }) as Producto);
     this.productos.set(lista.sort((a, b) => orden(a.categoria) - orden(b.categoria)));
@@ -109,7 +123,8 @@ export class CatalogService {
     return true;
   }
 
-  private async subirImagen(archivo: File): Promise<string | null> {
+  private async subirImagen(original: File): Promise<string | null> {
+    const archivo = await reducirImagen(original);
     const extension = archivo.name.split('.').pop()?.toLowerCase() || 'jpg';
     const ruta = `${crypto.randomUUID()}.${extension}`;
     const bucket = this.supabase.client.storage.from('productos');

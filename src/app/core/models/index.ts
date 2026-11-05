@@ -61,11 +61,11 @@ export type EstadoCodigo = 'vigente' | 'usado' | 'vencido';
 
 export type ResultadoSolicitud =
   | 'nuevo' | 'renovado' | 'reenviado' | 'espera'
-  | 'usado' | 'email_invalido' | 'dni_invalido' | 'dni_registrado' | 'email_en_uso' | 'error';
+  | 'usado' | 'email_invalido' | 'dni_invalido' | 'dni_registrado' | 'email_en_uso' | 'demasiados_intentos' | 'error';
 
 export interface ResultadoValidacion {
   valido: boolean;
-  motivo?: 'inexistente' | 'usado' | 'vencido' | 'error';
+  motivo?: 'inexistente' | 'usado' | 'vencido' | 'demasiados_intentos' | 'error';
 }
 
 export interface LineaCarrito {
@@ -106,4 +106,28 @@ export interface ResumenPedido {
   total: number;
   descuentoAplicado: boolean;
   codigoDescuento: string | null;
+  /** El pedido se envió con el local cerrado (queda como encargo). */
+  localCerrado: boolean;
+}
+
+export type EstadoPedido = 'nuevo' | 'confirmado' | 'entregado' | 'cancelado';
+
+/** Pedido guardado en el historial del local. */
+export interface PedidoRegistrado {
+  id?: string;
+  numero: string;
+  nombre: string;
+  whatsapp: string;
+  email: string | null;
+  items: { nombre: string; cantidad: number; precio: number }[];
+  subtotal: number;
+  descuento: number;
+  total: number;
+  codigo_descuento: string | null;
+  cuando: string | null;
+  entrega: string;
+  pago: string;
+  notas: string | null;
+  estado: EstadoPedido;
+  created_at: string;
 }

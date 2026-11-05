@@ -11,6 +11,12 @@
 
 @if (catalogo.cargando()) {
   <mat-progress-bar mode="indeterminate" />
+} @else if (catalogo.error()) {
+  <div class="error-carga">
+    <app-empty-state icono="wifi_off" mensaje="No pudimos cargar la carta"
+      detalle="Revisá tu conexión a internet e intentá de nuevo." />
+    <button mat-flat-button type="button" (click)="catalogo.cargar()"><mat-icon>refresh</mat-icon> Reintentar</button>
+  </div>
 } @else if (catalogo.visibles().length) {
   <div class="grilla">
     @for (p of catalogo.visibles(); track p.id) {

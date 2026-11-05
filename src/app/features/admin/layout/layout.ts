@@ -18,6 +18,7 @@ export class AdminLayout {
 
   protected readonly pestanas = [
     { ruta: 'productos', texto: 'Stock y Precios', icono: 'inventory_2' },
+    { ruta: 'pedidos', texto: 'Pedidos', icono: 'receipt_long' },
     { ruta: 'clientes', texto: 'Clientes', icono: 'groups' },
     { ruta: 'novedades', texto: 'Novedades', icono: 'campaign' },
   ];

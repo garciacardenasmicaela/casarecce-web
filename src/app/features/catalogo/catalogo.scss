@@ -21,3 +21,6 @@
   display: grid; gap: 1.75rem;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
 }
+
+.error-carga { display: grid; justify-items: center; gap: 1rem; padding-block: 1rem;
+  button { --mat-button-filled-container-color: #{v.$rojo}; --mat-button-filled-label-text-color: #fff; } }

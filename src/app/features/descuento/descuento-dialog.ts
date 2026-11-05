@@ -63,8 +63,9 @@ export class DescuentoDialog {
       dni_invalido: 'Revisá el DNI: tiene que tener 7 u 8 números.',
       dni_registrado: 'Este DNI ya pidió su código con otro email. Revisá la casilla con la que lo pediste (y el spam).',
       email_en_uso: 'Ese email ya está registrado con otro DNI. Usá tu propio email.',
+      demasiados_intentos: 'Hiciste muchos intentos seguidos. Esperá unos minutos y probá de nuevo.',
       error: 'No pudimos generar tu código. Probá de nuevo en un momento.',
-    }[r as 'usado' | 'email_invalido' | 'dni_invalido' | 'dni_registrado' | 'email_en_uso' | 'error'];
+    }[r as 'usado' | 'email_invalido' | 'dni_invalido' | 'dni_registrado' | 'email_en_uso' | 'demasiados_intentos' | 'error'];
   }
 
   volver() {

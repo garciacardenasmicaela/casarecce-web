@@ -1,0 +1,67 @@
+<section>
+  <div class="encabezado">
+    <h3>Pedidos recibidos @if (nuevos()) {<span class="contador">{{ nuevos() }} nuevos</span>}</h3>
+    <button mat-stroked-button type="button" (click)="recargar()"><mat-icon>refresh</mat-icon>Actualizar</button>
+  </div>
+
+  <mat-chip-listbox class="filtros pestanas-compactas" aria-label="Filtrar por estado" [value]="filtro()" (change)="filtro.set($event.value ?? 'todos')">
+    <mat-chip-option value="todos">Todos</mat-chip-option>
+    @for (e of estados; track e.valor) {
+      <mat-chip-option [value]="e.valor">{{ e.texto }}</mat-chip-option>
+    }
+  </mat-chip-listbox>
+
+  @if (cargando()) {
+    <p class="aviso">Cargando pedidos…</p>
+  } @else if (error()) {
+    <app-empty-state icono="error" mensaje="No pudimos cargar los pedidos. ¿Ya corriste la migración 0007 en Supabase?" />
+  } @else if (visibles().length) {
+    <div class="lista">
+      @for (p of visibles(); track p.id ?? p.numero) {
+        <mat-card appearance="outlined" class="pedido" [class]="'estado-' + p.estado">
+          <header>
+            <div>
+              <strong>#{{ p.numero }}</strong>
+              <small>{{ p.created_at | date: 'dd/MM/yy HH:mm' }}</small>
+            </div>
+            <button mat-stroked-button type="button" [matMenuTriggerFor]="menu" class="estado">
+              {{ texto(p.estado) }}<mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              @for (e of estados; track e.valor) {
+                <button mat-menu-item type="button" (click)="cambiar(p, e.valor)">
+                  <mat-icon>{{ e.icono }}</mat-icon>{{ e.texto }}
+                </button>
+              }
+            </mat-menu>
+          </header>
+
+          <p class="cliente">
+            {{ p.nombre }}
+            <a [href]="enlaceWhatsApp(p)" target="_blank" rel="noopener">{{ p.whatsapp }}</a>
+            @if (p.email) {<small>{{ p.email }}</small>}
+          </p>
+
+          <ul class="items">
+            @for (i of p.items; track $index) {
+              <li><span>{{ i.cantidad }} × {{ i.nombre }}</span><span>{{ i.cantidad * i.precio | currency: 'ARS' : '$' : '1.0-0' }}</span></li>
+            }
+          </ul>
+
+          <dl class="datos">
+            @if (p.descuento > 0) {
+              <dt>Descuento{{ p.codigo_descuento ? ' (' + p.codigo_descuento + ')' : '' }}</dt>
+              <dd>-{{ p.descuento | currency: 'ARS' : '$' : '1.0-0' }}</dd>
+            }
+            <dt>Total</dt><dd class="total">{{ p.total | currency: 'ARS' : '$' : '1.0-0' }}</dd>
+            <dt>Entrega</dt><dd>{{ p.entrega === 'retiro' ? 'Retiro en el local' : 'Uber Flash' }}@if (p.cuando) { · {{ p.cuando }} }</dd>
+            <dt>Pago</dt><dd>{{ p.pago === 'efectivo' ? 'Efectivo' : 'Transferencia' }}</dd>
+            @if (p.notas) {<dt>Notas</dt><dd>{{ p.notas }}</dd>}
+          </dl>
+        </mat-card>
+      }
+    </div>
+  } @else {
+    <app-empty-state icono="receipt_long" mensaje="Todavía no hay pedidos en esta vista." />
+  }
+</section>

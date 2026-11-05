@@ -21,7 +21,7 @@ export class PedidoMensajeBuilder {
       this.cliente(datos),
       this.pedido(resumen),
       this.total(resumen),
-      this.entrega(datos),
+      this.entrega(datos, resumen),
       this.pago(datos, resumen),
       ...this.aclaraciones(datos),
     ];
@@ -66,10 +66,11 @@ export class PedidoMensajeBuilder {
     return lineas.join('\n');
   }
 
-  private entrega(d: DatosPedido) {
+  private entrega(d: DatosPedido, r: ResumenPedido) {
     const entrega = OPCIONES_ENTREGA.find(o => o.valor === d.entrega)!;
     const lineas = ['*ENTREGA*', `Para cuándo: ${d.cuando}`, `Forma de entrega: *${entrega.detalle}*`];
     if (d.entrega === 'uber_flash') lineas.push('_El envío corre por cuenta del cliente._');
+    if (r.localCerrado) lineas.push('_Pedido enviado con el local cerrado: queda como encargo._');
     return lineas.join('\n');
   }
 

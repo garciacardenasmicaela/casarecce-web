@@ -6,6 +6,7 @@ import { CartService } from '../../core/services/cart.service';
 import { DescuentoService } from '../../core/descuento/descuento.service';
 import { DialogsService } from '../../core/services/dialogs.service';
 import { PedidoService } from '../../core/pedido/pedido.service';
+import { StoreStatusService } from '../../core/services/store-status.service';
 import { EmptyState } from '../../shared/components/empty-state/empty-state';
 import { CarritoItem } from './carrito-item/carrito-item';
 import { CarritoTotales } from './carrito-totales/carrito-totales';
@@ -21,6 +22,7 @@ import { CheckoutForm } from './checkout-form/checkout-form';
 export class Carrito {
   protected readonly cart = inject(CartService);
   protected readonly descuento = inject(DescuentoService);
+  protected readonly local = inject(StoreStatusService).estado;
   private readonly dialogs = inject(DialogsService);
   private readonly pedidos = inject(PedidoService);
   private readonly dialogRef = inject(MatDialogRef<Carrito>);

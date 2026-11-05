@@ -4,6 +4,8 @@ import { DescuentoService } from '../descuento/descuento.service';
 import { CartService } from '../services/cart.service';
 import { CustomerService } from '../services/customer.service';
 import { NotificationService } from '../services/notification.service';
+import { StoreStatusService } from '../services/store-status.service';
+import { PedidosApi } from './pedidos.api';
 import { PedidoMensajeBuilder } from './pedido-mensaje.builder';
 import { WhatsAppService } from './whatsapp.service';
 
@@ -19,6 +21,8 @@ export class PedidoService {
   private readonly descuentos = inject(DescuentoService);
   private readonly mensajes = inject(PedidoMensajeBuilder);
   private readonly whatsapp = inject(WhatsAppService);
+  private readonly local = inject(StoreStatusService);
+  private readonly pedidos = inject(PedidosApi);
 
   /** Devuelve true si el pedido se envió (y el carrito quedó vacío). El código de 10% OFF se canjea acá. */
   async confirmar(datos: DatosPedido): Promise<boolean> {
@@ -33,7 +37,7 @@ export class PedidoService {
     const resumen = this.armarResumen();
     this.whatsapp.abrirChat(this.mensajes.construir(datos, resumen));
 
-    this.clientes.registrar({ nombre: datos.nombre, whatsapp: datos.whatsapp, email: datos.email });
+    void this.pedidos.registrar(datos, resumen);
     this.carrito.vaciar();
     this.descuentos.quitar();
     this.notificar.mostrar(`Pedido #${resumen.numero} listo: confirmalo en WhatsApp para enviarlo`);
@@ -50,6 +54,7 @@ export class PedidoService {
       total: this.carrito.total(),
       descuentoAplicado: this.descuentos.activo(),
       codigoDescuento: this.descuentos.codigoAplicado(),
+      localCerrado: this.local.estado() === 'cerrado',
     };
   }
 }

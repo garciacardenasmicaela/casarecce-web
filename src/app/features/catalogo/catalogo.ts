@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -13,7 +14,7 @@ import { SectionHeader } from '../../shared/components/section-header/section-he
 
 @Component({
   selector: 'app-catalogo',
-  imports: [MatChipsModule, MatIconModule, MatProgressBarModule, ProductCard, SectionHeader, EmptyState],
+  imports: [MatButtonModule, MatChipsModule, MatIconModule, MatProgressBarModule, ProductCard, SectionHeader, EmptyState],
   templateUrl: './catalogo.html',
   styleUrl: './catalogo.scss',
   host: { id: 'catalogo' },

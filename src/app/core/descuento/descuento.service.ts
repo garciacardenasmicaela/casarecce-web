@@ -32,6 +32,7 @@ export class DescuentoService {
       inexistente: 'Ese código no existe. Revisá que esté bien escrito.',
       usado: 'Ese código ya fue utilizado.',
       vencido: 'Ese código venció (duran 7 días).',
+      demasiados_intentos: 'Hiciste muchos intentos seguidos. Esperá unos minutos y probá de nuevo.',
       error: 'No pudimos validar el código. Probá de nuevo en un momento.',
     };
     return { ok: false, mensaje: motivos[r.motivo ?? 'error'] };

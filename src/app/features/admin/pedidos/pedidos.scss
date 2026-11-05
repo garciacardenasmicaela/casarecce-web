@@ -1,0 +1,24 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+:host { display: block; min-width: 0; }
+.encabezado { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.75rem; }
+h3 { @include m.titulo-seccion; margin: 0; }
+.contador { margin-left: 0.5rem; font-size: 0.75rem; padding: 0.15rem 0.6rem; border-radius: 999px; background: v.$rojo; color: #fff; vertical-align: middle; }
+.filtros { margin-bottom: 1rem; }
+.aviso { color: rgba(v.$carbon, 0.6); }
+.lista { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); }
+.pedido {
+  @include m.tarjeta-suave; padding: 1rem; display: grid; gap: 0.75rem; align-content: start; min-width: 0;
+  &.estado-nuevo { border-left: 4px solid v.$rojo; }
+  &.estado-confirmado { border-left: 4px solid #e0a100; }
+  &.estado-entregado { border-left: 4px solid #2e8b57; }
+  &.estado-cancelado { opacity: 0.6; }
+}
+header { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
+  div { display: grid; } small { color: rgba(v.$carbon, 0.55); } }
+.cliente { margin: 0; display: grid; gap: 0.1rem; font-weight: 600; overflow-wrap: anywhere; small { font-weight: 400; color: rgba(v.$carbon, 0.55); } a { font-weight: 400; } }
+.items { list-style: none; margin: 0; padding: 0.5rem 0; display: grid; gap: 0.25rem; border-block: 1px dashed rgba(v.$carbon, 0.2);
+  li { display: flex; justify-content: space-between; gap: 0.75rem; } }
+.datos { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.2rem 0.75rem;
+  dt { color: rgba(v.$carbon, 0.55); } dd { margin: 0; text-align: right; overflow-wrap: anywhere; }
+  .total { font-weight: 800; } }

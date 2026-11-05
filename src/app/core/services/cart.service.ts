@@ -1,9 +1,12 @@
-import { Injectable, computed, inject, signal } from '@angular/core';
+import { Injectable, computed, effect, inject, signal } from '@angular/core';
 import { DESCUENTO_BIENVENIDA } from '../config/local.config';
 import { ItemCarrito, LineaCarrito, Producto } from '../models';
 import { CatalogService } from './catalog.service';
 import { DescuentoService } from '../descuento/descuento.service';
 import { NotificationService } from './notification.service';
+
+const CLAVE = 'casarecce.carrito';
+const VIGENCIA_MS = 24 * 60 * 60 * 1000; // el carrito guardado dura un día (después los precios pueden haber cambiado)
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
@@ -11,7 +14,12 @@ export class CartService {
   private readonly descuentos = inject(DescuentoService);
   private readonly notificar = inject(NotificationService);
 
-  private readonly lineas = signal<LineaCarrito[]>([]);
+  private readonly lineas = signal<LineaCarrito[]>(this.leerGuardado());
+
+  constructor() {
+    // Cada cambio se guarda en el celular del cliente: si recarga o vuelve de WhatsApp, no pierde el pedido
+    effect(() => this.guardar(this.lineas()));
+  }
 
   // Se derivan del catálogo: si cambia el precio o baja el stock, el pedido se ajusta solo
   readonly items = computed<ItemCarrito[]>(() =>
@@ -54,6 +62,27 @@ export class CartService {
 
   vaciar() {
     this.lineas.set([]);
+  }
+
+  private leerGuardado(): LineaCarrito[] {
+    try {
+      const crudo = localStorage.getItem(CLAVE);
+      if (!crudo) return [];
+      const { guardado, lineas } = JSON.parse(crudo) as { guardado: number; lineas: LineaCarrito[] };
+      if (Date.now() - guardado > VIGENCIA_MS || !Array.isArray(lineas)) return [];
+      return lineas.filter(l => typeof l.productoId === 'string' && Number.isInteger(l.cantidad) && l.cantidad > 0);
+    } catch {
+      return []; // sin almacenamiento (modo privado) o dato corrupto: se empieza vacío
+    }
+  }
+
+  private guardar(lineas: LineaCarrito[]) {
+    try {
+      if (lineas.length) localStorage.setItem(CLAVE, JSON.stringify({ guardado: Date.now(), lineas }));
+      else localStorage.removeItem(CLAVE);
+    } catch {
+      /* sin almacenamiento: el carrito sigue funcionando en memoria */
+    }
   }
 
   private cantidadDe(productoId: string) {

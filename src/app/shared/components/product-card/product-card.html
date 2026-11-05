@@ -1,6 +1,6 @@
 <mat-card class="tarjeta" [class.agotado]="agotado()">
   <div class="foto">
-    <img [src]="producto().imagen_url || imagenPorDefecto" appImgFallback [alt]="producto().nombre">
+    <img [src]="producto().imagen_url || imagenPorDefecto" loading="lazy" decoding="async" width="640" height="480" appImgFallback [alt]="producto().nombre">
     <span class="porciones"><mat-icon>restaurant</mat-icon>{{ producto().porciones }}</span>
     @if (agotado()) {
       <div class="velo"><span class="sello">Agotado por hoy</span></div>

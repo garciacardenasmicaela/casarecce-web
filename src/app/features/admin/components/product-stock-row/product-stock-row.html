@@ -1,4 +1,4 @@
-<img class="foto" [src]="producto().imagen_url || imagenPorDefecto" appImgFallback [alt]="producto().nombre">
+<img class="foto" loading="lazy" decoding="async" [src]="producto().imagen_url || imagenPorDefecto" appImgFallback [alt]="producto().nombre">
 
 <div class="datos">
   <p class="nombre">{{ producto().nombre }}</p>

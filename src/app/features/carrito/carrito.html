@@ -12,6 +12,9 @@
 </header>
 
 <div class="cuerpo">
+  @if (local() === 'cerrado') {
+    <p class="aviso-local"><mat-icon>schedule</mat-icon> El local está cerrado en este momento. Podés dejar tu pedido y te responden cuando abran.</p>
+  }
   @if (cart.vacio()) {
     <app-empty-state icono="shopping_basket" mensaje="Tu carrito está vacío"
       detalle="Elegí tus pastas frescas, tartas o dulces del catálogo para armar tu pedido." />
