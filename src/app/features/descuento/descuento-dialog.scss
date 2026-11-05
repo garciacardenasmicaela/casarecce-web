@@ -35,3 +35,4 @@ mat-form-field { width: 100%; }
   :host { padding: 1.5rem 1rem 1rem; max-height: 100dvh; overflow-y: auto; }
   h2 { font-size: 1.375rem; }
 }
+.consentimiento { display: block; font-size: 0.75rem; line-height: 1.4; --mat-checkbox-label-text-size: 0.75rem; a { color: v.$rojo; } }

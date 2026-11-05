@@ -38,6 +38,11 @@
             Es personal, de un solo uso y vence a los {{ dias }} días.
           </p>
           <app-datos-cliente-fields [grupo]="form" campo="dni" />
+          <mat-checkbox [formControl]="acepto" class="consentimiento">
+            Acepto que usen mi nombre, DNI y email para el beneficio, según la
+            <a routerLink="/privacidad" (click)="cerrar()">política de privacidad</a>.
+          </mat-checkbox>
+          @if (acepto.touched && acepto.invalid) { <p class="error-codigo">Tenés que aceptar para recibir tu código.</p> }
           <button mat-flat-button type="submit" class="aplicar" [disabled]="cargando()">Recibir mi código</button>
         </form>
       }

@@ -1,0 +1,7 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+.legal { @include m.contenedor; max-width: 46rem; padding-block: 2.5rem 4rem; display: grid; gap: 1.5rem; }
+.volver { font-size: 0.875rem; color: v.$rojo; text-decoration: none; font-weight: 600; }
+h1 { @include m.titulo-seccion; margin: 0; }
+h2 { margin: 0 0 0.5rem; font: 700 1.0625rem v.$font-body; color: v.$carbon; }
+p { margin: 0 0 0.5rem; line-height: 1.7; color: rgba(v.$carbon, 0.8); }

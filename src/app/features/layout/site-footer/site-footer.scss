@@ -57,6 +57,7 @@ a { color: v.$crema; }
   padding-top: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;
   @include m.desde(v.$bp-sm) { flex-direction: row; justify-content: space-between; }
   p { font-size: 0.75rem; color: rgba(v.$crema, 0.6); }
+  .enlaces-legales a { color: inherit; text-underline-offset: 2px; &:hover { color: v.$crema; } }
 }
 
 

@@ -1,0 +1,26 @@
+# Copia de seguridad semanal de la base de Supabase (clientes, códigos, pedidos, productos).
+# Requiere el secreto SUPABASE_DB_URL en GitHub (Settings → Secrets → Actions):
+#   la "Connection string" (URI, modo Session pooler) de Supabase → Project Settings → Database.
+name: Backup de la base
+on:
+  schedule:
+    - cron: '0 7 * * 1' # lunes 04:00 hora de Argentina
+  workflow_dispatch: {}
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Instalar cliente de PostgreSQL
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq postgresql-client
+      - name: Volcar la base (esquema public)
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          test -n "$SUPABASE_DB_URL" || { echo "Falta el secreto SUPABASE_DB_URL"; exit 1; }
+          pg_dump "$SUPABASE_DB_URL" --schema=public --no-owner --no-privileges | gzip > casarecce-$(date +%F).sql.gz
+      - uses: actions/upload-artifact@v4
+        with:
+          name: backup-casarecce
+          path: casarecce-*.sql.gz
+          retention-days: 90 # los datos incluyen DNI: no se guardan para siempre

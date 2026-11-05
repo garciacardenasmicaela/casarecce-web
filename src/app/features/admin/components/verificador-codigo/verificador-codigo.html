@@ -17,6 +17,9 @@
             <app-estado-codigo-chip [codigo]="c.codigo!" />
           </div>
           <p><mat-icon>person</mat-icon> {{ c.nombre || 'Sin nombre' }}</p>
+          @if (c.dni) {
+            <p class="dni"><mat-icon>badge</mat-icon> DNI <strong>{{ c.dni }}</strong></p>
+          }
           <p><mat-icon>call</mat-icon> {{ c.whatsapp || '-' }}</p>
           <p><mat-icon>mail</mat-icon> {{ c.email || '-' }}</p>
           <p><mat-icon>event</mat-icon>
@@ -24,7 +27,12 @@
             @else { Vence el {{ c.codigo!.expira_at | date: 'dd/MM/yyyy HH:mm' }} }
           </p>
           @if (vigente()) {
-            <button mat-stroked-button type="button" (click)="marcarUsado()">
+            @if (c.dni) {
+              <mat-checkbox [checked]="dniVerificado()" (change)="dniVerificado.set($event.checked)">
+                Verifiqué que el DNI del cliente coincide con {{ c.dni }}
+              </mat-checkbox>
+            }
+            <button mat-stroked-button type="button" (click)="marcarUsado()" [disabled]="!!c.dni && !dniVerificado()">
               <mat-icon>check_circle</mat-icon> Marcar como usado
             </button>
           }

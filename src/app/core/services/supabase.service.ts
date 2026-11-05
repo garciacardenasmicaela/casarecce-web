@@ -30,6 +30,15 @@ export class SupabaseService {
     return this.client.auth.verifyOtp({ email, token, type: 'email' });
   }
 
+  /** Manda al email el enlace para elegir una contraseña nueva (vuelve a la pantalla de ingreso). */
+  pedirRecuperacionClave(email: string) {
+    return this.client.auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/admin/login` });
+  }
+
+  cambiarClave(password: string) {
+    return this.client.auth.updateUser({ password });
+  }
+
   // Ingreso social del cliente (Google / Facebook / Apple)
   signInWithProvider(provider: 'google' | 'facebook' | 'apple') {
     return this.client.auth.signInWithOAuth({ provider, options: { redirectTo: window.location.origin } });

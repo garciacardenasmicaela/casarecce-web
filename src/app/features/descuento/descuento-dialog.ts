@@ -1,6 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,7 +22,7 @@ import { crearFormDescuento } from '../../shared/forms/cliente-form';
   selector: 'app-descuento-dialog',
   imports: [
     ReactiveFormsModule, FormsModule, MatDialogModule, MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule,
-    MatProgressBarModule, MatTabsModule, DatosClienteFields,
+    MatProgressBarModule, MatTabsModule, MatCheckboxModule, RouterLink, DatosClienteFields,
   ],
   templateUrl: './descuento-dialog.html',
   styleUrl: './descuento-dialog.scss',
@@ -32,6 +34,7 @@ export class DescuentoDialog {
 
   protected readonly dias = DIAS_VIGENCIA;
   protected readonly form = crearFormDescuento();
+  protected readonly acepto = new FormControl(false, { nonNullable: true, validators: Validators.requiredTrue });
   protected readonly codigo = new FormControl('', { nonNullable: true, validators: Validators.required });
 
   protected readonly cargando = signal(false);
@@ -39,7 +42,10 @@ export class DescuentoDialog {
   protected readonly errorCodigo = signal('');
 
   async pedirCodigo() {
-    if (this.form.invalid) return this.form.markAllAsTouched();
+    if (this.form.invalid || this.acepto.invalid) {
+      this.acepto.markAsTouched();
+      return this.form.markAllAsTouched();
+    }
     this.cargando.set(true);
     const datos = this.form.getRawValue();
     const resultado = await this.descuento.solicitar(datos);
@@ -66,6 +72,10 @@ export class DescuentoDialog {
       demasiados_intentos: 'Hiciste muchos intentos seguidos. Esperá unos minutos y probá de nuevo.',
       error: 'No pudimos generar tu código. Probá de nuevo en un momento.',
     }[r as 'usado' | 'email_invalido' | 'dni_invalido' | 'dni_registrado' | 'email_en_uso' | 'demasiados_intentos' | 'error'];
+  }
+
+  protected cerrar() {
+    this.dialogRef.close();
   }
 
   volver() {

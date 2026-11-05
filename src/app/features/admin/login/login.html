@@ -2,7 +2,33 @@
   <app-brand-logo />
   <h2>Panel de Control</h2>
 
-  <mat-tab-group mat-stretch-tabs="true" animationDuration="150ms" class="pestanas" (selectedIndexChange)="error.set('')">
+  @if (modo() === 'recuperar') {
+  <form class="panel" (ngSubmit)="enviarRecuperacion()">
+    <p class="ayuda">Ingresá tu email de administrador y te enviamos un enlace para elegir una contraseña nueva.</p>
+    @if (recuperacionEnviada()) {
+      <p class="ok">Si el email corresponde a un administrador, te llegará el enlace en unos minutos. Revisá también el spam.</p>
+    } @else {
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" [formControl]="emailRecuperar" autocomplete="username">
+        <mat-error>Ingresá un email válido</mat-error>
+      </mat-form-field>
+      <button mat-flat-button type="submit" [disabled]="cargando()">Enviar enlace</button>
+    }
+    <button mat-button type="button" (click)="volverAIngreso()">Volver al ingreso</button>
+  </form>
+} @else if (modo() === 'nueva') {
+  <form class="panel" (ngSubmit)="guardarClaveNueva()">
+    <p class="ayuda">Elegí tu contraseña nueva (mínimo 8 caracteres).</p>
+    <mat-form-field appearance="outline">
+      <mat-label>Contraseña nueva</mat-label>
+      <input matInput type="password" [formControl]="claveNueva" autocomplete="new-password">
+      <mat-error>Usá al menos 8 caracteres</mat-error>
+    </mat-form-field>
+    <button mat-flat-button type="submit" [disabled]="cargando()">Guardar e ingresar</button>
+  </form>
+} @else {
+<mat-tab-group mat-stretch-tabs="true" animationDuration="150ms" class="pestanas" (selectedIndexChange)="error.set('')">
     <!-- Email + contraseña -->
     <mat-tab label="Contraseña">
       <form class="panel" [formGroup]="formClave" (ngSubmit)="ingresarConClave()">
@@ -54,6 +80,8 @@
     </mat-tab>
     }
   </mat-tab-group>
+  <button mat-button type="button" class="olvide" (click)="irARecuperar()">Olvidé mi contraseña</button>
+}
 
   @if (error()) { <p class="error">{{ error() }}</p> }
 

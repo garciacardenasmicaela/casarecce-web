@@ -39,3 +39,19 @@ Es seguro correrla más de una vez.
   1. Supabase → Authentication → Emails → SMTP Settings: cargar el SMTP de Brevo (el mismo servicio del envío de códigos de descuento).
   2. En la plantilla "Magic link or OTP", mostrar el código con `{{ .Token }}`.
   3. Poner `loginPorCodigo: true` en `environment.ts`.
+- **Olvidé mi contraseña:** el login tiene el enlace "Olvidé mi contraseña". Para que el mail de Supabase vuelva bien al sitio, agregá la URL de la web (ej. `https://tudominio.com/admin/login` y `http://localhost:4200/admin/login`) en Supabase → Authentication → URL Configuration → Redirect URLs.
+
+## Pedidos, clientes y límite de intentos (migraciones 0006 y 0007)
+Ejecutá en el SQL Editor `supabase/migrations/0007_pedidos_y_limites.sql` (incluye la 0006; se puede correr más de una vez). Agrega:
+- Tabla `pedidos` y la función `registrar_pedido`: cada pedido enviado por WhatsApp queda en el historial del admin (pestaña **Pedidos**, con estados nuevo / confirmado / entregado / cancelado) y se completa el WhatsApp del cliente en su ficha.
+- Límite de intentos por IP al pedir, validar y canjear códigos (5 pedidos de código, 15 validaciones y 10 canjes cada 10 minutos).
+- Mientras no se ejecute, la web sigue funcionando: el pedido se envía igual y solo se guarda la ficha del cliente.
+
+## Privacidad y términos
+Las páginas `/privacidad` y `/terminos` usan los textos de `src/app/features/legal/legal.content.ts`. Son un modelo general (Ley 25.326): completá el titular (razón social, CUIT, domicilio, email) y revisalos con un profesional antes de publicar. El DNI es un dato personal: solo se pide para el beneficio de 10% OFF.
+
+## Copias de seguridad
+`.github/workflows/backup.yml` hace un volcado semanal de la base (se guarda 90 días como artefacto de GitHub Actions). Para activarlo: en GitHub → Settings → Secrets → Actions, crear `SUPABASE_DB_URL` con la cadena de conexión (Session pooler) de Supabase → Project Settings → Database. También se puede lanzar a mano desde la pestaña Actions.
+
+## Medir rendimiento
+Con la web publicada (o `npm run build` en tu compu y servir `dist/`), abrí Chrome → DevTools → Lighthouse y corré el análisis en modo móvil. Objetivo: Performance y Accesibilidad por encima de 90. Las fotos del admin se reducen solas (máx. 1200 px, WebP) al subirlas.

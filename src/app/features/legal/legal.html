@@ -1,0 +1,10 @@
+<article class="legal">
+  <a routerLink="/" class="volver">← Volver al inicio</a>
+  <h1>{{ documento.titulo }}</h1>
+  @for (s of documento.secciones; track s.titulo) {
+    <section>
+      <h2>{{ s.titulo }}</h2>
+      @for (p of s.parrafos; track $index) { <p>{{ p }}</p> }
+    </section>
+  }
+</article>

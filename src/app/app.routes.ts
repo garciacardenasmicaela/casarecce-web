@@ -7,6 +7,8 @@ export const routes: Routes = [
     loadComponent: () => import('./features/layout/shell/shell').then(m => m.Shell),
     children: [
       { path: '', loadComponent: () => import('./features/home/home').then(m => m.Home) },
+      { path: 'privacidad', data: { tipo: 'privacidad' }, loadComponent: () => import('./features/legal/legal').then(m => m.Legal) },
+      { path: 'terminos', data: { tipo: 'terminos' }, loadComponent: () => import('./features/legal/legal').then(m => m.Legal) },
     ],
   },
   { path: 'admin/login', loadComponent: () => import('./features/admin/login/login').then(m => m.Login) },

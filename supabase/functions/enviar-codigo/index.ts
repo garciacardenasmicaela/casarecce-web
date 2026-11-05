@@ -1,5 +1,6 @@
 // Edge Function de Supabase: envía por email el código de 10% OFF.
 // Se dispara con un Database Webhook sobre la tabla `codigos_descuento` (INSERT y UPDATE).
+// Funciona igual con el flujo por DNI: el código se genera en `solicitar_codigo` y el mail va al email del cliente.
 // Proveedor: Brevo (plan gratis: 300 mails por día, no exige tener dominio propio).
 //
 // Secretos necesarios (supabase secrets set ...):
@@ -9,6 +10,10 @@
 //   SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY ya vienen incluidos en las Edge Functions.
 
 import { createClient } from 'npm:@supabase/supabase-js@2';
+
+// El nombre lo escribe el cliente: se escapa antes de ponerlo en el HTML del mail
+const escapar = (t: string) =>
+  t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 Deno.serve(async req => {
   const { record } = await req.json(); // fila de codigos_descuento
@@ -30,7 +35,7 @@ Deno.serve(async req => {
       subject: 'Tu código de 10% OFF en Casarecce 🍝',
       htmlContent: `
         <div style="font-family:Arial,sans-serif;max-width:480px;margin:auto;color:#3C3847">
-          <h2 style="color:#DD1323">¡Hola ${cliente.nombre || ''}!</h2>
+          <h2 style="color:#DD1323">¡Hola ${escapar(cliente.nombre || '')}!</h2>
           <p>Gracias por sumarte a Casarecce. Este es tu código de <b>10% OFF en tu primera compra</b>:</p>
           <p style="font-size:32px;letter-spacing:4px;font-weight:bold;background:#F3ECE1;padding:16px;text-align:center;border-radius:12px">${codigo}</p>
           <p>Ingresalo en la web desde "10% OFF 1ª Compra" → "Ya tengo mi código".<br>

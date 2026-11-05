@@ -12,3 +12,5 @@ button[type=submit] { height: 3rem; font-weight: 700; }
 .campo-codigo { letter-spacing: 0.35em; font-weight: 700; @include m.numero(700); font-size: 1.125rem; }
 .error { color: v.$rojo; font-size: 0.8125rem; font-weight: 600; margin: 0; text-align: center; }
 .demo { margin: 0; font-size: 0.75rem; color: rgba(v.$carbon, 0.7); }
+.ok { margin: 0 0 1rem; font-size: 0.875rem; font-weight: 600; color: #2e7d4f; line-height: 1.5; }
+.olvide { font-size: 0.8125rem; }
