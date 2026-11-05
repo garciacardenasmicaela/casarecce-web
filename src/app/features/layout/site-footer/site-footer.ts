@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { DomSanitizer } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { LOCAL_INFO } from '../../../core/config/local.config';
 import { CustomerService } from '../../../core/services/customer.service';
@@ -24,6 +25,7 @@ export class SiteFooter {
   protected readonly dialogs = inject(DialogsService);
 
   protected readonly info = LOCAL_INFO;
+  protected readonly mapaUrl = inject(DomSanitizer).bypassSecurityTrustResourceUrl(LOCAL_INFO.mapsEmbedUrl);
   protected readonly anio = new Date().getFullYear();
   protected readonly email = new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] });
 

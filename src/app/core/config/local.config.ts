@@ -10,12 +10,14 @@ export const STOCK_INICIAL_NUEVO = 12;
 
 export const LOCAL_INFO = {
   nombre: 'Casarecce',
-  ciudad: 'San Miguel de Tucumán, Tucumán',
-  mapsUrl: 'https://maps.google.com/?q=San+Miguel+de+Tucuman',
-  horarioResumen: 'Mar a Sáb 9:00 a 14:30 hs | Dom 9:00 a 14:00 hs',
+  direccion: 'Laprida 710',
+  ciudad: 'Laprida 710, San Miguel de Tucumán, Tucumán',
+  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Laprida+710%2C+San+Miguel+de+Tucum%C3%A1n%2C+Argentina',
+  mapsEmbedUrl: 'https://www.google.com/maps?q=Laprida+710,+San+Miguel+de+Tucum%C3%A1n,+Argentina&output=embed',
+  horarioResumen: 'Lun a Sáb 10 a 14 y 18 a 22 hs | Dom y feriados 10 a 14 hs',
   horarios: [
-    { dias: 'Martes a Sábados', horas: '9:00 a 14:30 hs' },
-    { dias: 'Domingos', horas: '9:00 a 14:00 hs (Encargos anticipados)' },
+    { dias: 'Lunes a Sábados', horas: '10 a 14 hs y 18 a 22 hs' },
+    { dias: 'Domingos y feriados', horas: '10 a 14 hs' },
   ],
   whatsappTexto: '+54 9 381 526-7382',
   whatsappUrl: `https://wa.me/${environment.whatsappLocal}`,
