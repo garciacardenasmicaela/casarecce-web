@@ -21,8 +21,8 @@ export const LOCAL_INFO = {
   ],
   whatsappTexto: '+54 9 381 526-7382',
   whatsappUrl: `https://wa.me/${environment.whatsappLocal}`,
-  instagramUrl: 'https://instagram.com',
-  facebookUrl: 'https://facebook.com',
+  instagramUrl: 'https://www.instagram.com/casareccedulcesypastas/',
+  facebookUrl: 'https://www.facebook.com/casareccedulcesypastas',
 };
 
 export const ESTADOS_LOCAL: { valor: EstadoLocal; etiqueta: string; emoji: string }[] = [
